@@ -1,0 +1,47 @@
+:root{
+    --logo-size:100px;
+    --logo-half-size:80px;
+}
+.preloader{
+    display: flex;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transition: 0.5s;
+}
+.preloader__image_animate{
+    background-image: url(../../resources/images/preloader_logo.jpg);
+    background-size: var(--logo-size) var(--logo-size);
+    width: var(--logo-size);
+    height: var(--logo-size);
+    position: absolute;
+    top: 50%;
+    left: 25px;
+    transition: 1s linear;
+    animation: up-down 1s infinite; /* Название анимации up-down */
+}
+@keyframes up-down{
+    0%{
+        top: calc(50% - var(--logo-half-size));
+    }
+    0%{
+        top: calc(50% - 10px);
+    }
+    75%{
+        top: calc(50%);
+    }
+    100%{
+        top: calc(50% - 10px);
+    }
+    from{
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
