@@ -11,10 +11,10 @@ export const profileReducer = (state = profileReducerInitialState, action: Profi
         case "PROFILE/SET_USER_DATA":
             return {
                 ...state,
-                id: action.userData.id,
-                email: action.userData.email,
-                name: action.userData.name,
-                publicCardPacksCount: action.userData.publicCardPacksCount
+                id: action.id,
+                email: action.email,
+                name: action.name,
+                publicCardPacksCount: action.publicCardPacksCount
             }
         default:
             return state
@@ -24,7 +24,7 @@ export const profileReducer = (state = profileReducerInitialState, action: Profi
 
 /* Action creators */
 export const setUserData = (userData: ProfileReducerInitialStateTypes) =>
-    ({type: "PROFILE/SET_USER_DATA", userData} as const)
+    ({type: "PROFILE/SET_USER_DATA", ...userData} as const)
 
 /* Thunk creators */
 
