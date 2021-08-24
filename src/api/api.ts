@@ -16,12 +16,12 @@ export const authApi = {
     login(params: LoginRequestParamsType) {
         return axiosInstance.post<LoginResponseType>("/auth/login", {...params})
     },
-    forgot() {
-
-    }
+    logout(){
+        return axiosInstance.delete<LogoutResponseType>("/auth/me")
+    },
 }
 export type LoginResponseType = {
-    id: string
+    _id: string
     created: string
     email: string
     isAdmin: boolean
@@ -33,6 +33,9 @@ export type LoginResponseType = {
     updated: string
     verified: boolean
 
+}
+export type LogoutResponseType = {
+    info: string
 }
 export type LoginRequestParamsType = {
     email: string

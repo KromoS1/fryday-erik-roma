@@ -17,17 +17,23 @@ export const loginTC = (loginParams: LoginRequestParamsType):AppThunkType => dis
     authApi.login(loginParams)
         .then(res => {
             const userDataParams = {
-                id: res.data.id,
+                id: res.data._id,
                 email: res.data.email,
                 name: res.data.name,
                 publicCardPacksCount: res.data.publicCardPacksCount,
             }
             dispatch(setUserData(userDataParams))
-            console.log(res)
+            console.log(userDataParams)
         })
         .catch(e => {
             const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
             console.log(error)
+        })
+};
+export const logoutTC = ():AppThunkType => dispatch => {
+    authApi.logout()
+        .then(res => {
+            console.log(res.data.info)
         })
 }
 
