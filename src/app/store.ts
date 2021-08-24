@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
-import {loginReducer, LoginReducerActionTypes} from "../features/Login/login-reducer";
-import {registrationReducer, RegistrationReducerActionTypes} from "../features/Registration/registration-reducer";
+import {loginReducer, LoginActionTypes} from "../features/Login/login-reducer";
+import {registrationReducer, RegistrationActionTypes} from "../features/Registration/registration-reducer";
 import {profileReducer, ProfileReducerActionTypes} from "../features/Profile/profile-reducer";
 import {NewPasswordReducerActionTypes} from "../features/NewPassword/new-password-reducer";
 import {RecoveryPasswordReducerActionTypes} from "../features/RecoveryPassword/recovery-password-reducer";
@@ -20,8 +20,8 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export type AppActionsType =
     | AppReducerActionTypes
-    | LoginReducerActionTypes
-    | RegistrationReducerActionTypes
+    | LoginActionTypes
+    | RegistrationActionTypes
     | ProfileReducerActionTypes
     | RecoveryPasswordReducerActionTypes
     | NewPasswordReducerActionTypes

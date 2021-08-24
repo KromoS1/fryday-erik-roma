@@ -3,7 +3,10 @@ import {Form} from 'antd';
 import style from './LoginStyle.module.scss';
 import {fieldComponent} from '../CommonComponentsForm/FieldComponent';
 import {formItemLayout} from '../Registration/Registration';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAccount} from './login-reducer';
+import {AppRootStateType} from '../../app/store';
 
 interface ValuesType {
     email: string
@@ -57,11 +60,18 @@ const LoginForm: FC<PropsType> = props => {
 
 }
 
-
 export const Login: FC = memo(() => {
 
+    const dispatch = useDispatch();
+    const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
+
+
+    if (isAuth){
+        return <Redirect to={"/profile"}/>
+    }
+
     const submit = (data: ValuesType) => {
-        console.log(data)
+        dispatch(loginAccount(data))
     }
 
     return (

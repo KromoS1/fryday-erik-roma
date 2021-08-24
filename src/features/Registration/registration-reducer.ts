@@ -1,44 +1,40 @@
-import {authApi, RegistrationRequestParamsType} from "../../api/api";
-import {AppThunkType} from "../../app/store";
+import {authApi, ParamsAuthType} from '../../api/api';
+import {AppThunkType} from '../../app/store';
+import {redirectLogin} from '../utils/utils';
 
-export const registrationReducerInitialState: RegistrationReducerInitialStateTypes = {
-    isRegistered: false,
+type InitialStateTypes = {
+    error: string | null
+}
+
+export type RegistrationActionTypes = ReturnType<typeof setIsRegistered>
+
+const InitialState: InitialStateTypes = {
     error: null
 }
 
-export const registrationReducer =
-    (state: RegistrationReducerInitialStateTypes = registrationReducerInitialState, action: RegistrationReducerActionTypes): RegistrationReducerInitialStateTypes => {
+export const registrationReducer = (state: InitialStateTypes = InitialState, action: RegistrationActionTypes): InitialStateTypes => {
        switch(action.type) {
            case "REGISTRATION/GET_REGISTERED_REQUEST": {
-               return {...state, error: action.error, isRegistered: action.isRegistered}
+               return {...state, error: action.error}
            }
            default: return state;
        }
 };
 
+export const setIsRegistered = (isRegistered: boolean, error: string | null) =>
+    ({type: 'REGISTRATION/GET_REGISTERED_REQUEST', error} as const);
 
-/* Action creators */
-export const setIsRegistered = (isRegistered: boolean, error: string | null) => ({type: 'REGISTRATION/GET_REGISTERED_REQUEST', isRegistered, error} as const);
-
-/* Thunk creators */
-export const getRegistration = (params: RegistrationRequestParamsType): AppThunkType => dispatch => {
+export const getRegistration = (params: ParamsAuthType): AppThunkType => dispatch => {
     authApi.registration(params)
         .then( res => {
-            console.log(res);
-            dispatch(setIsRegistered(true, null))
+            if (res){
+                redirectLogin();
+            }
         })
         .catch(err => {
-
             const errMessage =  err.response ?  `${err.message} \n ${err.response.data.error}` : 'some error has occurred';
-            console.log(errMessage)
-            dispatch(setIsRegistered(false, errMessage))
+            dispatch(setIsRegistered(false, errMessage));
         })
 
 }
 
-/* Types */
-export type RegistrationReducerInitialStateTypes = {
-    isRegistered: boolean,
-    error: string | null
-}           //need to fix
-export type RegistrationReducerActionTypes = ReturnType<typeof setIsRegistered>//need to fix

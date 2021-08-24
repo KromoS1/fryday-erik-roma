@@ -1,41 +1,45 @@
-export const profileReducerInitialState: ProfileReducerInitialStateTypes = {
-    id: "",
-    email: "",
-    name: "",
-    avatar: "",
+import {authApi, ResponseMeType} from '../../api/api';
+import {AppThunkType} from '../../app/store';
+import {setIsAuth} from '../Login/login-reducer';
+
+
+type InitialStateTypes = ResponseMeType
+
+export type ProfileReducerActionTypes = | ReturnType<typeof setUserData>
+
+export const setUserData = (userData: InitialStateTypes) =>
+    ({type: 'PROFILE/SET_USER_DATA', payload: {...userData}} as const)
+
+const InitialState: InitialStateTypes = {
+    _id: '',
+    email: '',
+    name: '',
+    avatar: '',
     publicCardPacksCount: 0,
+    created: '',
+    updated: '',
+    isAdmin: false,
+    rememberMe: false,
+    verified: true,
 }
 
-export const profileReducer = (state = profileReducerInitialState, action: ProfileReducerActionTypes) => {
+export const profileReducer = (state = InitialState, action: ProfileReducerActionTypes) => {
     switch (action.type) {
-        case "PROFILE/SET_USER_DATA":
+        case 'PROFILE/SET_USER_DATA':
             return {
                 ...state,
-                id: action.id,
-                email: action.email,
-                name: action.name,
-                publicCardPacksCount: action.publicCardPacksCount
+                ...action.payload
             }
         default:
             return state
     }
 }
 
-
-/* Action creators */
-export const setUserData = (userData: ProfileReducerInitialStateTypes) =>
-    ({type: "PROFILE/SET_USER_DATA", ...userData} as const)
-
-/* Thunk creators */
-
-
-/* Types */
-export type ProfileReducerInitialStateTypes = {
-    id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
+export const meProfile = (): AppThunkType => dispatch => {
+    authApi.me().then(res => {
+       if (res){
+           dispatch(setIsAuth(true));
+       }
+    })
 }
-export type ProfileReducerActionTypes =
-    |ReturnType<typeof setUserData>
+

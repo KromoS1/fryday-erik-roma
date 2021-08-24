@@ -3,6 +3,8 @@ import style from './RegistrationStyle.module.scss'
 import {Form} from 'antd';
 import 'antd/dist/antd.css';
 import {fieldComponent} from '../CommonComponentsForm/FieldComponent';
+import {useDispatch} from 'react-redux';
+import {getRegistration} from './registration-reducer';
 
 interface ValuesType {
     email: string
@@ -73,8 +75,11 @@ export const FormRegistration: FC<PropsType> = props => {
 
 export const Registration = () => {
 
+    const dispatch = useDispatch();
+
     const sendData = (data: ValuesType) => {
-        console.log(data)
+        let {email,password} = data;
+        dispatch(getRegistration({email,password}))
     }
 
     return (

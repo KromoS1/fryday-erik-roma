@@ -1,6 +1,6 @@
-import {loginReducer, LoginReducerInitialStateTypes, setIsAuth} from "./login-reducer";
+import {loginReducer, InitialStateTypes, setIsAuth} from "./login-reducer";
 
-let initialSate: LoginReducerInitialStateTypes
+let initialSate: InitialStateTypes
 
 beforeEach(() => {
     initialSate = {

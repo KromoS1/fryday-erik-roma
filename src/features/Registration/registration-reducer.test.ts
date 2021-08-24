@@ -1,10 +1,11 @@
-import {RegistrationReducerInitialStateTypes} from "./registration-reducer";
+import {InitialStateTypes} from './registration-reducer';
 
 
-let initialSate: RegistrationReducerInitialStateTypes
+let initialSate: InitialStateTypes
 
 beforeEach(() => {
     initialSate = {
-
+        error: '',
+        isRegistered: false
     }
 })

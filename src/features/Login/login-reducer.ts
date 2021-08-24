@@ -1,53 +1,64 @@
-import {AppThunkType} from "../../app/store";
-import {authApi, LoginRequestParamsType} from "../../api/api";
-import {setUserData} from "../Profile/profile-reducer";
+import {AppThunkType} from '../../app/store';
+import {authApi, ParamsAuthType} from '../../api/api';
+import {setUserData} from '../Profile/profile-reducer';
 
-export const loginReducerInitialState: LoginReducerInitialStateTypes = {
-    isAuth: false
+export type LoginActionTypes =
+    | ReturnType<typeof setIsAuth>
+    | ReturnType<typeof setIsInit>
+
+
+type InitialStateTypes = {
+    isAuth: boolean
+    isInitialize:boolean
 }
 
-export const loginReducer =
-    (state = loginReducerInitialState, action: LoginReducerActionTypes) => {
-        switch (action.type) {
-            case "LOGIN/SET_IS_AUTH":
-                return {...state, isAuth: action.isAuth}
-            default: return state
-        }
+const InitialState: InitialStateTypes = {
+    isAuth: false,
+    isInitialize:false
+}
+
+export const setIsAuth = (isAuth: boolean) => ({type: 'LOGIN/SET_IS_AUTH', isAuth} as const)
+export const setIsInit = (isInit: boolean) => ({type: 'LOGIN/SET_IS_INITIALIZE', isInit} as const)
+
+export const loginReducer = (state = InitialState, action: LoginActionTypes): InitialStateTypes => {
+    switch (action.type) {
+        case 'LOGIN/SET_IS_AUTH':
+            return {...state, isAuth: action.isAuth}
+        case 'LOGIN/SET_IS_INITIALIZE':
+            return {...state, isInitialize: action.isInit}
+        default:
+            return state
     }
+}
 
-
-/* Action creators */
-export const setIsAuth = (isAuth: boolean) => ({type: "LOGIN/SET_IS_AUTH", isAuth} as const)
-
-/* Thunk creators */
-export const loginTC = (loginParams: LoginRequestParamsType): AppThunkType => dispatch => {
+export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => dispatch => {
     authApi.login(loginParams)
         .then(res => {
-            const userDataParams = {
-                id: res.data._id,
-                email: res.data.email,
-                name: res.data.name,
-                publicCardPacksCount: res.data.publicCardPacksCount,
-            }
-            dispatch(setUserData(userDataParams))
-            dispatch(setIsAuth(true))
-            console.log(userDataParams)
+            dispatch(setUserData(res.data));
+            dispatch(setIsAuth(true));
         })
         .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
-            console.log(error)
+            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
+            console.log(error);
         })
 };
-export const logoutTC = (): AppThunkType => dispatch => {
+
+export const logoutAccount = (): AppThunkType => dispatch => {
     authApi.logout()
         .then(res => {
-            console.log(res.data.info)
+            if (res.data.info) {
+                dispatch(setIsAuth(false));
+            }
         })
 }
 
-/* Types */
-export type LoginReducerInitialStateTypes = {
-    isAuth: boolean
+export const initializeApp = ():AppThunkType => async dispatch => {
+    authApi.me().then(res => {
+        if (res._id){
+            dispatch(setIsAuth(true));
+        }
+        dispatch(setIsInit(true));
+    }).catch(e=> {
+        console.log(e.message);
+    })
 }
-export type LoginReducerActionTypes =
-    |ReturnType<typeof setIsAuth>
