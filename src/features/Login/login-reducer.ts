@@ -2,18 +2,24 @@ import {AppThunkType} from "../../app/store";
 import {authApi, LoginRequestParamsType} from "../../api/api";
 import {setUserData} from "../Profile/profile-reducer";
 
-export const loginReducerInitialState: LoginReducerInitialStateTypes = {}
-
-export const loginReducer = (state = loginReducerInitialState, action: LoginReducerActionTypes) => {
-
+export const loginReducerInitialState: LoginReducerInitialStateTypes = {
+    isAuth: false
 }
+
+export const loginReducer =
+    (state = loginReducerInitialState, action: LoginReducerActionTypes) => {
+        switch (action.type) {
+            case "LOGIN/SET_IS_AUTH":
+                return {...state, isAuth: action.isAuth}
+        }
+    }
 
 
 /* Action creators */
-
+export const setIsAuth = (isAuth: boolean) => ({type: "LOGIN/SET_IS_AUTH", isAuth} as const)
 
 /* Thunk creators */
-export const loginTC = (loginParams: LoginRequestParamsType):AppThunkType => dispatch => {
+export const loginTC = (loginParams: LoginRequestParamsType): AppThunkType => dispatch => {
     authApi.login(loginParams)
         .then(res => {
             const userDataParams = {
@@ -23,6 +29,7 @@ export const loginTC = (loginParams: LoginRequestParamsType):AppThunkType => dis
                 publicCardPacksCount: res.data.publicCardPacksCount,
             }
             dispatch(setUserData(userDataParams))
+            dispatch(setIsAuth(true))
             console.log(userDataParams)
         })
         .catch(e => {
@@ -30,7 +37,7 @@ export const loginTC = (loginParams: LoginRequestParamsType):AppThunkType => dis
             console.log(error)
         })
 };
-export const logoutTC = ():AppThunkType => dispatch => {
+export const logoutTC = (): AppThunkType => dispatch => {
     authApi.logout()
         .then(res => {
             console.log(res.data.info)
@@ -38,5 +45,8 @@ export const logoutTC = ():AppThunkType => dispatch => {
 }
 
 /* Types */
-export type LoginReducerInitialStateTypes = any           //need to fix
-export type LoginReducerActionTypes = any                 //need to fix
+export type LoginReducerInitialStateTypes = {
+    isAuth: boolean
+}
+export type LoginReducerActionTypes =
+    |ReturnType<typeof setIsAuth>
