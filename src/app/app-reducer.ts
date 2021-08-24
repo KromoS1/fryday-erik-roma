@@ -1,6 +1,6 @@
 export const appReducerInitialState: AppReducerInitialStateTypes = {}
 
-export const loginReducer = (state = appReducerInitialState, action: AppReducerActionTypes) => {
+export const appReducer = (state = appReducerInitialState, action: AppReducerActionTypes) => {
 
 };
 

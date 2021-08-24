@@ -1,14 +1,18 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
-import {LoginReducerActionTypes} from "../features/Login/login-reducer";
-import {RegistrationReducerActionTypes} from "../features/Registration/registration-reducer";
-import {ProfileReducerActionTypes} from "../features/Profile/profile-reducer";
+import {loginReducer, LoginReducerActionTypes} from "../features/Login/login-reducer";
+import {registrationReducer, RegistrationReducerActionTypes} from "../features/Registration/registration-reducer";
+import {profileReducer, ProfileReducerActionTypes} from "../features/Profile/profile-reducer";
 import {NewPasswordReducerActionTypes} from "../features/NewPassword/new-password-reducer";
 import {RecoveryPasswordReducerActionTypes} from "../features/RecoveryPassword/recovery-password-reducer";
 import {AppReducerActionTypes} from "./app-reducer";
 
 
-export const rootReducer = combineReducers({});
+export const rootReducer = combineReducers({
+    profile: profileReducer,
+    login: loginReducer,
+    registrationInfo: registrationReducer
+});
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
