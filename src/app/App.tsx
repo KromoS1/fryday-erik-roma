@@ -1,15 +1,13 @@
 import React from 'react';
-import {Test} from "../components/Test";
-import {apiPing} from '../api/api';
+import {Routes} from '../features/Routes';
+import style from './AppStyle.module.scss'
 
 
 export const App = () => {
 
-    apiPing.pingGet();
-
   return (
-    <div>
-      <Test/>
+    <div className={style.page}>
+      <Routes/>
     </div>
   )
 };

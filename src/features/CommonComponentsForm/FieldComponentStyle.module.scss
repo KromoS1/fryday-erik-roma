@@ -1,0 +1,11 @@
+@import "src/StylesCommon/StyleAuth";
+
+.field {
+  @media screen and (min-width: 750px) and (max-width: 850px) {
+    padding: 0 15px 0 15px;
+  }
+
+  .input {
+    @include inputsAuth();
+  }
+}

@@ -1,0 +1,104 @@
+$ColorWhite: #fff;
+$ColorBack: #f1dfcc;
+$ColorBlack: #212020;
+$ColorPrimary: #0d6efd;
+
+@mixin displayFlex($direction,$just,$align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $just;
+  align-items: $align;
+}
+
+@mixin h1 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: 10px;
+  color: $ColorBlack;
+  text-transform: uppercase;
+
+  @media screen and (min-width: 600px) and (max-width: 1000px){
+    font-size: 2.1rem;
+    line-height: 2.7rem;
+    letter-spacing: 15px;
+  }
+
+  @media screen and (min-width: 1000px) and (max-width: 1200px){
+    font-size: 2.4rem;
+    line-height: 3.1rem;
+    letter-spacing: 17px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    font-size: 2.6rem;
+    line-height: 3.4rem;
+    letter-spacing: 20px;
+  }
+}
+
+@mixin h2 {
+  font-weight: 700;
+  position: relative;
+  font-size: 1.3rem;
+  color: $ColorBlack;
+  margin-top: 0;
+
+  @media screen and (min-width: 600px) and (max-width: 1000px){
+    font-size: 1.53rem;
+    line-height: 2.06rem;
+  }
+
+  @media screen and (min-width: 1000px) and (max-width: 1200px){
+    font-size: 1.9rem;
+    line-height: 2.36rem;
+  }
+
+  @media screen and (min-width: 1200px){
+    font-size: 2.2rem;
+    line-height: 2.66rem;
+  }
+}
+
+@mixin h3 {
+  font-weight: 600;
+  margin-top: -8px;
+  font-size: 2rem;
+  line-height: 2.7rem;
+  margin-bottom: .5rem;
+  color: $ColorBlack;
+}
+
+@mixin h4 {
+  font-weight: 700;
+  font-size: 1.71rem;
+  line-height: 2.43rem;
+  color: $ColorBlack;
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+
+@mixin h5 {
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  font-size: 1.43rem;
+  line-height: 2.14rem;
+  color: $ColorBlack;
+  margin-top: 0;
+}
+
+@mixin h6 {
+  font-size: 1.14rem;
+  line-height: 1.857rem;
+  color: #7a7979;
+  margin-top: 0;
+  margin-bottom: .5rem;
+  font-weight: 500;
+
+  @media only screen and (max-width: 500px) {
+    font-size: 0.91rem;
+    line-height: 1.4rem;
+  }
+}
