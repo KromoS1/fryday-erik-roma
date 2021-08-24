@@ -11,6 +11,7 @@ export const loginReducer =
         switch (action.type) {
             case "LOGIN/SET_IS_AUTH":
                 return {...state, isAuth: action.isAuth}
+            default: return state
         }
     }
 

@@ -16,13 +16,17 @@ export const authApi = {
     login(params: LoginRequestParamsType) {
         return axiosInstance.post<LoginResponseType>("/auth/login", {...params})
     },
-    logout(){
+    logout() {
         return axiosInstance.delete<LogoutResponseType>("/auth/me")
     },
+    registration(params: RegistrationRequestParamsType) {
+        return axiosInstance.post<RegistrationResponseType>("/auth/register", {...params})
+            .then(response => response.data)
+    }
 }
 export type LoginResponseType = {
     _id: string
-    created: string
+    created: Date
     email: string
     isAdmin: boolean
     name: string
@@ -30,15 +34,32 @@ export type LoginResponseType = {
     rememberMe: boolean
     token: string
     tokenDeathTime: number
-    updated: string
+    updated: Date
     verified: boolean
 
+}
+export type RegistrationResponseType = {
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
+    name: string
+    verified: boolean
+    publicCardPacksCount: number
+    created: Date
+    updated: Date
+    __v: number
 }
 export type LogoutResponseType = {
     info: string
 }
+
 export type LoginRequestParamsType = {
     email: string
     password: string
     rememberMe: boolean
+}
+export type RegistrationRequestParamsType = {
+    email: string
+    password: string
 }
