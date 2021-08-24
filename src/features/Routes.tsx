@@ -26,7 +26,7 @@ export const Routes = () => {
 
     useEffect(() => {
         dispatch(initializeApp());
-    }, [dispatch])
+    }, [])
 
     if (!isInit) {
         return <div><Preloader/></div>

@@ -65,9 +65,8 @@ export const Login: FC = memo(() => {
     const dispatch = useDispatch();
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
 
-
     if (isAuth){
-        return <Redirect to={"/profile"}/>
+        return <Redirect to={"/"}/>
     }
 
     const submit = (data: ValuesType) => {

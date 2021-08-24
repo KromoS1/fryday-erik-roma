@@ -9,12 +9,12 @@ export type LoginActionTypes =
 
 type InitialStateTypes = {
     isAuth: boolean
-    isInitialize:boolean
+    isInitialize: boolean
 }
 
 const InitialState: InitialStateTypes = {
     isAuth: false,
-    isInitialize:false
+    isInitialize: false
 }
 
 export const setIsAuth = (isAuth: boolean) => ({type: 'LOGIN/SET_IS_AUTH', isAuth} as const)
@@ -52,13 +52,19 @@ export const logoutAccount = (): AppThunkType => dispatch => {
         })
 }
 
-export const initializeApp = ():AppThunkType => async dispatch => {
-    authApi.me().then(res => {
-        if (res._id){
+export const initializeApp = (): AppThunkType => async dispatch => {
+    try{
+        const me = await authApi.me();
+        if (me) {
+            dispatch(setUserData(me));
             dispatch(setIsAuth(true));
+        } else {
+            console.log('error')
         }
+    }catch (e){
+
+        console.log(e);
+    }finally {
         dispatch(setIsInit(true));
-    }).catch(e=> {
-        console.log(e.message);
-    })
+    }
 }

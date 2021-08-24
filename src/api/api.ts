@@ -50,7 +50,9 @@ export const authApi = {
     },
     me(){
         return axiosInstance.post('/auth/me')
-            .then(response => response.data);
+            .then(response => {
+                return response.data
+            });
     }
 }
 
