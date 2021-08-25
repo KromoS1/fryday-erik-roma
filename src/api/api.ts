@@ -32,6 +32,11 @@ export type ParamsAuthType = {
     password: string
 }
 
+export type ParamsSetNewPasswordType = {
+    password: string
+    resetPasswordToken: string
+}
+
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
@@ -51,6 +56,10 @@ export const authApi = {
     me(){
         return axiosInstance.post('/auth/me')
             .then(response => response.data);
+    },
+    setNewPassword(params: ParamsSetNewPasswordType) {
+       return axiosInstance.post<{info: string}>('/auth/set-new-password', params)
+           .then(res =>  res.data)
     }
 }
 

@@ -2,7 +2,7 @@ import {authApi, ParamsAuthType} from '../../api/api';
 import {AppThunkType} from '../../app/store';
 import {redirectLogin} from '../utils/utils';
 
-type InitialStateTypes = {
+export type InitialStateTypes = {
     error: string | null
 }
 
