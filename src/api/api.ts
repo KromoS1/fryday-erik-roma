@@ -43,6 +43,10 @@ export type ResponseForgotType = {
     error: string
 }
 
+export type ParamsSetNewPasswordType = {
+    password: string
+    resetPasswordToken: string
+}
 const axiosInstance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
@@ -65,5 +69,9 @@ export const authApi = {
     },
     forgot(params: ParamsForgotType) {
         return axiosInstance.post<ResponseForgotType>('/auth/forgot', {...params})
+    },
+    setNewPassword(params: ParamsSetNewPasswordType) {
+       return axiosInstance.post<{info: string}>('/auth/set-new-password', params)
+           .then(res =>  res.data)
     }
 }

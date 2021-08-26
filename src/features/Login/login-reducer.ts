@@ -61,6 +61,7 @@ export const initializeApp = (): AppThunkType => async dispatch => {
         } else {
             console.log('error')
         }
+
     } catch (e) {
 
         console.log(e);

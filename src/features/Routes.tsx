@@ -3,7 +3,7 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import {Error404} from '../components/Error404/Error404';
 import {Login} from './Login/Login';
 import {Registration} from './Registration/Registration';
-import {NewPassword} from './NewPassword/NewPassword';
+import {NewPasswordComponent} from './NewPassword/NewPassword';
 import {RecoveryPassword} from './RecoveryPassword/RecoveryPassword';
 import {ProfileContainer} from './Profile/ProfileContainer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -16,7 +16,7 @@ export const PATH = {
     LOGIN: '/login',
     PROFILE: '/profile',
     REGISTRATION: '/registration',
-    NEW_PASSWORD: '/set-new-password',
+    NEW_PASSWORD: '/set-new-password/:token?',
     RECOVERY_PASSWORD: '/recovery-password',
     CHEK_EMAIL: '/chek-email',
 
@@ -41,7 +41,7 @@ export const Routes = () => {
                 <Route path={PATH.LOGIN} render={() => <Login/>}/>
                 <Route path={PATH.PROFILE} render={() => <ProfileContainer/>}/>
                 <Route path={PATH.REGISTRATION} render={() => <Registration/>}/>
-                <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
+                <Route path={PATH.NEW_PASSWORD} render={() => <NewPasswordComponent/>}/>
                 <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
                 <Route path={PATH.CHEK_EMAIL} render={() => <ChekEmail/>}/>
                 {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}

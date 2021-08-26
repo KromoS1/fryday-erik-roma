@@ -1,10 +1,11 @@
 import {loginReducer, LoginType, setIsAuth} from "./login-reducer";
 
-let initialSate: InitialStateTypes
+let initialSate: LoginType
 
 beforeEach(() => {
     initialSate = {
-        isAuth: false
+        isAuth: false,
+        isInitialize:false
     }
 })
 

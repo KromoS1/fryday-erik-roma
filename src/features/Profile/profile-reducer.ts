@@ -2,15 +2,12 @@ import {authApi, ResponseMeType} from '../../api/api';
 import {AppThunkType} from '../../app/store';
 import {setIsAuth} from '../Login/login-reducer';
 
-
-type InitialStateTypes = ResponseMeType
-
 export type ProfileReducerActionTypes = | ReturnType<typeof setUserData>
 
-export const setUserData = (userData: InitialStateTypes) =>
+export const setUserData = (userData: ResponseMeType) =>
     ({type: 'PROFILE/SET_USER_DATA', payload: {...userData}} as const)
 
-const InitialState: InitialStateTypes = {
+const InitialState: ResponseMeType = {
     _id: '',
     email: '',
     name: '',

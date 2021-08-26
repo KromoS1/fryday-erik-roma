@@ -26,9 +26,10 @@ export const recoveryPasswordReducer = (state = InitialState, action: RecoveryPa
 export const recoveryPassword = (recoveryParams: ParamsForgotType): AppThunkType => dispatch => {
     authApi.forgot(recoveryParams)
         .then(res => {
-            dispatch(setSendStatus(true))
+            dispatch(setSendStatus(true));
+            console.log(res);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
 }

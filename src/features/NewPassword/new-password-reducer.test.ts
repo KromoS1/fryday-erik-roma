@@ -1,9 +1,9 @@
-import {NewPasswordReducerInitialStateTypes} from "./new-password-reducer";
+import {NewPasswordTypes} from "./new-password-reducer";
 
-let initialSate: NewPasswordReducerInitialStateTypes
+let initialSate: NewPasswordTypes
 
 beforeEach(() => {
     initialSate = {
-
+        setPasswordStatus: false
     }
 })

@@ -26,6 +26,10 @@ export const fieldComponent = (name: string, placeholder: string) => {
             name={name}
             rules={[
                 {
+                    min: 8,
+                    message: "Password should be more than 8 character",
+                },
+                {
                     required: true,
                     message: 'Please input your password!',
                 },
