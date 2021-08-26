@@ -21,10 +21,6 @@ const LoginForm: FC<PropsType> = props => {
 
     const [form] = Form.useForm();
 
-    const forgotPass = () => {
-        console.log("Redirect on Page Forgot Password");
-    }
-
     const onFinish = (values: ValuesType) => {
        props.onSubmit(values);
     };
@@ -43,7 +39,11 @@ const LoginForm: FC<PropsType> = props => {
                 {fieldComponent('email', 'E-mail')}
                 {fieldComponent('password', 'Password')}
                 <div className={style.forgot}>
-                    <span onClick={() => forgotPass()}>Forgot Password</span>
+                    <span>
+                        <NavLink to={'/recovery-password'}>
+                            Forgot Password
+                        </NavLink>
+                    </span>
                 </div>
                 <div className={style.buttons}>
                     <button className={style.btnLogin} type="submit">

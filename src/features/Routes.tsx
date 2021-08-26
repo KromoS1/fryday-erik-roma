@@ -10,13 +10,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../app/store';
 import {initializeApp} from './Login/login-reducer';
 import {Preloader} from '../components/Preloader/Preloader';
+import {ChekEmail} from "../components/ChekEmail/ChekEmail";
 
 export const PATH = {
     LOGIN: '/login',
     PROFILE: '/profile',
     REGISTRATION: '/registration',
-    NEW_PASSWORD: '/new-password',
+    NEW_PASSWORD: '/set-new-password',
     RECOVERY_PASSWORD: '/recovery-password',
+    CHEK_EMAIL: '/chek-email',
 
 }
 
@@ -41,6 +43,7 @@ export const Routes = () => {
                 <Route path={PATH.REGISTRATION} render={() => <Registration/>}/>
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
                 <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
+                <Route path={PATH.CHEK_EMAIL} render={() => <ChekEmail/>}/>
                 {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
                 <Route render={() => <Error404/>}/>
             </Switch>

@@ -4,14 +4,18 @@ import {loginReducer, LoginActionTypes} from "../features/Login/login-reducer";
 import {registrationReducer, RegistrationActionTypes} from "../features/Registration/registration-reducer";
 import {profileReducer, ProfileReducerActionTypes} from "../features/Profile/profile-reducer";
 import {NewPasswordReducerActionTypes} from "../features/NewPassword/new-password-reducer";
-import {RecoveryPasswordReducerActionTypes} from "../features/RecoveryPassword/recovery-password-reducer";
+import {
+    recoveryPasswordReducer,
+    RecoveryPasswordReducerActionTypes
+} from "../features/RecoveryPassword/recovery-password-reducer";
 import {AppReducerActionTypes} from "./app-reducer";
 
 
 export const rootReducer = combineReducers({
     profile: profileReducer,
     login: loginReducer,
-    registrationInfo: registrationReducer
+    registrationInfo: registrationReducer,
+    recovery: recoveryPasswordReducer
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
