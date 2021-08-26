@@ -2,23 +2,24 @@ import {authApi, ParamsAuthType} from '../../api/api';
 import {AppThunkType} from '../../app/store';
 import {redirectLogin} from '../utils/utils';
 
-type InitialStateTypes = {
+export type RegistrationTypes = {
     error: string | null
 }
 
-export type RegistrationActionTypes = ReturnType<typeof setIsRegistered>
+export type RegistrationAT = ReturnType<typeof setIsRegistered>
 
-const InitialState: InitialStateTypes = {
+const InitialState: RegistrationTypes = {
     error: null
 }
 
-export const registrationReducer = (state: InitialStateTypes = InitialState, action: RegistrationActionTypes): InitialStateTypes => {
-       switch(action.type) {
-           case "REGISTRATION/GET_REGISTERED_REQUEST": {
-               return {...state, error: action.error}
-           }
-           default: return state;
-       }
+export const registrationReducer = (state = InitialState, action: RegistrationAT): RegistrationTypes => {
+    switch (action.type) {
+        case "REGISTRATION/GET_REGISTERED_REQUEST": {
+            return {...state, error: action.error}
+        }
+        default:
+            return state;
+    }
 };
 
 export const setIsRegistered = (isRegistered: boolean, error: string | null) =>
@@ -26,13 +27,13 @@ export const setIsRegistered = (isRegistered: boolean, error: string | null) =>
 
 export const getRegistration = (params: ParamsAuthType): AppThunkType => dispatch => {
     authApi.registration(params)
-        .then( res => {
-            if (res){
+        .then(res => {
+            if (res) {
                 redirectLogin();
             }
         })
         .catch(err => {
-            const errMessage =  err.response ?  `${err.message} \n ${err.response.data.error}` : 'some error has occurred';
+            const errMessage = err.response ? `${err.message} \n ${err.response.data.error}` : 'some error has occurred';
             dispatch(setIsRegistered(false, errMessage));
         })
 

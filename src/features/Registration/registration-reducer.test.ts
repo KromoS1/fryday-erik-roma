@@ -1,4 +1,4 @@
-import {InitialStateTypes} from './registration-reducer';
+import {RegistrationTypes} from './registration-reducer';
 
 
 let initialSate: InitialStateTypes

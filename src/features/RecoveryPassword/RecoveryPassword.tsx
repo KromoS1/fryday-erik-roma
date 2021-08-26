@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, memo} from 'react'
 import {Form} from "antd";
 import style from "../RecoveryPassword/RecoveryPasswordStyle.module.scss";
 import {fieldComponent} from "../CommonComponentsForm/FieldComponent";
@@ -54,12 +54,13 @@ export const FormRecoveryPassword: FC<PropsType> = props => {
     )
 }
 
-export const RecoveryPassword: React.FC = React.memo(() => {
+export const RecoveryPassword: FC = memo(() => {
     const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend)
 
     const dispatch = useDispatch();
 
     const sendData = (data: ValuesType) => {
+        debugger
         dispatch(recoveryPassword({
             email: data.email,
             from: "test-front-admin <ai73a@yandex.by>",

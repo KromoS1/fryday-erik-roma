@@ -2,17 +2,17 @@ import {AppThunkType} from '../../app/store';
 import {authApi, ParamsAuthType} from '../../api/api';
 import {setUserData} from '../Profile/profile-reducer';
 
-export type LoginActionTypes =
+export type LoginAT =
     | ReturnType<typeof setIsAuth>
     | ReturnType<typeof setIsInit>
 
 
-type InitialStateTypes = {
+export type LoginType = {
     isAuth: boolean
     isInitialize: boolean
 }
 
-const InitialState: InitialStateTypes = {
+const InitialState: LoginType = {
     isAuth: false,
     isInitialize: false
 }
@@ -20,7 +20,7 @@ const InitialState: InitialStateTypes = {
 export const setIsAuth = (isAuth: boolean) => ({type: 'LOGIN/SET_IS_AUTH', isAuth} as const)
 export const setIsInit = (isInit: boolean) => ({type: 'LOGIN/SET_IS_INITIALIZE', isInit} as const)
 
-export const loginReducer = (state = InitialState, action: LoginActionTypes): InitialStateTypes => {
+export const loginReducer = (state = InitialState, action: LoginAT): LoginType => {
     switch (action.type) {
         case 'LOGIN/SET_IS_AUTH':
             return {...state, isAuth: action.isAuth}
@@ -53,7 +53,7 @@ export const logoutAccount = (): AppThunkType => dispatch => {
 }
 
 export const initializeApp = (): AppThunkType => async dispatch => {
-    try{
+    try {
         const me = await authApi.me();
         if (me) {
             dispatch(setUserData(me));
@@ -61,10 +61,10 @@ export const initializeApp = (): AppThunkType => async dispatch => {
         } else {
             console.log('error')
         }
-    }catch (e){
+    } catch (e) {
 
         console.log(e);
-    }finally {
+    } finally {
         dispatch(setIsInit(true));
     }
 }

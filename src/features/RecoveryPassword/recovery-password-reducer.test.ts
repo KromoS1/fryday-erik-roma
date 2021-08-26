@@ -1,10 +1,10 @@
 import {
     recoveryPasswordReducer,
-    RecoveryPasswordReducerInitialStateTypes,
+    RecoveryPasswordType,
     setSendStatus
 } from "./recovery-password-reducer";
 
-let initialSate: RecoveryPasswordReducerInitialStateTypes
+let initialSate: RecoveryPasswordType
 
 beforeEach(() => {
     initialSate = {
