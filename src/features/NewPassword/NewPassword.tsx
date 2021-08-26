@@ -1,5 +1,5 @@
 import React, {FC, memo} from 'react'
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {setNewPassword} from "./new-password-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
@@ -7,7 +7,6 @@ import {Form} from "antd";
 import style from './NewPasswordStyle.module.scss'
 import {fieldComponent} from "../CommonComponentsForm/FieldComponent";
 import {formItemLayout} from "../Registration/Registration";
-import {redirectLogin} from "../utils/utils";
 
 interface NewPasswordValuesType {
     password: string
@@ -51,14 +50,15 @@ export const NewPasswordForm: FC<NewPasswordFormPropsType> = memo(({onSubmit}) =
 export const NewPasswordComponent: FC = memo(() => {
     const dispatch = useDispatch();
     const { token } = useParams<{token: string}>();
-    const changePassWordStatus = useSelector<AppRootStateType, boolean>(state => state.creatingPasswordInfo.setPasswordStatus)
+    const changePasswordStatus = useSelector<AppRootStateType, boolean>(state => state.creatingPasswordInfo.setPasswordStatus);
 
-    if (changePassWordStatus) {
-        redirectLogin();
+    if (changePasswordStatus) {
+        return <Redirect to={"/login"}/>
     }
+
     const submit = (data: NewPasswordValuesType) => {
         let {password} = data;
-       dispatch(setNewPassword({password, resetPasswordToken: token}))
+       dispatch(setNewPassword({password, resetPasswordToken: token}));
     }
     return (
         <>
