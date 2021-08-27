@@ -81,6 +81,14 @@
     border-radius: 15px;
   }
 
+  @media screen and (min-height: 600px) and (max-height: 800px){
+    height: 75%;
+  }
+
+  @media screen and (min-height: 800px) and (max-height: 800px){
+    height: 70%;
+  }
+
   @media screen and (min-height: 800px){
     height: 70%;
   }
@@ -98,20 +106,10 @@
   width: 100%;
   @include displayFlex(row,space-around,"");
 
-  @media screen and (min-width: 420px) and (max-width: 600px){
-    margin-top:0;
-    margin-bottom: 5%;
-  }
-  @media screen and (min-width: 600px) and (max-width: 1000px) {
-    margin-top: 10%;
-    margin-bottom: 5%;
-  }
-  @media screen and (min-width: 1000px) and (max-width: 1200px) {
-    margin-top: 15%;
+  @media screen and (min-width: 420px) and (max-width: 1200px){
     margin-bottom: 5%;
   }
   @media screen and (min-width: 1200px) {
-    margin-top: 15%;
     margin-bottom: 4%;
   }
 }
