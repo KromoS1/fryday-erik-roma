@@ -32,4 +32,7 @@ export const recoveryPassword = (recoveryParams: ParamsForgotType): AppThunkType
         .catch(err => {
             console.log(err);
         })
+        .finally(() => {
+            dispatch(setSendStatus(false));
+        })
 }
