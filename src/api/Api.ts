@@ -48,6 +48,57 @@ export type ParamsSetNewPasswordType = {
     resetPasswordToken: string
 }
 
+export type CardsPackType = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
+}
+
+export type ParamsGetPacksType = {
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: string
+    page?: number
+    pageCount?: number
+    user_id?: string
+}
+
+export type ResponseGetPacks = {
+    cardPacks: CardsPackType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
+}
+
+export type ParamsUpdatePack = {
+    deckCover?: string
+    name: string
+    _id: string
+}
+
+export type ResponsePacksType<D = CardsPackType> = {
+    data: D
+    token: string
+    tokenDeathTime: number
+}
+
 const axiosInstance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0',
     withCredentials: true,
@@ -74,5 +125,26 @@ export const authApi = {
     setNewPassword(params: ParamsSetNewPasswordType) {
        return axiosInstance.post<{info: string}>('/auth/set-new-password', params)
            .then(res =>  res.data)
+    }
+};
+
+export const packApi = {
+    getPacks(getParams: ParamsGetPacksType) {
+        return axiosInstance.get<ResponseGetPacks>('/cards/pack', {
+            params: {...getParams}
+        })
+    },
+    addPack(name: string) {
+        return axiosInstance.post<ResponsePacksType<{newCardsPack: CardsPackType}>>('/cards/pack', {
+            cardsPack: {name}
+        })
+    },
+    deletePack(id: string) {
+        return axiosInstance.delete<ResponsePacksType<{deletedCardsPack: CardsPackType}>>(`/cards/pack?id=${id}`)
+    },
+    updatePack(putParams: ParamsUpdatePack) {
+        return axiosInstance.put<ResponsePacksType<{updatedCardsPack: CardsPackType}>>('/cards/pack', {
+            cardsPack:{...putParams}
+        })
     }
 }
