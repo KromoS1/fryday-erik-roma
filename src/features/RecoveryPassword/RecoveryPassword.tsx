@@ -67,7 +67,7 @@ export const RecoveryPassword: FC = memo(() => {
             message: RecoveryMessage()
         }))
     }
-
+    debugger
     if(isSend){
         return <Redirect
             to={{

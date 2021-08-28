@@ -16,6 +16,7 @@ type PropsType = {
     onSubmit: (data: ValuesType) => void
 }
 
+
 export const formItemLayout = {
     labelCol: {
         xs: {
@@ -34,6 +35,7 @@ export const formItemLayout = {
         },
     },
 };
+
 
 export const FormRegistration: FC<PropsType> = props => {
 
@@ -67,13 +69,14 @@ export const FormRegistration: FC<PropsType> = props => {
     )
 }
 
+
 export const Registration = () => {
 
     const dispatch = useDispatch();
 
     const sendData = (data: ValuesType) => {
-        let {email, password} = data;
-        dispatch(getRegistration({email, password}))
+        let {email,password} = data;
+        dispatch(getRegistration({email,password}))
     }
 
     return (
@@ -81,4 +84,6 @@ export const Registration = () => {
             <FormRegistration onSubmit={sendData}/>
         </>
     )
+
+
 }
