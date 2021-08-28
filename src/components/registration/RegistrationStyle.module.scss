@@ -1,0 +1,44 @@
+@import "../../stylesCommon/StyleAuth";
+@import "../../stylesCommon/StyleCommon";
+
+.registration{
+    @include cardsForAuth();
+
+  .title{
+    @include h1();
+  }
+
+  .titleName{
+    padding-top:3%;
+    @include h2();
+  }
+
+  .form{
+    @include formContainerAuth();
+
+    .field{
+      @media screen and (min-width: 750px) and (max-width: 850px){
+        padding: 0 15px 0 15px;
+      }
+
+      .input{
+       @include inputsAuth();
+      }
+    }
+
+    .buttons{
+      @include buttonsContainerAuth();
+
+      .btnCan {
+        @include Button();
+        color: $ColorWhite;
+        background-color: #70a1e8;
+      }
+
+      .btnReg {
+        @include Button();
+      }
+    }
+  }
+}
+

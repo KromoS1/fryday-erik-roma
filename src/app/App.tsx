@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes} from '../features/Routes';
+import {Routes} from '../components/Routes';
 import style from './AppStyle.module.scss';
 
 
