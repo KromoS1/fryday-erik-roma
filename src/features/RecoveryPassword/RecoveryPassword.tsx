@@ -60,7 +60,6 @@ export const RecoveryPassword: FC = memo(() => {
     const dispatch = useDispatch();
 
     const sendData = (data: ValuesType) => {
-        debugger
         dispatch(recoveryPassword({
             email: data.email,
             from: "test-front-admin <ai73a@yandex.by>",
