@@ -1,0 +1,26 @@
+@import "../../StylesCommon/StyleAuth";
+@import "../../StylesCommon/StyleCommon";
+
+.chekMail {
+  @include cardsForAuth();
+  @media screen and (min-width: 1300px) and (max-width: 3000px){
+    width: 25%;
+    height: 60%;
+  }
+  .title {
+    @include h1();
+    padding: 10px;
+  }
+  .authIcon {
+    @include checkMailLogo()
+  }
+
+  .titleName {
+    @include h4();
+  }
+
+  .subtitle {
+    text-align: center;
+    @include h6();
+  }
+}
