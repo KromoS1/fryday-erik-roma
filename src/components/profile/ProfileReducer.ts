@@ -1,15 +1,16 @@
-import {authApi, ResponseMeType} from '../../api/Api';
+import {authApi} from '../../api/AuthAPI';
 import {AppThunkType} from '../../app/Store';
 import {setIsAuth} from '../login/LoginReducer';
 import {setStatusApp} from "../statusApp/StatusAppReducer";
+import {ProfileType} from "./ProfileContainer";
 
-export type ProfileReducerActionTypes =
+export type ProfileReducerAT =
     | ReturnType<typeof setUserData>
 
-export const setUserData = (userData: ResponseMeType) =>
+export const setUserData = (userData: ProfileType) =>
     ({type: 'PROFILE/SET_USER_DATA', payload: {...userData}} as const)
 
-const InitialState: ResponseMeType = {
+const InitialState: ProfileType = {
     _id: '',
     email: '',
     name: '',
@@ -22,7 +23,7 @@ const InitialState: ResponseMeType = {
     verified: true,
 }
 
-export const profileReducer = (state = InitialState, action: ProfileReducerActionTypes) => {
+export const profileReducer = (state = InitialState, action: ProfileReducerAT) => {
     switch (action.type) {
         case 'PROFILE/SET_USER_DATA':
             return {
@@ -34,14 +35,15 @@ export const profileReducer = (state = InitialState, action: ProfileReducerActio
     }
 }
 
-export const meProfile = (): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load'));
-    authApi.me().then(res => {
-       if (res){
-           dispatch(setIsAuth(true));
-       }
-    }).finally(() => {
-        dispatch(setStatusApp('idle'));
-    })
+export const meProfile = (): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        await authApi.me();
+        dispatch(setIsAuth(true));
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    } finally {
+        dispatch(setStatusApp('idle', ''));
+    }
 }
 

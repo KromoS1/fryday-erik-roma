@@ -1,4 +1,4 @@
-import {authApi, ParamsSetNewPasswordType} from "../../api/Api";
+import {authApi, ParamsSetNewPasswordType} from "../../api/AuthAPI";
 import {AppThunkType} from "../../app/Store";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
@@ -23,20 +23,16 @@ export const newPasswordReducer = (state = initialState, action: NewPasswordAT):
     }
 }
 
-export const setNewPassword = (params: ParamsSetNewPasswordType): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load'));
-    authApi.setNewPassword(params)
-        .then(res => {
-            if (res) {
-                dispatch(setNewPasswordStatus(true));
-            }
-        })
-        .catch(err => {
-            const errMessage = err.response ? `${err.message} \n ${err.response.data.error}` : 'some error has occurred';
-            dispatch(setNewPasswordStatus(false));
-            console.log(errMessage);
-        }).finally(() => {
+export const setNewPassword = (params: ParamsSetNewPasswordType): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        await authApi.setNewPassword(params);
+        dispatch(setNewPasswordStatus(true));
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
         dispatch(setNewPasswordStatus(false));
-        dispatch(setStatusApp('idle'));
-    })
+    } finally {
+        dispatch(setNewPasswordStatus(false));
+        dispatch(setStatusApp('idle', ''));
+    }
 }

@@ -75,7 +75,7 @@ export const Login: FC = memo(() => {
     if (statusApp === 'load') return <Preloader/>
 
     const submit = (data: ValuesType) => {
-        dispatch(loginAccount(data))
+        dispatch(loginAccount({...data,rememberMe:true}));
     }
 
     return (

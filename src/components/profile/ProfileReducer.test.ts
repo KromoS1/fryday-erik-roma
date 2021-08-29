@@ -1,7 +1,8 @@
 import {profileReducer, setUserData} from "./ProfileReducer";
-import {ResponseMeType} from "../../api/Api";
+import {ProfileType} from "./ProfileContainer";
 
-let initialSate: ResponseMeType
+
+let initialSate: ProfileType
 
 beforeEach(() => {
     initialSate = {

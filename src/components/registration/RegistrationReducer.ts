@@ -1,4 +1,4 @@
-import {authApi, ParamsAuthType} from '../../api/Api';
+import {authApi, ParamsAuthType} from '../../api/AuthAPI';
 import {AppThunkType} from '../../app/Store';
 import {redirectLogin} from '../utils/Utils';
 import {setStatusApp} from "../statusApp/StatusAppReducer";
@@ -26,19 +26,18 @@ export const registrationReducer = (state = InitialState, action: RegistrationAT
     }
 };
 
-export const getRegistration = (params: ParamsAuthType): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load'));
-    authApi.registration(params)
-        .then(res => {
-            if (res) {
-                redirectLogin();
-            }
-        })
-        .catch(err => {
-            const errMessage = err.response ? `${err.message} \n ${err.response.data.error}` : 'some error has occurred';
-            dispatch(setIsRegistered(false, errMessage));
-        }).finally(() => {
-        dispatch(setStatusApp('idle'));
-    })
+export const getRegistration = (params: ParamsAuthType): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        const response = await authApi.registration(params)
+        if (response) {
+            redirectLogin();
+        }
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message))
+        dispatch(setIsRegistered(false, error.message));
+    } finally {
+        dispatch(setStatusApp('idle', ''));
+    }
 }
 

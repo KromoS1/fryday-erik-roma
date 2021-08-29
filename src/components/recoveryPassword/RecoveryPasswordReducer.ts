@@ -1,5 +1,5 @@
 import {AppThunkType} from "../../app/Store";
-import {authApi, ParamsForgotType} from "../../api/Api";
+import {authApi, ParamsForgotType} from "../../api/AuthAPI";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
 export type RecoveryPasswordType = {
@@ -24,17 +24,14 @@ export const recoveryPasswordReducer = (state = InitialState, action: RecoveryPa
     }
 };
 
-export const recoveryPassword = (recoveryParams: ParamsForgotType): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load'));
-    authApi.forgot(recoveryParams)
-        .then(res => {
-            dispatch(setSendStatus(true));
-            console.log(res);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        .finally(() => {
-            dispatch(setStatusApp('idle'));
-        })
+export const recoveryPassword = (recoveryParams: ParamsForgotType): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        await authApi.forgot(recoveryParams);
+        dispatch(setSendStatus(true));
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    } finally {
+        dispatch(setStatusApp('idle', ''));
+    }
 }

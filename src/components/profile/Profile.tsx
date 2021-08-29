@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {ProfileType} from '../../api/Api';
+import {ProfileType} from "./ProfileContainer";
 
 type PropsType = {
     profile:ProfileType

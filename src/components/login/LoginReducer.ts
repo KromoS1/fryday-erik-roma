@@ -1,5 +1,5 @@
 import {AppThunkType} from '../../app/Store';
-import {authApi, ParamsAuthType} from '../../api/Api';
+import {authApi, ParamsAuthType} from '../../api/AuthAPI';
 import {setUserData} from '../profile/ProfileReducer';
 import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
 
@@ -26,17 +26,17 @@ export const loginReducer = (state = initialState, action: LoginAT): LoginType =
 }
 
 export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load'));
+    dispatch(setStatusApp('load',''));
     authApi.login(loginParams)
         .then(res => {
             dispatch(setUserData(res.data));
             dispatch(setIsAuth(true));
+            dispatch(setStatusApp('success','Success'))
         })
-        .catch(e => {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-            console.log(error);
+        .catch(error => {
+            dispatch(setStatusApp('error',error.message))
         }).finally(() => {
-        dispatch(setStatusApp('idle'));
+        dispatch(setStatusApp('idle',''));
     })
 };
 
@@ -55,12 +55,11 @@ export const initializeApp = (): AppThunkType => async dispatch => {
         if (me) {
             dispatch(setUserData(me));
             dispatch(setIsAuth(true));
-        } else {
-            console.log('error')
         }
-    } catch (e) {
-        console.log(e);
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
     } finally {
+        dispatch(setStatusApp('idle', ''));
         dispatch(setIsInit(true));
     }
 }
