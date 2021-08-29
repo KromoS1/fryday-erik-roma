@@ -6,7 +6,8 @@ import {profileReducer, ProfileReducerAT} from "../components/profile/ProfileRed
 import {recoveryPasswordReducer, RecoveryPasswordAT} from "../components/recoveryPassword/RecoveryPasswordReducer";
 import {newPasswordReducer, NewPasswordAT} from "../components/newPassword/NewPasswordReducer";
 import {StatusAppAT, statusAppReducer} from "../components/statusApp/StatusAppReducer";
-import {CardsPackAT, PacksReducer} from "../components/Packs/PacksReducer";
+import {PackAT, PacksReducer} from "../components/Packs/PacksReducer";
+import {CardAT, CardsReducer} from "../components/Cards/CardsReducer";
 
 
 export const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
     creatingPasswordInfo: newPasswordReducer,
     statusApp: statusAppReducer,
     packs: PacksReducer,
+    cards: CardsReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -30,6 +32,7 @@ export type AppActionsType =
     | RecoveryPasswordAT
     | NewPasswordAT
     | StatusAppAT
-    | CardsPackAT
+    | PackAT
+    | CardAT
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>

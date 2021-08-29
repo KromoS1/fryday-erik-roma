@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {CardsPackType} from "../components/Packs/PacksReducer";
+import {PackType} from "../components/Packs/PacksReducer";
 
 export type ParamsGetPacksType = {
     user_id?: string
@@ -12,7 +12,7 @@ export type ParamsGetPacksType = {
 }
 
 export type ResponseGetPacks = {
-    cardPacks: CardsPackType[]
+    cardPacks: PackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -28,7 +28,7 @@ export type ParamsUpdatePack = {
     name: string
 }
 
-export type ResponsePacksType<D = CardsPackType> = {
+export type ResponsePacksType<D = PackType> = {
     data: D
     token: string
     tokenDeathTime: number
@@ -47,7 +47,7 @@ export const packApi = {
         }).then(response => response.data);
     },
     addPack(pack:{name:string,private:boolean}) {
-        return axiosInstance.post<ResponsePacksType<{newCardsPack: CardsPackType}>>('/cards/pack', {
+        return axiosInstance.post<ResponsePacksType<{newCardsPack: PackType}>>('/cards/pack', {
             cardsPack:{
                 name:pack.name,
                 private:pack.private,
@@ -55,10 +55,10 @@ export const packApi = {
         })
     },
     deletePack(id: string) {
-        return axiosInstance.delete<ResponsePacksType<{deletedCardsPack: CardsPackType}>>(`/cards/pack?id=${id}`)
+        return axiosInstance.delete<ResponsePacksType<{deletedCardsPack: PackType}>>(`/cards/pack?id=${id}`)
     },
     updatePack(putParams: ParamsUpdatePack) {
-        return axiosInstance.put<ResponsePacksType<{updatedCardsPack: CardsPackType}>>('/cards/pack', {
+        return axiosInstance.put<ResponsePacksType<{updatedCardsPack: PackType}>>('/cards/pack', {
             cardsPack:{...putParams}
         })
     }

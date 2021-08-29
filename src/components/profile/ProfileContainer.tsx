@@ -21,7 +21,6 @@ export type ProfileType = {
 }
 
 export const ProfileContainer = memo(() => {
-    console.log('render profileContainer')
     const dispatch = useDispatch();
     const profile = useSelector<AppRootStateType,ProfileType>(state => state.profile);
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
