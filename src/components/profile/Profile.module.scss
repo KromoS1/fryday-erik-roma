@@ -1,0 +1,106 @@
+@import "../../stylesCommon/StyleAuth";
+@import "./src/stylesCommon/StyleCommon";
+
+
+.container {
+  width: 80%;
+  height: 85%;
+  background: #FEFEFF;
+  border-radius: 8px;
+  @include displayFlex(row, "", center);
+
+  .info {
+    width: 22.5%;
+    height: 100%;
+    background: #ECECF9;
+    border-radius: 8px 0 0 8px;
+
+    .profileInfo {
+      width: 100%;
+      height: 34%;
+      background: #D9D9F1;
+      border-radius: 8px 0 0 0;
+      padding: 10px;
+      @include displayFlex(column, space-around, center);
+
+      .avatar {
+        width: 30%;
+        height: 43%;
+        border-radius: 50%;
+        background: #5d0505;
+      }
+
+      .name {
+        @include h5();
+        margin-bottom: 0;
+      }
+
+      .status {
+        @include h6();
+      }
+
+      .button {
+        @include buttonsContainerAuth();
+
+        .btnEdit {
+          @include Button();
+          font-weight: 600;
+          font-size: 12px;
+          line-height: 14px;
+          text-align: center;
+          text-transform: none;
+          border: 1px solid #635D80;
+          border-radius: 8px;
+          background: none;
+          color: #0c224f;
+
+          &:hover {
+            background-color: #d9d9f1;
+            color: #1b4db3;
+          }
+        }
+      }
+    }
+
+    .numberCards {
+      @include displayFlex(column, "", center);
+
+      .numberTitle {
+        @include h4();
+        margin-top: 20px;
+      }
+
+      .doubleRange {
+        width: 81%;
+        height: 5px;
+        opacity: 0.5;
+        border-radius: 10px;
+        margin-top: 40px;
+      }
+    }
+  }
+
+  .packs {
+    @include displayFlex(column, "", center);
+    width: 77.5%;
+    height: 100%;
+
+    .mainTitle {
+      @include h3();
+      margin: 10px 0 10px 0;
+    }
+
+    .packTable {
+      width: 90%;
+      height: 75%;
+      margin: 10px 0 10px 0;
+      background: #ECECF9;
+    }
+
+    .pagination {
+      margin: 10px 0 10px 0;
+    }
+  }
+}
+
+
