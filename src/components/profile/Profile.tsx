@@ -1,16 +1,18 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {ProfileType} from "./ProfileContainer";
 import style from './Profile.module.scss';
-import {Pagination, Slider} from "antd";
+import {Slider} from "antd";
 import * as CSS from 'csstype';
+import {PackContainer} from "../Packs/Pack";
+
 
 type PropsType = {
     profile: ProfileType
     logOut: () => void
 }
 
-export const Profile: FC<PropsType> = props => {
-   const profile = props.profile
+export const Profile: FC<PropsType> = memo(props => {
+    console.log("render profile")
 
     const trackStyle: CSS.Properties[] = [
         {
@@ -28,13 +30,14 @@ export const Profile: FC<PropsType> = props => {
 
     return (
         <>
+
             <div className={style.container}>
                 <div className={style.info}>
                     <div className={style.profileInfo}>
                         <div className={style.avatar}>
-                            <img src={profile.avatar} alt="#"/>
+                            <img src={props.profile.avatar} alt="#"/>
                         </div>
-                        <div className={style.name}>{profile.name}</div>
+                        <div className={style.name}>{props.profile.name}</div>
                         <div className={style.status}>Front-end developer</div>
                         <div className={style.button}>
                             <button className={style.btnEdit}>Edit profile</button>
@@ -59,16 +62,14 @@ export const Profile: FC<PropsType> = props => {
 
                     </div>
                     <div className={style.packTable}>
-                        Packs List {/*TODO здесь должны отрисоваться паки*/}
-                    </div>
-                    <div className={style.pagination}>
-                        <Pagination defaultCurrent={6} total={500}/>
+                        <PackContainer/>
                     </div>
                 </div>
             </div>
-            {/*<div>
+            <div>
                 <button onClick={props.logOut}>Logout</button>
-            </div>*/}
+            </div>
         </>
     );
-}
+ }
+)
