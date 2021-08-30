@@ -59,7 +59,7 @@ export const Profile: FC<PropsType> = props => {
 
                     </div>
                     <div className={style.packTable}>
-                        Packs List
+                        Packs List {/*TODO здесь должны отрисоваться паки*/}
                     </div>
                     <div className={style.pagination}>
                         <Pagination defaultCurrent={6} total={500}/>
