@@ -1,71 +1,96 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import {Space, Table} from 'antd';
+import {Button, Space, Table} from 'antd';
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
 import {getPacks, PackType} from "../../components/Packs/PacksReducer";
+import {DateMaker} from "../../components/utils/Utils";
 
+type PropsType = {
+    packs: PackType[],
+    cardsCount: number
+    remove: (id: string) => void
+};
+export type packItemType = {
+    key: string,
+    name: string,
+    cards: number,
+    updated: string,
+    created: string,
+};
 
-export const TableForPacks = (props: {packs: PackType[]}) => {
+export const TableForPacks = (props: PropsType) => {
     const dispatch = useDispatch();
-    type packItemType = {
-        key: string,
-        name: string,
-        cards: number,
-        updated: string,
-        created: string,
-    }
+    const getSortedDateIntoColumns =  (a: packItemType, b: packItemType) => {
+           //todo доделаю завтра
+            return new Date(a.created) > new Date(b.created) ? -1 : 1
+        }
+
     const columns = [
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
             render: (text: any) => <a>{text}</a>,
+            sorter: (a: packItemType, b: packItemType) => {
+                return a.name > b.name ? -1 : 1
+            },
         },
         {
             title: 'Cards',
             dataIndex: 'cards',
             key: 'cards',
+            sorter: (a: packItemType, b: packItemType) => a.cards - b.cards
         },
         {
             title: 'Last Update',
             dataIndex: 'updated',
             key: 'updated',
+            sorter: getSortedDateIntoColumns
         },
         {
             title: 'Created by',
             key: 'created',
             dataIndex: 'created',
+            sorter: getSortedDateIntoColumns
         },
         {
             title: 'Action',
             key: 'action',
-            render: () => (
+            render: (data: {
+                cards: number
+                created: string
+                key: string
+                name: string
+                updated: string }) =>
+                (
                 <Space size="middle">
-                    <a>Изменить</a>
-                    <a>Удалить</a>
+                    <Button onClick={() => console.log(data)}>Изменить</Button>
+                    <Button type="primary" danger onClick={() => {
+                        props.remove(data.key);
+                    }}>Удалить</Button>
                 </Space>
             ),
         },
     ];
     const paginationSettings: PaginationProps = {
         pageSize: 5,
-        total: 2250,
+        total: props.cardsCount,
         onChange: (page: number) => {
             dispatch(getPacks({pageCount: 5, page}));
         },
         showSizeChanger: false,
     };
+
     const data: packItemType[] = [];
     props.packs.forEach( i => {
         data.push({
             key: i._id,
             name: i.name,
             cards: i.cardsCount,
-            updated: i.updated.toString(),
-            created: i.created.toString(),
+            updated: (DateMaker(i.updated)).toString(),
+            created: (DateMaker(i.created)).toString(),
         })
-    })
-    console.log(data)
+    });
     return <Table columns={columns} dataSource={data} pagination={{...paginationSettings, position: ['bottomCenter']}}/>
 }

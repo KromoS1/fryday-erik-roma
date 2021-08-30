@@ -12,7 +12,6 @@ type PropsType = {
 }
 
 export const Profile: FC<PropsType> = memo(props => {
-    console.log("render profile")
 
     const trackStyle: CSS.Properties[] = [
         {
@@ -30,7 +29,6 @@ export const Profile: FC<PropsType> = memo(props => {
 
     return (
         <>
-
             <div className={style.container}>
                 <div className={style.info}>
                     <div className={style.profileInfo}>

@@ -21,22 +21,33 @@ export type PackType = {
     user_id: string
     user_name: string
 }
+export type PacksStateType = {
+    cardsCount: number;
+    packs: PackType[];
+}
 
-const initialState: PackType[] = [];
+const initialState: PacksStateType = {
+    cardsCount: 0,
+    packs: []
+};
 
-export const setPacks = (packs: PackType[], user_id?: string) => ({
+export const setPacks = (packs: PackType[], cardsCount: number, user_id?: string) => ({
     type: 'PACKS/SET-PACKS',
     packs,
+    cardsCount,
     user_id
 } as const);
 
-export const PacksReducer = (state = initialState, action: PackAT): PackType[] => {
+export const PacksReducer = (state = initialState, action: PackAT): PacksStateType => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
             if (action.user_id) {
-                return action.packs.filter(pack => pack.user_id === action.user_id);
+                return {...state,
+                    packs: action.packs.filter(pack => pack.user_id === action.user_id),
+                    cardsCount: action.cardsCount
+                };
             }
-            return action.packs;
+            return {...state, packs: action.packs, cardsCount: action.cardsCount};
         default:
             return state
     }
@@ -46,7 +57,7 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async d
     dispatch(setStatusApp('load', ''));
     try {
         const data = await packApi.getPacks(getParams);
-        dispatch(setPacks(data.cardPacks));
+        dispatch(setPacks(data.cardPacks, data.cardPacksTotalCount));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {

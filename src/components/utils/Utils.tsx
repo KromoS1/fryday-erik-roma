@@ -12,3 +12,6 @@ export const RecoveryMessage = () => {
         </div>`
     )
 }
+export const DateMaker = (date: string) => {
+    return `${new Date(date).getDate()}.${new Date(date).getMonth()}.${new Date(date).getFullYear()}`
+}
