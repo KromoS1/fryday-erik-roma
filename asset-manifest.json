@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/fryday-erik-roma-pasha/static/css/main.5d881bc4.chunk.css",
-    "main.js": "/fryday-erik-roma-pasha/static/js/main.6df93a27.chunk.js",
-    "main.js.map": "/fryday-erik-roma-pasha/static/js/main.6df93a27.chunk.js.map",
-    "runtime-main.js": "/fryday-erik-roma-pasha/static/js/runtime-main.3df6eb2b.js",
-    "runtime-main.js.map": "/fryday-erik-roma-pasha/static/js/runtime-main.3df6eb2b.js.map",
+    "main.css": "/fryday-erik-roma-pasha/static/css/main.b550aa5a.chunk.css",
+    "main.js": "/fryday-erik-roma-pasha/static/js/main.5b3f056f.chunk.js",
+    "main.js.map": "/fryday-erik-roma-pasha/static/js/main.5b3f056f.chunk.js.map",
+    "runtime-main.js": "/fryday-erik-roma-pasha/static/js/runtime-main.d43b339a.js",
+    "runtime-main.js.map": "/fryday-erik-roma-pasha/static/js/runtime-main.d43b339a.js.map",
     "static/css/2.bb0da62a.chunk.css": "/fryday-erik-roma-pasha/static/css/2.bb0da62a.chunk.css",
-    "static/js/2.1cef6b5b.chunk.js": "/fryday-erik-roma-pasha/static/js/2.1cef6b5b.chunk.js",
-    "static/js/2.1cef6b5b.chunk.js.map": "/fryday-erik-roma-pasha/static/js/2.1cef6b5b.chunk.js.map",
-    "static/js/3.fb40c1a1.chunk.js": "/fryday-erik-roma-pasha/static/js/3.fb40c1a1.chunk.js",
-    "static/js/3.fb40c1a1.chunk.js.map": "/fryday-erik-roma-pasha/static/js/3.fb40c1a1.chunk.js.map",
+    "static/js/2.163a1e73.chunk.js": "/fryday-erik-roma-pasha/static/js/2.163a1e73.chunk.js",
+    "static/js/2.163a1e73.chunk.js.map": "/fryday-erik-roma-pasha/static/js/2.163a1e73.chunk.js.map",
+    "static/js/3.bdaafb66.chunk.js": "/fryday-erik-roma-pasha/static/js/3.bdaafb66.chunk.js",
+    "static/js/3.bdaafb66.chunk.js.map": "/fryday-erik-roma-pasha/static/js/3.bdaafb66.chunk.js.map",
     "index.html": "/fryday-erik-roma-pasha/index.html",
     "static/css/2.bb0da62a.chunk.css.map": "/fryday-erik-roma-pasha/static/css/2.bb0da62a.chunk.css.map",
-    "static/css/main.5d881bc4.chunk.css.map": "/fryday-erik-roma-pasha/static/css/main.5d881bc4.chunk.css.map",
-    "static/js/2.1cef6b5b.chunk.js.LICENSE.txt": "/fryday-erik-roma-pasha/static/js/2.1cef6b5b.chunk.js.LICENSE.txt",
+    "static/css/main.b550aa5a.chunk.css.map": "/fryday-erik-roma-pasha/static/css/main.b550aa5a.chunk.css.map",
+    "static/js/2.163a1e73.chunk.js.LICENSE.txt": "/fryday-erik-roma-pasha/static/js/2.163a1e73.chunk.js.LICENSE.txt",
+    "static/media/checkEmail.37bcebbd.jpg": "/fryday-erik-roma-pasha/static/media/checkEmail.37bcebbd.jpg",
     "static/media/Preloader.module.css": "/fryday-erik-roma-pasha/static/media/preloader_logo.e7fde383.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.3df6eb2b.js",
+    "static/js/runtime-main.d43b339a.js",
     "static/css/2.bb0da62a.chunk.css",
-    "static/js/2.1cef6b5b.chunk.js",
-    "static/css/main.5d881bc4.chunk.css",
-    "static/js/main.6df93a27.chunk.js"
+    "static/js/2.163a1e73.chunk.js",
+    "static/css/main.b550aa5a.chunk.css",
+    "static/js/main.5b3f056f.chunk.js"
   ]
 }
