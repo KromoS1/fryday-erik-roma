@@ -30,7 +30,9 @@ export const recoveryPassword = (recoveryParams: ParamsForgotType): AppThunkType
         await authApi.forgot(recoveryParams);
         dispatch(setSendStatus(true));
     } catch (error) {
-        dispatch(setStatusApp('error', error.message));
+        if (error) {
+            dispatch(setStatusApp('error', 'Email address not found.'));
+        }
     } finally {
         dispatch(setStatusApp('idle', ''));
     }

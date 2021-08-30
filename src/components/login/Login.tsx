@@ -7,8 +7,8 @@ import {NavLink, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../app/Store';
 import {loginAccount} from "./LoginReducer";
-import {Status} from "../statusApp/StatusAppReducer";
-import {Preloader} from "../../commonComponents/preloader/Preloader";
+import {StatusApp} from "../statusApp/StatusAppReducer";
+import {alertMessage} from "../utils/Utils";
 
 interface ValuesType {
     email: string
@@ -66,13 +66,13 @@ export const Login: FC = memo(() => {
 
     const dispatch = useDispatch();
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
-    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
+    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
+
+    alertMessage(statusApp.status,statusApp.message);
 
     if (isAuth){
         return <Redirect to={"/"}/>
     }
-
-    if (statusApp === 'load') return <Preloader/>
 
     const submit = (data: ValuesType) => {
         dispatch(loginAccount({...data,rememberMe:true}));

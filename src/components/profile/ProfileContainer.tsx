@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../app/Store';
 import {Redirect} from 'react-router-dom';
 import {logoutAccount} from '../login/LoginReducer';
-import {Status} from "../statusApp/StatusAppReducer";
-import {Preloader} from "../../commonComponents/preloader/Preloader";
+import {StatusApp} from "../statusApp/StatusAppReducer";
+import {alertMessage} from "../utils/Utils";
 
 export type ProfileType = {
     _id: string
@@ -24,13 +24,13 @@ export const ProfileContainer = memo(() => {
     const dispatch = useDispatch();
     const profile = useSelector<AppRootStateType,ProfileType>(state => state.profile);
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
-    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
+    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
+
+    alertMessage(statusApp.status,statusApp.message);
 
     if (!isAuth){
         return <Redirect to={"/login"}/>
     }
-
-    if (statusApp === 'load') return <Preloader/>
 
     const logOut = () => {
         dispatch(logoutAccount());

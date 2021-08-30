@@ -2,13 +2,16 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {getPacks, PackType, removePack} from "./PacksReducer";
+import {alertMessage} from "../utils/Utils";
+import {StatusApp} from "../statusApp/StatusAppReducer";
 
 export const Pack = () => {
     const packs = useSelector<AppRootStateType,PackType[]>(state => state.packs);
     const meID = useSelector<AppRootStateType,string>(state => state.profile._id);
+    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
     const dispatch = useDispatch();
 
-    console.log('render pack')
+    alertMessage(statusApp.status,statusApp.message);
 
     useEffect(() => {
         dispatch(getPacks({user_id:meID}));

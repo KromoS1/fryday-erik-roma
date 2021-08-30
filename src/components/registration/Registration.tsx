@@ -6,8 +6,8 @@ import {fieldComponent} from '../../commonComponents/commonComponentsForm/FieldC
 import {useDispatch, useSelector} from 'react-redux';
 import {getRegistration} from "./RegistrationReducer";
 import {AppRootStateType} from "../../app/Store";
-import {Status} from "../statusApp/StatusAppReducer";
-import {Preloader} from "../../commonComponents/preloader/Preloader";
+import {StatusApp} from "../statusApp/StatusAppReducer";
+import {alertMessage} from "../utils/Utils";
 
 interface ValuesType {
     email: string
@@ -74,9 +74,9 @@ export const FormRegistration: FC<PropsType> = props => {
 export const Registration = () => {
 
     const dispatch = useDispatch();
-    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
+    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
 
-    if (statusApp === 'load') return <Preloader/>
+    alertMessage(statusApp.status,statusApp.message);
 
     const sendData = (data: ValuesType) => {
         let {email,password} = data;
