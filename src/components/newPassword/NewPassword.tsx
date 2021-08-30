@@ -7,8 +7,6 @@ import {Form} from "antd";
 import style from './NewPasswordStyle.module.scss'
 import {fieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
 import {formItemLayout} from "../registration/Registration";
-import {StatusApp} from "../statusApp/StatusAppReducer";
-import {alertMessage} from "../utils/Utils";
 
 interface NewPasswordValuesType {
     password: string
@@ -52,10 +50,7 @@ export const NewPasswordForm: FC<NewPasswordFormPropsType> = memo(({onSubmit}) =
 export const NewPasswordComponent: FC = memo(() => {
     const dispatch = useDispatch();
     const { token } = useParams<{token: string}>();
-    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
     const changePasswordStatus = useSelector<AppRootStateType, boolean>(state => state.creatingPasswordInfo.setPasswordStatus);
-
-    alertMessage(statusApp.status,statusApp.message);
 
     if (changePasswordStatus) {
         return <Redirect to={"/login"}/>

@@ -15,7 +15,6 @@ export const Pack = () => {
 
     useEffect(() => {
         dispatch(getPacks({user_id:meID}));
-        // dispatch(putPacks({_id:'612b495a8f639c0004ce1389', name:'Roma'}))
     },[dispatch])
 
     const remove = (id:string) => {
