@@ -8,7 +8,7 @@ import {DateMaker} from "../../components/utils/Utils";
 
 type PropsType = {
     packs: PackType[],
-    cardsCount: number
+    packsCount: number
     remove: (id: string) => void
 };
 export type packItemType = {
@@ -22,7 +22,6 @@ export type packItemType = {
 export const TableForPacks = (props: PropsType) => {
     const dispatch = useDispatch();
     const getSortedDateIntoColumns =  (a: packItemType, b: packItemType) => {
-           //todo доделаю завтра
             return new Date(a.created) > new Date(b.created) ? -1 : 1
         }
 
@@ -75,7 +74,7 @@ export const TableForPacks = (props: PropsType) => {
     ];
     const paginationSettings: PaginationProps = {
         pageSize: 5,
-        total: props.cardsCount,
+        total: props.packsCount,
         onChange: (page: number) => {
             dispatch(getPacks({pageCount: 5, page}));
         },

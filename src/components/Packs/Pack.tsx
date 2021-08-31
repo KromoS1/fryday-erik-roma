@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {getPacks, PacksStateType, PackType, removePack} from "./PacksReducer";
 import {CardsType} from "../../api/CardsAPI";
-import {CardsStateType} from "../Cards/CardsReducer";
 import {TableForPacks} from "../../commonComponents/EditableTable/TableForCards";
 
 type PropsType = {
@@ -24,14 +23,13 @@ export const Pack: FC<PropsType> = memo(props => {
 
 
 export const PackContainer = () => {
-    const {packs, cardsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
-    const cards = useSelector<AppRootStateType, CardsStateType>(state => state.cards);
-    const meID = useSelector<AppRootStateType, string>(state => state.profile._id);
+    const {packs, packsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
     const dispatch = useDispatch();
+    const meID = useSelector<AppRootStateType, string>(state => state.profile._id);
 
     useEffect(() => {
-        dispatch(getPacks({pageCount: 5}));
-        // dispatch(putPacks({_id:'612b495a8f639c0004ce1389', name:'Roma'}))
+        // dispatch(getPacks({pageCount: 5}));
+        dispatch(getPacks({page: 1, pageCount: 5}))
     }, [dispatch])
 
     const remove = (id: string) => {
@@ -40,7 +38,7 @@ export const PackContainer = () => {
 
     return (
         <>
-           <TableForPacks packs={packs} cardsCount={cardsCount} remove={remove}/>
+           <TableForPacks packs={packs} packsCount={packsCount} remove={remove}/>
         </>
     )
 }
