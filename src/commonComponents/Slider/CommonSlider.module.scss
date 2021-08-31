@@ -1,0 +1,5 @@
+@import "./src/stylesCommon/StyleMain";
+
+.numberCards {
+  @include NumberCards();
+}
