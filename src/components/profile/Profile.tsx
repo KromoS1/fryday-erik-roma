@@ -3,10 +3,13 @@ import {ProfileType} from "./ProfileContainer";
 import style from './Profile.module.scss';
 import {PackContainer} from "../Packs/Pack";
 import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
+import {Route, Switch} from "react-router-dom";
+import {PATH} from "../Routes";
 
 
 type PropsType = {
     profile: ProfileType
+    meID: string
     logOut: () => void
 }
 
@@ -36,7 +39,10 @@ export const Profile: FC<PropsType> = memo(props => {
 
                         </div>
                         <div className={style.packTable}>
-                            <PackContainer/>
+                            <Switch>
+                                <Route path={PATH.PACKS_PROFILE} render={() => <PackContainer meID={props.meID}/>}/>
+                            </Switch>
+                            {/*<PackContainer meID={props.meID} />*/}
                         </div>
                     </div>
                 </div>

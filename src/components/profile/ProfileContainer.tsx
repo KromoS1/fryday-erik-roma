@@ -22,6 +22,7 @@ export const ProfileContainer = memo(() => {
     const dispatch = useDispatch();
     const profile = useSelector<AppRootStateType,ProfileType>(state => state.profile);
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
+    const meID = useSelector<AppRootStateType,string>(state => state.profile._id);
 
     if (!isAuth){
         return <Redirect to={"/login"}/>
@@ -33,7 +34,7 @@ export const ProfileContainer = memo(() => {
 
     return (
         <>
-            <Profile profile={profile} logOut={logOut}/>
+            <Profile profile={profile} logOut={logOut} meID={meID}/>
         </>
     )
 });

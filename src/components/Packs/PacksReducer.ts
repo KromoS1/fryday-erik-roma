@@ -22,19 +22,19 @@ export type PackType = {
     user_name: string
 }
 export type PacksStateType = {
-    cardsCount: number;
+    packsCount: number;
     packs: PackType[];
 }
 
 const initialState: PacksStateType = {
-    cardsCount: 0,
+    packsCount: 0,
     packs: []
 };
 
-export const setPacks = (packs: PackType[], cardsCount: number, user_id?: string) => ({
+export const setPacks = (packs: PackType[], packsCount: number, user_id?: string) => ({
     type: 'PACKS/SET-PACKS',
     packs,
-    cardsCount,
+    packsCount,
     user_id
 } as const);
 
@@ -44,10 +44,10 @@ export const PacksReducer = (state = initialState, action: PackAT): PacksStateTy
             if (action.user_id) {
                 return {...state,
                     packs: action.packs.filter(pack => pack.user_id === action.user_id),
-                    cardsCount: action.cardsCount
+                    packsCount: action.packsCount
                 };
             }
-            return {...state, packs: action.packs, cardsCount: action.cardsCount};
+            return {...state, packs: action.packs, packsCount: action.packsCount};
         default:
             return state
     }
@@ -65,11 +65,11 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async d
     }
 }
 
-export const addPack = (cardsPack: { name: string, private: boolean }): AppThunkType => async dispatch => {
+export const addPack = (cardsPack: { name: string, private: boolean }, userId?: string): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.addPack(cardsPack);
-        dispatch(getPacks({}));
+        dispatch(getPacks({pageCount: 5, page: 1, user_id: userId}));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {

@@ -3,16 +3,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {getPacks, PacksStateType, PackType, removePack} from "./PacksReducer";
 import {CardsType} from "../../api/CardsAPI";
-import {CardsStateType} from "../Cards/CardsReducer";
-import {TableForPacks} from "../../commonComponents/EditableTable/TableForCards";
+import {PacksTable} from "../../commonComponents/EditableTable/PacksTable";
 
-type PropsType = {
+type PackPropstype = {
     pack: PackType
     cards: CardsType[]
     remove: (id: string) => void
 }
 
-export const Pack: FC<PropsType> = memo(props => {
+type PacksContainerType = {
+    meID?: string
+}
+
+export const Pack: FC<PackPropstype> = memo(props => {
 
     return (
         <>
@@ -23,15 +26,14 @@ export const Pack: FC<PropsType> = memo(props => {
 })
 
 
-export const PackContainer = () => {
-    const {packs, cardsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
-    const cards = useSelector<AppRootStateType, CardsStateType>(state => state.cards);
-    const meID = useSelector<AppRootStateType, string>(state => state.profile._id);
+export const PackContainer: FC<PacksContainerType> = props => {
+    const {packs, packsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getPacks({pageCount: 5}));
-        // dispatch(putPacks({_id:'612b495a8f639c0004ce1389', name:'Roma'}))
+        props.meID
+            ? dispatch(getPacks({page: 1, pageCount: 5, user_id: props.meID}))
+            : dispatch(getPacks({page: 1, pageCount: 5,}))
     }, [dispatch])
 
     const remove = (id: string) => {
@@ -40,7 +42,7 @@ export const PackContainer = () => {
 
     return (
         <>
-           <TableForPacks packs={packs} cardsCount={cardsCount} remove={remove}/>
+            <PacksTable packs={packs} packsCount={packsCount} remove={remove} meID={props.meID}/>
         </>
     )
 }
