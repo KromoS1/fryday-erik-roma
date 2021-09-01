@@ -6,8 +6,8 @@ import {profileReducer, ProfileReducerAT} from "../components/profile/ProfileRed
 import {recoveryPasswordReducer, RecoveryPasswordAT} from "../components/recoveryPassword/RecoveryPasswordReducer";
 import {newPasswordReducer, NewPasswordAT} from "../components/newPassword/NewPasswordReducer";
 import {StatusAppAT, statusAppReducer} from "../components/statusApp/StatusAppReducer";
-import {PackAT, PacksReducer} from "../components/Packs/PacksReducer";
 import {CardAT, CardsReducer} from "../components/Cards/CardsReducer";
+import {PackAT, PacksReducer} from "../components/packs/PacksReducer";
 
 
 export const rootReducer = combineReducers({

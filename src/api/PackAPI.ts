@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {PackType} from "../components/Packs/PacksReducer";
+import {PackType} from "../components/packs/PacksReducer";
 
 export type ParamsGetPacksType = {
     user_id?: string
