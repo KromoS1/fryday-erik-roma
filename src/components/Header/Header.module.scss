@@ -1,0 +1,41 @@
+@import './src/stylesCommon/StyleCommon';
+@import './src/stylesCommon/StyleAuth';
+@import './src/stylesCommon/StyleMain';
+
+
+
+.container{
+  @include displayFlex(row, space-around, center);
+  width: 100%;
+  height: 60px;
+  background: #EBE0E9;
+
+  .title{
+    @include h4();
+  }
+
+  .navBar{
+    @include displayFlex(row, "", center);
+    width: 346px;
+    height: 100%;
+
+    .navInactive{
+      @include NavBtnInactive();
+    }
+
+    .navActive{
+      @include NavBtnActive();
+    }
+  }
+
+  .button{
+    @include buttonsContainerAuth();
+    width: 15%;
+    padding-bottom: 20px;
+
+    .btnLog{
+      @include MainButton();
+    }
+  }
+}
+

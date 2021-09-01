@@ -70,3 +70,24 @@
     color: #1b4db3;
   }
 }
+
+@mixin NavBtnActive{
+  @include h6();
+  margin-bottom: 0;
+  text-align: center;
+  width: 346px;
+  height: 100%;
+  background: #DCCCDB;
+  border: none;
+  border-bottom: 2px solid #21268F;
+}
+
+@mixin NavBtnInactive {
+  @include h6();
+  margin-bottom: 0;
+  text-align: center;
+  width: 346px;
+  height: 100%;
+  background: #EBE0E9;
+  border: none;
+}
