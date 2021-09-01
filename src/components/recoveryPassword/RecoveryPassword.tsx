@@ -8,8 +8,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {recoveryPassword} from "./RecoveryPasswordReducer";
 import {RecoveryMessage} from "../utils/Utils";
-import {Status} from "../statusApp/StatusAppReducer";
-import {Preloader} from "../../commonComponents/preloader/Preloader";
 
 interface ValuesType {
     email: string
@@ -59,10 +57,7 @@ export const FormRecoveryPassword: FC<PropsType> = props => {
 export const RecoveryPassword: FC = memo(() => {
     const [userEmail, setUserEmail] = useState<string>('');
     const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend);
-    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
     const dispatch = useDispatch();
-
-    if (statusApp === 'load') return <Preloader/>
 
     const sendData = (data: ValuesType) => {
         setUserEmail(data.email);

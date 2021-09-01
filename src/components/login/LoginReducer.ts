@@ -31,7 +31,7 @@ export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => dispa
         .then(res => {
             dispatch(setUserData(res.data));
             dispatch(setIsAuth(true));
-            dispatch(setStatusApp('success','Success'))
+            dispatch(setStatusApp('success','You have successfully signed in to your account.'))
         })
         .catch(error => {
             dispatch(setStatusApp('error',error.message))

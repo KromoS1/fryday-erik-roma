@@ -58,6 +58,7 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async d
     try {
         const data = await packApi.getPacks(getParams);
         dispatch(setPacks(data.cardPacks, data.cardPacksTotalCount));
+        dispatch(setStatusApp('success', 'Success!'));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {

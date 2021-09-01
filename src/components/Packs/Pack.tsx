@@ -5,7 +5,7 @@ import {getPacks, PacksStateType, PackType, removePack} from "./PacksReducer";
 import {CardsType} from "../../api/CardsAPI";
 import {PacksTable} from "../../commonComponents/EditableTable/PacksTable";
 
-type PackPropstype = {
+type PackPropsType = {
     pack: PackType
     cards: CardsType[]
     remove: (id: string) => void
@@ -15,7 +15,7 @@ type PacksContainerType = {
     meID?: string
 }
 
-export const Pack: FC<PackPropstype> = memo(props => {
+export const Pack: FC<PackPropsType> = memo(props => {
 
     return (
         <>
@@ -35,6 +35,8 @@ export const PackContainer: FC<PacksContainerType> = props => {
             ? dispatch(getPacks({page: 1, pageCount: 5, user_id: props.meID}))
             : dispatch(getPacks({page: 1, pageCount: 5,}))
     }, [dispatch])
+
+
 
     const remove = (id: string) => {
         dispatch(removePack(id));

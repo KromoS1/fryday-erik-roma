@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../app/Store';
 import {Redirect} from 'react-router-dom';
 import {logoutAccount} from '../login/LoginReducer';
+import { StatusApp } from '../statusApp/StatusAppReducer';
+import {alertMessage} from "../utils/Utils";
 
 export type ProfileType = {
     _id: string
@@ -23,6 +25,9 @@ export const ProfileContainer = memo(() => {
     const profile = useSelector<AppRootStateType,ProfileType>(state => state.profile);
     const isAuth = useSelector<AppRootStateType,boolean>(state => state.login.isAuth);
     const meID = useSelector<AppRootStateType,string>(state => state.profile._id);
+    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
+
+    alertMessage(statusApp.status,statusApp.message);
 
     if (!isAuth){
         return <Redirect to={"/login"}/>
@@ -38,3 +43,5 @@ export const ProfileContainer = memo(() => {
         </>
     )
 });
+
+
