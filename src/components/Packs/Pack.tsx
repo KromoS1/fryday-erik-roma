@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {getPacks, PacksStateType, PackType, removePack} from "./PacksReducer";
 import {CardsType} from "../../api/CardsAPI";
-import {TableForPacks} from "../../commonComponents/EditableTable/TableForCards";
+import {TableForPacks} from "../../commonComponents/EditableTable/TableForPacks";
 
 type PropsType = {
     pack: PackType
