@@ -11,7 +11,7 @@ import {AppRootStateType} from '../app/Store';
 import {initializeApp} from './login/LoginReducer';
 import {Preloader} from '../commonComponents/preloader/Preloader';
 import {ChekEmail} from "./chekEmail/ChekEmail";
-import {PacksContainer} from "./Packs/PacksContainer";
+import {PacksPage} from "./Packs/PacksPage";
 
 export const PATH = {
     LOGIN: '/login',
@@ -20,7 +20,7 @@ export const PATH = {
     NEW_PASSWORD: '/set-new-password/:token?',
     RECOVERY_PASSWORD: '/recovery-password',
     CHEK_EMAIL: '/chek-email',
-    PACK: '/packs',
+    PACKS: '/packs',
     CARDS: '/cards',
 }
 
@@ -46,7 +46,7 @@ export const Routes = () => {
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPasswordComponent/>}/>
                 <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
                 <Route path={PATH.CHEK_EMAIL} render={() => <ChekEmail/>}/>
-                <Route path={PATH.PACK} render={() => <PacksContainer/>}/>
+                <Route path={PATH.PACKS} render={() => <PacksPage/>}/>
                 {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
                 <Route render={() => <Error404/>}/>
             </Switch>

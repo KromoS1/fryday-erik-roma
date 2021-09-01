@@ -22,7 +22,6 @@ export const Profile: FC<PropsType> = memo(props => {
                                 alt="#"
                                 className={style.avatar}
                             />
-
                             <div className={style.name}>Pavel Nikalaichyk</div>
                             <div className={style.status}>Front-end developer</div>
                             <div className={style.button}>

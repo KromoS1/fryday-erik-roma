@@ -1,11 +1,10 @@
 import React, {FC} from 'react';
 import style from "./Packs.module.scss";
-import {PackContainer} from "./Pack";
 import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
+import {PackContainer} from "./Pack";
 
 
-export const Packs: FC = () => {
-
+export const PacksPage: FC = () => {
     return (
         <>
             <div className={style.container}>
