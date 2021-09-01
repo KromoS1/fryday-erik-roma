@@ -73,7 +73,7 @@ export const Login: FC = memo(() => {
     alertMessage(statusApp.status,statusApp.message);
 
     if (isAuth){
-        return <Redirect to={"/"}/>
+        return <Redirect to={"/profile"}/>
     }
 
     const submit = (data: ValuesType) => {

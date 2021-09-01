@@ -4,19 +4,19 @@ import {AppRootStateType} from "../../app/Store";
 import {getPacks, PacksStateType, PackType, removePack} from "./PacksReducer";
 import {CardsType} from "../../api/CardsAPI";
 import {PacksTable} from "../../commonComponents/EditableTable/PacksTable";
+import {ComponentNameType} from "./PacksPage";
 
-type PackPropsType = {
+type PackPropsType =ComponentNameType & {
     pack: PackType
     cards: CardsType[]
     remove: (id: string) => void
 }
 
-type PacksContainerType = {
+type PacksContainerType = ComponentNameType & {
     meID?: string
 }
 
 export const Pack: FC<PackPropsType> = memo(props => {
-
     return (
         <>
             {props.pack.name}
@@ -24,7 +24,6 @@ export const Pack: FC<PackPropsType> = memo(props => {
         </>
     )
 })
-
 
 export const PackContainer: FC<PacksContainerType> = props => {
     const {packs, packsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
@@ -36,15 +35,13 @@ export const PackContainer: FC<PacksContainerType> = props => {
             : dispatch(getPacks({page: 1, pageCount: 5,}))
     }, [dispatch])
 
-
-
     const remove = (id: string) => {
         dispatch(removePack(id));
     }
 
     return (
         <>
-            <PacksTable packs={packs} packsCount={packsCount} remove={remove} meID={props.meID}/>
+            <PacksTable packs={packs} packsCount={packsCount} remove={remove} meID={props.meID} name={"packs"}/>
         </>
     )
 }

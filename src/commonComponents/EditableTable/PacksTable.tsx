@@ -3,11 +3,12 @@ import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
-import {getPacks, PackType} from "../../components/Packs/PacksReducer";
+import {getPacks, PackType} from "../../components/packs/PacksReducer";
 import {DateMaker} from "../../components/utils/Utils";
 import {NavLink} from 'react-router-dom';
+import {ComponentNameType} from "../../components/packs/PacksPage";
 
-type PropsType = {
+type PropsType = ComponentNameType & {
     packs: PackType[],
     packsCount: number
     meID?: string
@@ -30,8 +31,8 @@ export const PacksTable = (props: PropsType) => {
 
     const getPacksForTable = (page: number) => {
         props.meID
-        ? dispatch(getPacks({page:page, pageCount:5, user_id: props.meID}))
-        : dispatch(getPacks({page:page, pageCount:5,}))
+            ? dispatch(getPacks({page: page, pageCount: 5, user_id: props.meID}))
+            : dispatch(getPacks({page: page, pageCount: 5,}))
     }
 
     const data: PackItemType[] = [];
@@ -50,9 +51,8 @@ export const PacksTable = (props: PropsType) => {
             title: 'Name',
             key: 'name',
             render: (data: PackItemType) => {
-                return <>
-                    <NavLink to={`/cards/${data.key}`}>{data.name}</NavLink>
-                </>
+                if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
+                if (props.name === 'profile') return <><NavLink to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
             },
             sorter: (a: PackItemType, b: PackItemType) => {
                 return a.name > b.name ? -1 : 1
