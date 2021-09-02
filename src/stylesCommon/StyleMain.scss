@@ -3,11 +3,13 @@
 
 @mixin Container{
   width: 85%;
-  height: 90%;
+  height: 85%;
   background: #FEFEFF;
   border-radius: 8px;
+  margin-top:3%;
   @include displayFlex(row, "", center);
 }
+
 @mixin Slider{
   background: #ECECF9;
   border-radius: 8px 0 0 8px;
@@ -21,13 +23,15 @@
     height: 100%;
   }
 }
+
 @mixin SliderHeader{
   width: 100%;
-  height: 34%;
+  min-height: 34%;
   background: #D9D9F1;
   border-radius: 8px 0 0 0;
   padding: 10px;
 }
+
 @mixin NumberCards{
   @include displayFlex(column, "", center);
 
@@ -49,9 +53,7 @@
     margin-top: 40px;
   }
 }
-@mixin Table{
 
-}
 @mixin MainButton{
   @include Button();
   padding: 3px;
@@ -73,6 +75,7 @@
 
 @mixin NavBtnActive{
   @include h6();
+  cursor: pointer;
   margin-bottom: 0;
   text-align: center;
   width: 346px;
@@ -80,10 +83,12 @@
   background: #DCCCDB;
   border: none;
   border-bottom: 2px solid #21268F;
+  text-decoration: none;
 }
 
 @mixin NavBtnInactive {
   @include h6();
+  cursor: pointer;
   margin-bottom: 0;
   text-align: center;
   width: 346px;

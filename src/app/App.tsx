@@ -6,6 +6,7 @@ import {initializeApp} from "../components/login/LoginReducer";
 import {Preloader} from "../commonComponents/preloader/Preloader";
 import {Route, Switch} from "react-router-dom";
 import {authorizedRoutes, unauthorizedRoutes} from "../routes/Routes";
+import {Header} from "../components/Header/Header";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -34,6 +35,7 @@ export const App = () => {
 
     return (
         <div className={style.page}>
+            <Header/>
             <Switch>
                 {authorizedRoutes.map((route) => (
                     <Route key={route.name} {...route} />

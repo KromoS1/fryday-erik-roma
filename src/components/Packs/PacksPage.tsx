@@ -8,7 +8,7 @@ import {CardsContainer} from "../Cards/Cards";
 import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
 
 export type ComponentNameType = {
-    name:'profile' | 'packs'
+    name: 'profile' | 'packs'
 }
 
 export const PacksPage: FC = () => {

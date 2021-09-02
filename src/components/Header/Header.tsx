@@ -1,25 +1,22 @@
 import React, {FC, memo, useState} from 'react';
 import style from './Header.module.scss'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
-
+import {NavLink} from 'react-router-dom';
+import {logoutAccount} from "../login/LoginReducer";
 
 export const Header: FC = memo(() => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.login.isAuth)
-
-    const [isPack, setIsPack] = useState(false);
-    const [isProfile, setIsProfile] = useState(true);
+    const dispatch = useDispatch();
+    const [isHover, setIsHover] = useState(false);
 
     const setActivePack = () => {
-        setIsPack(true)
-        setIsProfile(false)
+        setIsHover(!isHover)
     }
 
-    const setActiveProfile = () => {
-        setIsProfile(true)
-        setIsPack(false)
+    const logOutAcc = () => {
+        dispatch(logoutAccount())
     }
-
 
     return (
         <div className={style.container}>
@@ -27,21 +24,17 @@ export const Header: FC = memo(() => {
                 <div>It-Incubator</div>
             </div>
             <div className={style.navBar}>
-                <button
-                    className={isPack? style.navActive : style.navInactive}
-                    onClick={() => setActivePack()}
-                >
+                <NavLink to={'/packs'} className={isHover ? style.navActive : style.navInactive}
+                         onClick={() => setActivePack()}>
                     Packs List
-                </button>
-                <button
-                    className={isProfile? style.navActive : style.navInactive}
-                    onClick={() => setActiveProfile()}
-                >
+                </NavLink>
+                <NavLink to={'/profile'} className={isHover ? style.navInactive : style.navActive}
+                         onClick={() => setActivePack()}>
                     Profile
-                </button>
+                </NavLink>
             </div>
             <div className={style.button}>
-                {isAuth && <button className={style.btnLog}>Logout</button>}
+                {isAuth && <button className={style.btnLog} onClick={() => logOutAcc()}>Logout</button>}
             </div>
         </div>
     )

@@ -33,6 +33,12 @@ const commonRoutes = [
         name: 'errorRoute',
         exact: false,
     },
+    {
+        path: '/profile',
+        component: ProfileContainer,
+        name: 'ProfileRoute',
+        exact: false,
+    },
 
 ]
 export const unauthorizedRoutes = [

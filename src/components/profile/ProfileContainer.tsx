@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {logoutAccount} from '../login/LoginReducer';
 import { StatusApp } from '../statusApp/StatusAppReducer';
 import {alertMessage} from "../utils/Utils";
+import {Header} from "../Header/Header";
 
 export type ProfileType = {
     _id: string
