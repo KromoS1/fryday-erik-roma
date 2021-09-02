@@ -6,7 +6,7 @@ import React from "react";
 import {RecoveryPassword} from "../components/recoveryPassword/RecoveryPassword";
 import {ChekEmail} from "../components/chekEmail/ChekEmail";
 import {PacksPage} from "../components/packs/PacksPage";
-import {CardsContainer} from "../components/Cards/Cards";
+import {Redirect} from "react-router-dom";
 
 export type RoutesType = {
     path: string
@@ -59,13 +59,13 @@ export const authorizedRoutes = [
         name: 'PackRoute',
         exact: false,
     },
-]
+    // {
+    //     path: '/',
+    //     children: () => {
+    //         return <Redirect to={'profile'}/>
+    //     },
+    //     name: 'PackRoute',
+    //     exact: true,
+    // },
 
-export const dataRoute = [
-    {
-        path: '/cards/:pack_id',
-        component: CardsContainer,
-        name: 'CardsRoute',
-        exact: false,
-    },
 ]
