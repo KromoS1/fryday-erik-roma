@@ -4,7 +4,12 @@ import {Button, Space, Table} from 'antd';
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
 import {getPacks, PackType} from "../../components/packs/PacksReducer";
-import {DateMaker} from "../../components/utils/Utils";
+import {
+    DateMaker,
+    getPaginationSettings,
+    getSortedDateIntoColumns,
+    getSortedStringsDataColumns
+} from "../../components/utils/Utils";
 import {NavLink} from 'react-router-dom';
 import {ComponentNameType} from "../../components/packs/PacksPage";
 
@@ -24,11 +29,6 @@ export type PackItemType = {
 
 export const PacksTable = (props: PropsType) => {
     const dispatch = useDispatch();
-
-    const getSortedDateIntoColumns = (a: PackItemType, b: PackItemType) => {
-        return new Date(a.created) > new Date(b.created) ? -1 : 1
-    }
-
     const getPacksForTable = (page: number) => {
         props.meID
             ? dispatch(getPacks({page: page, pageCount: 5, user_id: props.meID}))
@@ -54,9 +54,7 @@ export const PacksTable = (props: PropsType) => {
                 if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
                 if (props.name === 'profile') return <><NavLink to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
             },
-            sorter: (a: PackItemType, b: PackItemType) => {
-                return a.name > b.name ? -1 : 1
-            },
+            sorter: getSortedStringsDataColumns,
         },
         {
             title: 'Cards',
@@ -90,15 +88,11 @@ export const PacksTable = (props: PropsType) => {
                 ),
         },
     ];
-    const paginationSettings: PaginationProps = {
-        pageSize: 5,
-        total: props.packsCount,
-        onChange: (page: number) => {
-            getPacksForTable(page);
-        },
-        showSizeChanger: false,
-    };
 
-
-    return <Table columns={columns} dataSource={data} pagination={{...paginationSettings, position: ['bottomCenter']}}/>
+    return <Table columns={columns}
+                  dataSource={data}
+                  pagination={
+                      {...getPaginationSettings(props.packsCount,(page: number) => {getPacksForTable(page)}),
+                          position: ['bottomCenter']}
+                  }/>
 }

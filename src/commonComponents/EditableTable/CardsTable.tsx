@@ -1,15 +1,14 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import {Table} from 'antd';
-import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
-import {DateMaker} from "../../components/utils/Utils";
+import {DateMaker, getPaginationSettings} from "../../components/utils/Utils";
 import {CardsType} from "../../api/CardsAPI";
-import {getPacks} from "../../components/packs/PacksReducer";
+import {getCards} from "../../components/Cards/CardsReducer";
 
 type PropsType = {
     cards: CardsType[],
-    packsCount: number
+    cardsCount: number
 };
 export type cardsItemType = {
     key: string,
@@ -20,9 +19,13 @@ export type cardsItemType = {
 };
 
 export const CardsTable = (props: PropsType) => {
+    const packID = props.cards[0].cardsPack_id
     const dispatch = useDispatch();
     const getSortedDateIntoColumns =  (a: cardsItemType, b: cardsItemType) => {
         return new Date(a.lastUpdate) > new Date(b.lastUpdate) ? -1 : 1
+    }
+    const getCardsForTable = (page: number) => {
+        dispatch(getCards({pageCount: 5, cardsPack_id: packID,page}));
     }
     const columns = [
         {
@@ -67,13 +70,5 @@ export const CardsTable = (props: PropsType) => {
             grade: i.rating,
         })
     });
-    const paginationSettings: PaginationProps = {
-        pageSize: 5,
-        total: props.packsCount,
-        onChange: (page: number) => {
-            dispatch(getPacks({pageCount: 5, page}));
-        },
-        showSizeChanger: false,
-    };
-    return <Table columns={columns} dataSource={data} pagination={{...paginationSettings, position: ['bottomCenter']}}/>
+    return <Table columns={columns} dataSource={data} pagination={{...getPaginationSettings(props.cardsCount,getCardsForTable), position: ['bottomCenter']}}/>
 }
