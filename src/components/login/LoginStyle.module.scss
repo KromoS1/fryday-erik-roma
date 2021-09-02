@@ -9,7 +9,6 @@
     
     height: 100%;
     @include displayFlex(column,space-around,center);
-    background-color:red;
 
     .title{
       @include h1();

@@ -3,9 +3,9 @@ import 'antd/dist/antd.css';
 import {Table} from 'antd';
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
-import {getPacks} from "../../components/Packs/PacksReducer";
 import {DateMaker} from "../../components/utils/Utils";
 import {CardsType} from "../../api/CardsAPI";
+import {getPacks} from "../../components/packs/PacksReducer";
 
 type PropsType = {
     cards: CardsType[],

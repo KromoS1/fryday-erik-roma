@@ -39,7 +39,7 @@ export const ProfileContainer = memo(() => {
 
     return (
         <>
-            <Profile profile={profile} logOut={logOut} meID={meID}/>
+            <Profile profile={profile} logOut={logOut} meID={meID} name={'profile'}/>
         </>
     )
 });

@@ -2,8 +2,8 @@ import React, {FC} from 'react'
 import {Input, Space} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
-import {getPacks} from "../../components/Packs/PacksReducer";
 import {Status} from "../../components/statusApp/StatusAppReducer";
+import {getPacks} from "../../components/packs/PacksReducer";
 
 export const SearchInput:FC = () => {
     const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
