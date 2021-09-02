@@ -52,7 +52,7 @@ export const PacksTable = (props: PropsType) => {
             key: 'name',
             render: (data: PackItemType) => {
                 if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
-                if (props.name === 'profile') return <><NavLink to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
+                if (props.name === 'profile') return <><NavLink to={`/cards/${data.key}`}>{data.name}</NavLink></>
             },
             sorter: (a: PackItemType, b: PackItemType) => {
                 return a.name > b.name ? -1 : 1

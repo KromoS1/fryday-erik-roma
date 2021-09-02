@@ -28,7 +28,7 @@ export const Header: FC = memo(() => {
                          onClick={() => setActivePack()}>
                     Packs List
                 </NavLink>
-                <NavLink to={'/profile'} className={isHover ? style.navInactive : style.navActive}
+                <NavLink to={'/'} className={isHover ? style.navInactive : style.navActive}
                          onClick={() => setActivePack()}>
                     Profile
                 </NavLink>

@@ -2,11 +2,11 @@ import React, {useEffect} from 'react';
 import style from './AppStyle.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Store";
-import {initializeApp} from "../components/login/LoginReducer";
 import {Preloader} from "../commonComponents/preloader/Preloader";
 import {Route, Switch} from "react-router-dom";
 import {authorizedRoutes, unauthorizedRoutes} from "../routes/Routes";
 import {Header} from "../components/Header/Header";
+import {initializeApp} from "../components/profile/ProfileReducer";
 
 export const App = () => {
     const dispatch = useDispatch();

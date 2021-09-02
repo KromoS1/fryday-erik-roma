@@ -1,7 +1,7 @@
 import {authApi} from '../../api/AuthAPI';
 import {AppThunkType} from '../../app/Store';
 import {setIsAuth} from '../login/LoginReducer';
-import {setStatusApp} from "../statusApp/StatusAppReducer";
+import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
 import {ProfileType} from "./ProfileContainer";
 
 export type ProfileReducerAT =
@@ -47,3 +47,20 @@ export const meProfile = (): AppThunkType => async dispatch => {
     }
 }
 
+export const initializeApp = (): AppThunkType => async dispatch => {
+    try {
+        if (!InitialState._id) {
+            const me = await authApi.me();
+            if (me) {
+                dispatch(setUserData(me));
+                dispatch(setIsAuth(true));
+            }
+        }
+
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    } finally {
+        dispatch(setStatusApp('idle', ''));
+        dispatch(setIsInit(true));
+    }
+}

@@ -18,7 +18,7 @@ const commonRoutes = [
         path: '/login',
         component: Login,
         name: 'LoginRoute',
-        exact: true,
+        exact: false,
     },
     {
         path: '/404',
@@ -42,6 +42,19 @@ const commonRoutes = [
 
 ]
 export const unauthorizedRoutes = [
+    // {
+    //     children: () => {
+    //         return <Redirect from={'/'} to={'/login'}/>
+    //     },
+    //     name: 'login',
+    //     exact: true,
+    // },
+    {
+        path: '/',
+        component: Login,
+        name: 'LoginRoute',
+        exact: true,
+    },
     {
         path: '/registration',
         component: Registration,
@@ -66,15 +79,22 @@ export const unauthorizedRoutes = [
         name: 'CheckEmailRoute',
         exact: false,
     },
-    ...commonRoutes
 ]
 
 export const authorizedRoutes = [
+    // {
+    //     path: '/',
+    //     children: () => {
+    //         return <Redirect to={'/profile'}/>
+    //     },
+    //     name: 'initialDefaultRoute',
+    //     exact: true,
+    // },
     {
-        path: '/profile',
+        path: '/',
         component: ProfileContainer,
         name: 'ProfileRoute',
-        exact: false,
+        exact: true,
     },
     {
         path: '/packs',
@@ -82,13 +102,4 @@ export const authorizedRoutes = [
         name: 'PackRoute',
         exact: false,
     },
-    {
-        path: '/',
-        children: () => {
-            return <Redirect to={'/profile'}/>
-        },
-        name: 'initialDefaultRoute',
-        exact: true,
-    },
-    ...commonRoutes
 ]

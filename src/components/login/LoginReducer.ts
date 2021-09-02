@@ -1,7 +1,7 @@
 import {AppThunkType} from '../../app/Store';
 import {authApi, ParamsAuthType} from '../../api/AuthAPI';
 import {setUserData} from '../profile/ProfileReducer';
-import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
+import {setStatusApp} from "../statusApp/StatusAppReducer";
 
 export type LoginAT =
     | ReturnType<typeof setIsAuth>
@@ -47,19 +47,4 @@ export const logoutAccount = (): AppThunkType => dispatch => {
                 dispatch(setIsAuth(false));
             }
         })
-}
-
-export const initializeApp = (): AppThunkType => async dispatch => {
-    try {
-        const me = await authApi.me();
-        if (me) {
-            dispatch(setUserData(me));
-            dispatch(setIsAuth(true));
-        }
-    } catch (error) {
-        dispatch(setStatusApp('error', error.message));
-    } finally {
-        dispatch(setStatusApp('idle', ''));
-        dispatch(setIsInit(true));
-    }
 }

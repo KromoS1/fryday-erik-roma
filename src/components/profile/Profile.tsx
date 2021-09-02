@@ -15,7 +15,6 @@ type PropsType = ComponentNameType & {
 }
 
 export const Profile: FC<PropsType> = memo(props => {
-
         return (
             <>
                 <div className={style.container}>
@@ -31,8 +30,8 @@ export const Profile: FC<PropsType> = memo(props => {
 
                         </div>
                         <div className={style.packTable}>
-                            <Route exact path={'/profile'} render={() => <PackContainer meID={props.meID} name={props.name}/>}/>
-                            <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
+                            <Route exact path={'/'} render={() => <PackContainer meID={props.meID} name={props.name}/>}/>
+                            <Route path={'/cards/:pack_id'} render={() => <CardsContainer/>}/>
                         </div>
                     </div>
                 </div>
