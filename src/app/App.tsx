@@ -42,11 +42,3 @@ export const App = () => {
         </div>
     )
 }
-
-// return (
-//     <div className={style.page}>
-//         <Routes/>
-//     </div>
-// )
-
-
