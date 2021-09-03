@@ -8,6 +8,8 @@ import {newPasswordReducer, NewPasswordAT} from "../components/newPassword/NewPa
 import {StatusAppAT, statusAppReducer} from "../components/statusApp/StatusAppReducer";
 import {CardAT, CardsReducer} from "../components/Cards/CardsReducer";
 import {PackAT, PacksReducer} from "../components/packs/PacksReducer";
+import {ParamsGetPacksType} from "../api/PackAPI";
+import {DataRequestReducer} from "./requestDataReducer";
 
 
 export const rootReducer = combineReducers({
@@ -19,6 +21,7 @@ export const rootReducer = combineReducers({
     statusApp: statusAppReducer,
     packs: PacksReducer,
     cards: CardsReducer,
+    getPacksParams: DataRequestReducer
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

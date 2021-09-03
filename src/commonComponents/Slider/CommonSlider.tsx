@@ -2,11 +2,13 @@ import React, {FC, memo} from 'react';
 import style from "./CommonSlider.module.scss";
 import {Slider} from "antd";
 import * as CSS from "csstype";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getPacks} from "../../components/packs/PacksReducer";
+import {AppRootStateType} from "../../app/Store";
+import {DataRequestType} from "../../app/requestDataReducer";
 
 export const CommonSlider: FC = memo(() => {
-
+    const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const dispatch = useDispatch();
 
     const trackStyle: CSS.Properties[] = [
@@ -29,7 +31,7 @@ export const CommonSlider: FC = memo(() => {
     ];
 
     const setValue = (value:[number,number]) => {
-        dispatch(getPacks({min:value[0], max: value[1]}));
+        dispatch(getPacks({...dataParams, min:value[0], max: value[1]}));
     }
 
     return (

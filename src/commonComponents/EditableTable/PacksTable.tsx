@@ -7,8 +7,10 @@ import {getPacks, PackType} from "../../components/packs/PacksReducer";
 import {DateMaker} from "../../components/utils/Utils";
 import {NavLink} from 'react-router-dom';
 import {ComponentNameType} from "../../components/packs/PacksPage";
+import {DataRequestType} from "../../app/requestDataReducer";
 
 type PropsType = ComponentNameType & {
+    dataParams: DataRequestType
     packs: PackType[],
     packsCount: number
     meID?: string
@@ -31,8 +33,8 @@ export const PacksTable = (props: PropsType) => {
 
     const getPacksForTable = (page: number) => {
         props.meID
-            ? dispatch(getPacks({page: page, pageCount: 5, user_id: props.meID}))
-            : dispatch(getPacks({page: page, pageCount: 5,}))
+            ? dispatch(getPacks({...props.dataParams, page: page, pageCount: 5, user_id: props.meID}))
+            : dispatch(getPacks({...props.dataParams, page: page, pageCount: 5,}))
     }
 
     const data: PackItemType[] = [];
