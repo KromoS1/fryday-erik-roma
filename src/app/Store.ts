@@ -1,16 +1,14 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction} from "redux-thunk";
-import {loginReducer, LoginAT} from "../components/login/LoginReducer";
-import {registrationReducer, RegistrationAT} from "../components/registration/RegistrationReducer";
+import {LoginAT, loginReducer} from "../components/login/LoginReducer";
+import {RegistrationAT, registrationReducer} from "../components/registration/RegistrationReducer";
 import {profileReducer, ProfileReducerAT} from "../components/profile/ProfileReducer";
-import {recoveryPasswordReducer, RecoveryPasswordAT} from "../components/recoveryPassword/RecoveryPasswordReducer";
-import {newPasswordReducer, NewPasswordAT} from "../components/newPassword/NewPasswordReducer";
+import {RecoveryPasswordAT, recoveryPasswordReducer} from "../components/recoveryPassword/RecoveryPasswordReducer";
+import {NewPasswordAT, newPasswordReducer} from "../components/newPassword/NewPasswordReducer";
 import {StatusAppAT, statusAppReducer} from "../components/statusApp/StatusAppReducer";
 import {CardAT, CardsReducer} from "../components/Cards/CardsReducer";
 import {PackAT, PacksReducer} from "../components/packs/PacksReducer";
-import {ParamsGetPacksType} from "../api/PackAPI";
 import {DataRequestReducer} from "./requestDataReducer";
-
 
 export const rootReducer = combineReducers({
     profile: profileReducer,

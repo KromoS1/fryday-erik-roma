@@ -1,4 +1,3 @@
-import { PacksStateType, PackType, setPacks} from "../components/packs/PacksReducer";
 export type DataAT =
     | ReturnType<typeof setRequestData>
 

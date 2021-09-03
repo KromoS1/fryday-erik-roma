@@ -1,7 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
-import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {useDispatch} from "react-redux";
 import {getPacks, PackType} from "../../components/packs/PacksReducer";
 import {
@@ -94,7 +93,10 @@ export const PacksTable = (props: PropsType) => {
     return <Table columns={columns}
                   dataSource={data}
                   pagination={
-                      {...getPaginationSettings(props.packsCount,(page: number) => {getPacksForTable(page)}),
-                          position: ['bottomCenter']}
-                  }/>
+                      {
+                          ...getPaginationSettings(props.packsCount, (page: number) => {
+                              getPacksForTable(page)
+                          }),
+                          position: ['bottomCenter']
+                      }}/>
 }
