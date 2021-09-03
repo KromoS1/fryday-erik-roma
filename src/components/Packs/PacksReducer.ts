@@ -1,9 +1,11 @@
 import {AppThunkType} from "../../app/Store";
 import {packApi, ParamsGetPacksType, ParamsUpdatePack} from "../../api/PackAPI";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
+import {DataAT, setRequestData} from "../../app/requestDataReducer";
 
 export type PackAT =
     | ReturnType<typeof setPacks>
+    | DataAT
 
 export type PackType = {
     _id: string
@@ -57,6 +59,7 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async d
     dispatch(setStatusApp('load', ''));
     try {
         const data = await packApi.getPacks(getParams);
+        dispatch(setRequestData({...getParams}));
         dispatch(setPacks(data.cardPacks, data.cardPacksTotalCount));
         dispatch(setStatusApp('success', 'Success!'));
     } catch (error) {
@@ -66,11 +69,12 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async d
     }
 }
 
-export const addPack = (cardsPack: { name: string, private: boolean }, userId?: string): AppThunkType => async dispatch => {
+export const addPack = (getParams: ParamsGetPacksType, cardsPack: { name: string, private: boolean }, userId?: string): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.addPack(cardsPack);
-        dispatch(getPacks({pageCount: 5, page: 1, user_id: userId}));
+        dispatch(setRequestData({...getParams, user_id: userId}));
+        dispatch(getPacks({...getParams, user_id: userId}));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
@@ -78,11 +82,12 @@ export const addPack = (cardsPack: { name: string, private: boolean }, userId?: 
     }
 }
 
-export const putPacks = (pack: ParamsUpdatePack): AppThunkType => async dispatch => {
+export const putPacks = (getParams: ParamsGetPacksType, pack: ParamsUpdatePack): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.updatePack(pack);
-        dispatch(getPacks({}));
+        dispatch(setRequestData({...getParams}));
+        dispatch(getPacks(getParams));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
@@ -90,11 +95,12 @@ export const putPacks = (pack: ParamsUpdatePack): AppThunkType => async dispatch
     }
 }
 
-export const removePack = (id: string): AppThunkType => async dispatch => {
+export const removePack = (getParams: ParamsGetPacksType, id: string): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.deletePack(id);
-        dispatch(getPacks({}));
+        dispatch(setRequestData({...getParams}));
+        dispatch(getPacks(getParams));
         dispatch(setStatusApp('success', 'Success'));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
