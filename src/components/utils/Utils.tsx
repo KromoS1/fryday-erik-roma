@@ -1,6 +1,8 @@
 import {Redirect} from 'react-router-dom';
 import {Status} from "../statusApp/StatusAppReducer";
 import {message} from "antd";
+import {PackItemType} from "../../commonComponents/EditableTable/PacksTable";
+import {PaginationProps} from "antd/lib/pagination/Pagination";
 
 export const redirectLogin = () => {
     return <Redirect to={"/login"}/>
@@ -29,4 +31,19 @@ export const RecoveryMessage = () => {
 }
 export const DateMaker = (date: string) => {
     return `${new Date(date).getDate()}.${new Date(date).getMonth()}.${new Date(date).getFullYear()}`
+}
+export const getSortedDateIntoColumns = (a: PackItemType, b: PackItemType) => {
+    return new Date(a.created) > new Date(b.created) ? -1 : 1
+}
+export const getPaginationSettings = function<Type={}>(totalAmount: number, changer: (data: number) => void):PaginationProps {
+    return {
+        pageSize: 5,
+        total: totalAmount,
+        onChange: changer,
+        showSizeChanger: false,
+    }
+}
+export const getSortedNumbersDataColumns = (a: PackItemType, b: PackItemType) => a.cards - b.cards;
+export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) => {
+    return a.name > b.name ? -1 : 1
 }

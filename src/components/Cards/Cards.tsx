@@ -15,8 +15,7 @@ export const Cards = (props: PropsType) => {
     if (!props.cards) {
         return <></>
     }
-
-    return <><CardsTable cards={props.cards} packsCount={100}/></>
+    return <><CardsTable cards={props.cards} cardsCount={10}/></>
 }
 
 export const CardsContainer = () => {
