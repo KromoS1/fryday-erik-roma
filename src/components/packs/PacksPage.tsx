@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
-import style from "./Packs.module.scss";
+import style from "./PacksPage.module.scss";
 import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
-import {PackContainer} from "./Pack";
+import {PacksTableContainer} from "./packsTable/PacksTableContainer";
 import {HeaderPacks} from "../componentsForNavbar/HeaderPacks";
 import {Route} from "react-router-dom";
 import {CardsContainer} from "../Cards/Cards";
@@ -11,7 +11,11 @@ export type ComponentNameType = {
     name: 'profile' | 'packs'
 }
 
-export const PacksPage: FC = () => {
+type PacksPagePropsType = {
+    addNewPack: (newPackName: string) => void
+}
+
+export const PacksPage: FC<PacksPagePropsType> = props => {
     return (
         <>
             <div className={style.container}>
@@ -25,9 +29,15 @@ export const PacksPage: FC = () => {
                     <div className={style.mainTitle}>Packs list</div>
                     <div className={style.search}>
                         <SearchInput/>
+                        <div className={style.addButton}>
+                            <button
+                                className={style.btnAdd}
+                                onClick={() => props.addNewPack("my new pack")}
+                            >Add new pack</button>
+                        </div>
                     </div>
                     <div className={style.packTable}>
-                        <Route exact path={'/packs'} render={() => <PackContainer name={'packs'}/>}/>
+                        <Route exact path={'/packs'} render={() => <PacksTableContainer name={'packs'}/>}/>
                         <Route path={'/packs/cards/:pack_id'} render={() => <CardsContainer/>}/>
                     </div>
                 </div>

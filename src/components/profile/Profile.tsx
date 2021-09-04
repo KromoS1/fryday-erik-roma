@@ -1,7 +1,7 @@
 import React, {FC, memo} from 'react';
 import {ProfileType} from "./ProfileContainer";
 import style from './Profile.module.scss';
-import {PackContainer} from "../packs/Pack";
+import {PacksTableContainer} from "../packs/packsTable/PacksTableContainer";
 import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
 import {Route} from "react-router-dom";
 import {HeaderProfile} from "../componentsForNavbar/HeaderProfile";
@@ -30,7 +30,7 @@ export const Profile: FC<PropsType> = memo(props => {
 
                         </div>
                         <div className={style.packTable}>
-                            <Route exact path={'/'} render={() => <PackContainer meID={props.meID} name={props.name}/>}/>
+                            <Route exact path={'/'} render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
                             <Route path={'/cards/:pack_id'} render={() => <CardsContainer/>}/>
                         </div>
                     </div>

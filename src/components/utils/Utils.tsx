@@ -1,7 +1,7 @@
 import {Redirect} from 'react-router-dom';
 import {Status} from "../statusApp/StatusAppReducer";
 import {message} from "antd";
-import {PackItemType} from "../../commonComponents/EditableTable/PacksTable";
+import {PackItemType} from "../packs/packsTable/PacksTable";
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 
 export const redirectLogin = () => {

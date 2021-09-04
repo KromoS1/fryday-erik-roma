@@ -39,7 +39,7 @@ export const CommonSlider: FC = memo(() => {
             <span className={style.numberTitle}>Number of cards</span>
             <div className={style.doubleRange}>
                 <Slider
-                    min={1}
+                    min={0}
                     max={20}
                     range={{draggableTrack: true}}
                     defaultValue={[1, 5]}

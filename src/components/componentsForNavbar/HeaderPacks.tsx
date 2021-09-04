@@ -1,5 +1,5 @@
 import React,{FC} from 'react'
-import style from "../packs/Packs.module.scss";
+import style from "../packs/PacksPage.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {getPacks} from "../packs/PacksReducer";

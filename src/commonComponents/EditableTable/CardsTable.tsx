@@ -8,7 +8,8 @@ import {getCards} from "../../components/Cards/CardsReducer";
 
 type PropsType = {
     cards: CardsType[],
-    cardsCount: number
+    cardsCount: number,
+    pack_id: string
 };
 export type cardsItemType = {
     key: string,
@@ -19,13 +20,12 @@ export type cardsItemType = {
 };
 
 export const CardsTable = (props: PropsType) => {
-    const packID = props.cards[0].cardsPack_id
     const dispatch = useDispatch();
     const getSortedDateIntoColumns =  (a: cardsItemType, b: cardsItemType) => {
         return new Date(a.lastUpdate) > new Date(b.lastUpdate) ? -1 : 1
     }
     const getCardsForTable = (page: number) => {
-        dispatch(getCards({pageCount: 5, cardsPack_id: packID,page}));
+        dispatch(getCards({pageCount: 5, cardsPack_id: props.pack_id,page}));
     }
     const columns = [
         {

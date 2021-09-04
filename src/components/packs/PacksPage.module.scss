@@ -17,14 +17,15 @@
         margin: 5px 0 5px 0;
       }
 
-      .buttons{
+      .buttons {
         @include buttonsContainerAuth();
         margin: 0 auto;
 
-        .btnMy{
+        .btnMy {
           @include MainButton();
         }
-        .btnAll{
+
+        .btnAll {
           @include MainButton();
         }
       }
@@ -35,12 +36,24 @@
     }
   }
 
-  .packs{
+  .packs {
     @include displayFlex(column, "", center);
 
     .mainTitle {
       @include h2();
       margin: 10px 0 10px 0;
+    }
+
+    .search {
+      @include displayFlex(row, "", center);
+      .addButton {
+        display: inline-block;
+        @include buttonsContainerAuth();
+
+        .btnAdd{
+          @include Button();
+        }
+      }
     }
 
     .packTable {

@@ -2,16 +2,16 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
-import {getPacks, PackType} from "../../components/packs/PacksReducer";
+import {getPacks, PackType} from "../PacksReducer";
 import {
     DateMaker,
     getPaginationSettings,
     getSortedDateIntoColumns,
     getSortedStringsDataColumns
-} from "../../components/utils/Utils";
+} from "../../utils/Utils";
 import {NavLink} from 'react-router-dom';
-import {ComponentNameType} from "../../components/packs/PacksPage";
-import {DataRequestType} from "../../app/requestDataReducer";
+import {ComponentNameType} from "../PacksPage";
+import {DataRequestType} from "../../../app/requestDataReducer";
 
 type PropsType = ComponentNameType & {
     dataParams: DataRequestType

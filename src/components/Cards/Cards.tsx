@@ -8,14 +8,18 @@ import {useParams} from "react-router-dom";
 
 type PropsType = {
     cards: CardsType[]
+    pack_id: string
 }
 
 export const Cards = (props: PropsType) => {
+    console.log(props.cards)
 
-    if (!props.cards) {
-        return <></>
+    if (!props.cards || props.cards.length === 0) {
+        return <>
+            <span>This pack is empty. Click add new card to fill this pack</span>
+        </>
     }
-    return <><CardsTable cards={props.cards} cardsCount={10}/></>
+    return <><CardsTable cards={props.cards} cardsCount={10} pack_id={props.pack_id}/></>
 }
 
 export const CardsContainer = () => {
@@ -27,6 +31,6 @@ export const CardsContainer = () => {
         dispatch(getCards({cardsPack_id: pack_id}));
     }, [dispatch]);
 
-    return <Cards cards={cards[pack_id]}/>
+    return <Cards cards={cards[pack_id]} pack_id={pack_id}/>
 }
 

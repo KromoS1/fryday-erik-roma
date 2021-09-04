@@ -6,8 +6,8 @@ import {NewPasswordComponent} from "../components/newPassword/NewPassword";
 import React from "react";
 import {RecoveryPassword} from "../components/recoveryPassword/RecoveryPassword";
 import {ChekEmail} from "../components/chekEmail/ChekEmail";
-import {PacksPage} from "../components/packs/PacksPage";
 import {Error404} from "../components/error404/Error404";
+import {PacksPageContainer} from "../components/packs/PacksPageContainer";
 
 export type RoutesType = {
     path: string
@@ -98,7 +98,7 @@ export const authorizedRoutes = [
     },
     {
         path: '/packs',
-        component: PacksPage,
+        component: PacksPageContainer,
         name: 'PackRoute',
         exact: false,
     },
