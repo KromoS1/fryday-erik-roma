@@ -58,19 +58,19 @@ export const PacksTable = (props: PropsType) => {
             sorter: getSortedStringsDataColumns,
         },
         {
-            title: 'Cards',
+            title: 'Cards count',
             dataIndex: 'cards',
             key: 'cards',
             sorter: (a: PackItemType, b: PackItemType) => a.cards - b.cards
         },
         {
-            title: 'Last Update',
+            title: 'Updated',
             dataIndex: 'updated',
             key: 'updated',
             sorter: getSortedDateIntoColumns
         },
         {
-            title: 'Created by',
+            title: 'Created',
             key: 'created',
             dataIndex: 'created',
             sorter: getSortedDateIntoColumns
@@ -98,5 +98,22 @@ export const PacksTable = (props: PropsType) => {
                               getPacksForTable(page)
                           }),
                           position: ['bottomCenter']
-                      }}/>
+                      }}
+                  onHeaderRow={(columns, index) => {
+                      return {
+                          onClick: (data: any) => {
+                              const sortParams = data.target.outerText.split(' ').map((param: string, i:number) => {
+                                return  i === 0 ? param.toLowerCase() :  param[0].toUpperCase() + param.slice(1)
+                              }).join('')
+                              if (props.dataParams.sortPacks === `0${sortParams}`) {
+                                  dispatch(getPacks({sortPacks: `1${sortParams}`}))
+                              }
+                              else {
+                                  dispatch(getPacks({sortPacks: `0${sortParams}`}))
+                              }
+                          }, // click header row
+                      };
+                  }}
+    />
+
 }

@@ -14,7 +14,7 @@ export const PacksTableContainer: FC<PacksContainerType> = props => {
     const {packs, packsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const dispatch = useDispatch();
-    console.log(dataParams)
+
     useEffect(() => {
         props.meID
             ? dispatch(getPacks({page: 1, pageCount: 5, user_id: props.meID}))
