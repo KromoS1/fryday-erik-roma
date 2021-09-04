@@ -1,10 +1,11 @@
-import React, {memo, useCallback} from 'react'
+import React, {memo, useCallback, useEffect} from 'react';
 import {Profile} from './Profile';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../app/Store';
 import {logoutAccount} from '../login/LoginReducer';
 import {StatusApp} from '../statusApp/StatusAppReducer';
 import {alertMessage} from "../utils/Utils";
+import {getPacks} from "../packs/PacksReducer";
 
 export type ProfileType = {
     _id: string
@@ -25,11 +26,17 @@ export const ProfileContainer = memo(() => {
     const meID = useSelector<AppRootStateType, string>(state => state.profile._id);
     const statusApp = useSelector<AppRootStateType, StatusApp>(state => state.statusApp);
 
-    alertMessage(statusApp.status, statusApp.message);
+    useEffect(() => {
+        meID
+            ? dispatch(getPacks({page: 1, pageCount: 5, user_id: meID, min: 1, max: 5, sortPacks: ''}))
+            : dispatch(getPacks({page: 1, pageCount: 5, min: 1, max: 5, sortPacks: ''}))
+    }, [dispatch])
 
     const logOut = useCallback(() => {
         dispatch(logoutAccount());
     },[dispatch]);
+
+    alertMessage(statusApp.status, statusApp.message);
 
     return (
         <>

@@ -2,6 +2,9 @@ import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
+import {NavLink} from 'react-router-dom';
+import {ComponentNameType} from "../PacksPage";
+import {DataRequestType} from "../../../app/requestDataReducer";
 import {getPacks, PackType} from "../PacksReducer";
 import {
     DateMaker,
@@ -9,9 +12,6 @@ import {
     getSortedDateIntoColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
-import {NavLink} from 'react-router-dom';
-import {ComponentNameType} from "../PacksPage";
-import {DataRequestType} from "../../../app/requestDataReducer";
 
 type PropsType = ComponentNameType & {
     dataParams: DataRequestType
@@ -35,7 +35,7 @@ export const PacksTable = memo((props: PropsType) => {
         props.meID
             ? dispatch(getPacks({...props.dataParams, page: page, pageCount: 5, user_id: props.meID}))
             : dispatch(getPacks({...props.dataParams, page: page, pageCount: 5,}))
-    },[dispatch,props.dataParams,props.meID]);
+    }, [dispatch, props.dataParams, props.meID]);
 
     const data: PackItemType[] = [];
     props.packs.forEach(i => {
@@ -54,24 +54,25 @@ export const PacksTable = memo((props: PropsType) => {
             key: 'name',
             render: (data: PackItemType) => {
                 if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
-                if (props.name === 'profile') return <><NavLink to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
+                if (props.name === 'profile') return <><NavLink
+                    to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
             },
             sorter: getSortedStringsDataColumns,
         },
         {
-            title: 'Cards',
+            title: 'Cards count',
             dataIndex: 'cards',
             key: 'cards',
             sorter: (a: PackItemType, b: PackItemType) => a.cards - b.cards
         },
         {
-            title: 'Last Update',
+            title: 'Updated',
             dataIndex: 'updated',
             key: 'updated',
             sorter: getSortedDateIntoColumns
         },
         {
-            title: 'Created by',
+            title: 'Created',
             key: 'created',
             dataIndex: 'created',
             sorter: getSortedDateIntoColumns
@@ -99,5 +100,19 @@ export const PacksTable = memo((props: PropsType) => {
                               getPacksForTable(page)
                           }),
                           position: ['bottomCenter']
-                      }}/>
+                      }}
+                  onHeaderRow={(columns, index) => {
+                      return {
+                          onClick: (data: any) => {
+                              const sortParams = data.target.outerText.split(' ').map((param: string, i: number) => {
+                                  return i === 0 ? param.toLowerCase() : param[0].toUpperCase() + param.slice(1)
+                              }).join('')
+                              if (props.dataParams.sortPacks === `0${sortParams}`) {
+                                  dispatch(getPacks({sortPacks: `1${sortParams}`}))
+                              } else {
+                                  dispatch(getPacks({sortPacks: `0${sortParams}`}))
+                              }
+                          }, // click header row
+                      };
+                  }}/>
 })

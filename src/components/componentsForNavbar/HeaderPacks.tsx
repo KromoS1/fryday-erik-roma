@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback} from 'react'
+import React, {FC, memo, useCallback} from 'react';
 import style from "../packs/PacksPage.module.scss";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";

@@ -15,27 +15,27 @@ type PropsType = ComponentNameType & {
 }
 
 export const Profile: FC<PropsType> = memo(props => {
-        return (
-            <>
-                <div className={style.container}>
-                    <div className={style.slider}>
-                        <div className={style.sliderHeader}>
-                            <HeaderProfile/>
-                        </div>
-                        <CommonSlider/>
+    return (
+        <>
+            <div className={style.container}>
+                <div className={style.slider}>
+                    <div className={style.sliderHeader}>
+                        <HeaderProfile/>
                     </div>
-                    <div className={style.packs}>
-                        <div className={style.mainTitle}>My packs list</div>
-                        <div className={style.search}>
+                    <CommonSlider/>
+                </div>
+                <div className={style.packs}>
+                    <div className={style.mainTitle}>My packs list</div>
+                    <div className={style.search}>
 
-                        </div>
-                        <div className={style.packTable}>
-                            <Route exact path={'/profile'} render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
-                            <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
-                        </div>
+                    </div>
+                    <div className={style.packTable}>
+                        <Route exact path={'/profile'}
+                               render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
+                        <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
                     </div>
                 </div>
-            </>
-        );
-    }
-)
+            </div>
+        </>
+    );
+})
