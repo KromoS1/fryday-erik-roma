@@ -44,7 +44,8 @@ export const PacksReducer = (state = initialState, action: PackAT): PacksStateTy
     switch (action.type) {
         case "PACKS/SET-PACKS":
             if (action.user_id) {
-                return {...state,
+                return {
+                    ...state,
                     packs: action.packs.filter(pack => pack.user_id === action.user_id),
                     packsCount: action.packsCount
                 };
@@ -55,11 +56,12 @@ export const PacksReducer = (state = initialState, action: PackAT): PacksStateTy
     }
 }
 
-export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async dispatch => {
+export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async (dispatch, getState) => {
     dispatch(setStatusApp('load', ''));
+    const savedParams = getState().getPacksParams;
     try {
-        const data = await packApi.getPacks(getParams);
-        dispatch(setRequestData({...getParams}));
+        const data = await packApi.getPacks({...savedParams, ...getParams});
+        dispatch(setRequestData({...savedParams, ...getParams}));
         dispatch(setPacks(data.cardPacks, data.cardPacksTotalCount));
         dispatch(setStatusApp('success', 'Success!'));
     } catch (error) {
