@@ -2,7 +2,6 @@ import React from 'react'
 import {Form, Input} from 'antd';
 import style from './FieldComponentStyle.module.scss';
 
-
 export const fieldComponent = (name: string, placeholder: string) => {
     if (name === 'email') {
         return <Form.Item

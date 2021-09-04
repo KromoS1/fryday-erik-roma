@@ -7,8 +7,7 @@ import {DataRequestType} from "../../app/requestDataReducer";
 
 export const PacksPageContainer: FC = memo(() => {
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
-    const meId = useSelector<AppRootStateType,string>( state => state.profile._id);
-
+    const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
     const dispatch = useDispatch();
 
     const addNewPack = useCallback((newPackName: string) => {
@@ -17,7 +16,7 @@ export const PacksPageContainer: FC = memo(() => {
             private: false
         }
         dispatch(addPack(dataParams, cardsName, meId))
-    }, [dispatch])
+    }, [dispatch,dataParams,meId])
 
     return <PacksPage addNewPack={addNewPack}/>
 })

@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import style from "./PacksPage.module.scss";
 import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
 import {PacksTableContainer} from "./packsTable/PacksTableContainer";
@@ -15,7 +15,7 @@ type PacksPagePropsType = {
     addNewPack: (newPackName: string) => void
 }
 
-export const PacksPage: FC<PacksPagePropsType> = props => {
+export const PacksPage: FC<PacksPagePropsType> = memo(props => {
     return (
         <>
             <div className={style.container}>
@@ -44,4 +44,4 @@ export const PacksPage: FC<PacksPagePropsType> = props => {
             </div>
         </>
     )
-};
+})

@@ -1,4 +1,4 @@
-import React, {FC, memo, useState} from 'react';
+import React, {FC, memo, useCallback, useState} from 'react';
 import style from './Header.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
@@ -10,13 +10,13 @@ export const Header: FC = memo(() => {
     const dispatch = useDispatch();
     const [isHover, setIsHover] = useState(false);
 
-    const setActivePack = () => {
+    const setActivePack = useCallback(() => {
         setIsHover(!isHover)
-    }
+    },[isHover]);
 
-    const logOutAcc = () => {
+    const logOutAcc = useCallback(() => {
         dispatch(logoutAccount())
-    }
+    },[dispatch]);
 
     return (
         <div className={style.container}>

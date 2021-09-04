@@ -1,4 +1,4 @@
-import React, {FC, ChangeEvent} from 'react'
+import React, {FC, ChangeEvent, memo, useCallback} from 'react'
 import {Input, Space} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
@@ -6,7 +6,7 @@ import {Status} from "../../components/statusApp/StatusAppReducer";
 import {getPacks} from "../../components/packs/PacksReducer";
 import {DataRequestType} from "../../app/requestDataReducer";
 
-export const SearchInput:FC = () => {
+export const SearchInput:FC = memo(() => {
     const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const dispatch = useDispatch();
@@ -15,20 +15,21 @@ export const SearchInput:FC = () => {
 
     statusApp !== "load" ? load = false : load = true
 
-    const onSearch = (value:string) => {
+    const onSearch = useCallback((value:string) => {
         dispatch(getPacks({...dataParams,packName:value}))
-    }
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    },[dataParams,dispatch]);
+
+    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value === '') {
             dispatch(getPacks({...dataParams,packName:''}))
         }
-    }
+    },[dataParams,dispatch]);
 
-return (
+    return (
         <>
             <Space direction="vertical">
                 <Search placeholder="input search text" onSearch={onSearch} enterButton loading={load} onChange={onChangeHandler}/>
             </Space>
         </>
     )
-}
+})

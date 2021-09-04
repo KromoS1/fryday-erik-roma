@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {memo, useEffect} from 'react';
 import style from './AppStyle.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Store";
@@ -8,7 +8,7 @@ import {authorizedRoutes, unauthorizedRoutes} from "../routes/Routes";
 import {Header} from "../components/Header/Header";
 import {initializeApp} from "../components/profile/ProfileReducer";
 
-export const App = () => {
+export const App = memo(() => {
     const dispatch = useDispatch();
     const isInit = useSelector<AppRootStateType, boolean>(state => state.statusApp.isInitialize);
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
@@ -43,4 +43,4 @@ export const App = () => {
             </Switch>
         </div>
     )
-}
+})

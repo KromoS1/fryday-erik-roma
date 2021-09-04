@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import style from "./CommonSlider.module.scss";
 import {Slider} from "antd";
 import * as CSS from "csstype";
@@ -30,9 +30,9 @@ export const CommonSlider: FC = memo(() => {
         }
     ];
 
-    const setValue = (value:[number,number]) => {
+    const setValue = useCallback((value:[number,number]) => {
         dispatch(getPacks({...dataParams, min:value[0], max: value[1]}));
-    }
+    },[dataParams,dispatch]);
 
     return (
         <div className={style.numberCards}>
@@ -42,7 +42,7 @@ export const CommonSlider: FC = memo(() => {
                     min={0}
                     max={20}
                     range={{draggableTrack: true}}
-                    defaultValue={[1, 5]}
+                    defaultValue={[0, 5]}
                     tooltipVisible={true}
                     trackStyle={trackStyle}
                     handleStyle={handleStyle}

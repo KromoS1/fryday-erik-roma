@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
@@ -28,13 +28,14 @@ export type PackItemType = {
     created: string,
 };
 
-export const PacksTable = (props: PropsType) => {
+export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
-    const getPacksForTable = (page: number) => {
+
+    const getPacksForTable = useCallback((page: number) => {
         props.meID
             ? dispatch(getPacks({...props.dataParams, page: page, pageCount: 5, user_id: props.meID}))
             : dispatch(getPacks({...props.dataParams, page: page, pageCount: 5,}))
-    }
+    },[dispatch,props.dataParams,props.meID]);
 
     const data: PackItemType[] = [];
     props.packs.forEach(i => {
@@ -53,7 +54,7 @@ export const PacksTable = (props: PropsType) => {
             key: 'name',
             render: (data: PackItemType) => {
                 if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
-                if (props.name === 'profile') return <><NavLink to={`/cards/${data.key}`}>{data.name}</NavLink></>
+                if (props.name === 'profile') return <><NavLink to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
             },
             sorter: getSortedStringsDataColumns,
         },
@@ -99,4 +100,4 @@ export const PacksTable = (props: PropsType) => {
                           }),
                           position: ['bottomCenter']
                       }}/>
-}
+})

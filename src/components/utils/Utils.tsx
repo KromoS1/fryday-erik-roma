@@ -35,7 +35,7 @@ export const DateMaker = (date: string) => {
 export const getSortedDateIntoColumns = (a: PackItemType, b: PackItemType) => {
     return new Date(a.created) > new Date(b.created) ? -1 : 1
 }
-export const getPaginationSettings = function<Type={}>(totalAmount: number, changer: (data: number) => void):PaginationProps {
+export const getPaginationSettings = function (totalAmount: number, changer: (data: number) => void): PaginationProps {
     return {
         pageSize: 5,
         total: totalAmount,
@@ -47,3 +47,5 @@ export const getSortedNumbersDataColumns = (a: PackItemType, b: PackItemType) =>
 export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) => {
     return a.name > b.name ? -1 : 1
 }
+
+

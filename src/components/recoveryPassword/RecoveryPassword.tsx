@@ -1,4 +1,4 @@
-import React, {FC, memo, useState} from 'react'
+import React, {FC, memo, useCallback, useState} from 'react'
 import {Form} from "antd";
 import style from ".//RecoveryPasswordStyle.module.scss";
 import {fieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
@@ -17,13 +17,13 @@ type PropsType = {
     onSubmit: (data: ValuesType) => void
 }
 
-export const FormRecoveryPassword: FC<PropsType> = props => {
+export const FormRecoveryPassword: FC<PropsType> = memo(({onSubmit}) => {
 
     const [form] = Form.useForm();
 
-    const onFinish = (values: ValuesType) => {
-        props.onSubmit(values);
-    };
+    const onFinish = useCallback((values: ValuesType) => {
+        onSubmit(values);
+    },[onSubmit]);
 
     return (
         <div className={style.recoveryPassword}>
@@ -52,21 +52,21 @@ export const FormRecoveryPassword: FC<PropsType> = props => {
             </Form>
         </div>
     )
-}
+})
 
 export const RecoveryPassword: FC = memo(() => {
     const [userEmail, setUserEmail] = useState<string>('');
     const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend);
     const dispatch = useDispatch();
 
-    const sendData = (data: ValuesType) => {
+    const sendData = useCallback((data: ValuesType) => {
         setUserEmail(data.email);
         dispatch(recoveryPassword({
             email: data.email,
             from: "test-front-admin <ai73a@yandex.by>",
             message: RecoveryMessage()
         }))
-    }
+    },[dispatch]);
 
     if(isSend){
         return <Redirect

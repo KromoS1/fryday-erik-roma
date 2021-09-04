@@ -11,11 +11,11 @@ export  type DataRequestType = {
     pageCount?: number
 }
 const initialState: DataRequestType = {
-    user_id: undefined,
-    packName: undefined,
-    min: undefined,
-    max: undefined,
-    sortPacks: undefined,
+    user_id: '',
+    packName: '',
+    min: 0,
+    max: 0,
+    sortPacks: '',
     page: 1,
     pageCount: 5
 }

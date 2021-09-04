@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react'
+import React, {FC, memo, useCallback} from 'react'
 import {Redirect, useParams} from "react-router-dom";
 import {setNewPassword} from "./NewPasswordReducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,9 +19,10 @@ type NewPasswordFormPropsType = {
 export const NewPasswordForm: FC<NewPasswordFormPropsType> = memo(({onSubmit}) => {
     const [form] = Form.useForm();
 
-    const onFinish = (values: NewPasswordValuesType) => {
-       onSubmit(values);
-    };
+    const onFinish = useCallback((values: NewPasswordValuesType) => {
+        onSubmit(values);
+    },[onSubmit]);
+
     return (
         <div className={style.newPasswordMain}>
             <div className={style.title}>Cards</div>
@@ -52,14 +53,15 @@ export const NewPasswordComponent: FC = memo(() => {
     const { token } = useParams<{token: string}>();
     const changePasswordStatus = useSelector<AppRootStateType, boolean>(state => state.creatingPasswordInfo.setPasswordStatus);
 
+    const submit = useCallback((data: NewPasswordValuesType) => {
+        let {password} = data;
+        dispatch(setNewPassword({password, resetPasswordToken: token}));
+    },[dispatch,token]);
+
     if (changePasswordStatus) {
         return <Redirect to={"/login"}/>
     }
 
-    const submit = (data: NewPasswordValuesType) => {
-        let {password} = data;
-       dispatch(setNewPassword({password, resetPasswordToken: token}));
-    }
     return (
         <>
             <NewPasswordForm onSubmit={submit}/>

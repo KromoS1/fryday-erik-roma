@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import style from './RegistrationStyle.module.scss'
 import {Form} from 'antd';
 import 'antd/dist/antd.css';
@@ -39,13 +39,13 @@ export const formItemLayout = {
     },
 };
 
-export const FormRegistration: FC<PropsType> = props => {
+const FormRegistration: FC<PropsType> = memo(({onSubmit}) => {
 
     const [form] = Form.useForm();
 
-    const onFinish = (values: ValuesType) => {
-        props.onSubmit(values);
-    };
+    const onFinish = useCallback((values: ValuesType) => {
+        onSubmit(values);
+    },[onSubmit]);
 
     return (
         <div className={style.registration}>
@@ -69,23 +69,23 @@ export const FormRegistration: FC<PropsType> = props => {
             </Form>
         </div>
     )
-}
+})
 
-export const Registration = () => {
+export const Registration = memo(() => {
 
     const dispatch = useDispatch();
     const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
 
     alertMessage(statusApp.status,statusApp.message);
 
-    const sendData = (data: ValuesType) => {
+    const sendData = useCallback((data: ValuesType) => {
         let {email,password} = data;
         dispatch(getRegistration({email,password}))
-    }
+    },[dispatch]);
 
     return (
         <>
             <FormRegistration onSubmit={sendData}/>
         </>
     )
-}
+})

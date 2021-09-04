@@ -8,18 +8,9 @@ import {RecoveryPassword} from "../components/recoveryPassword/RecoveryPassword"
 import {ChekEmail} from "../components/chekEmail/ChekEmail";
 import {Error404} from "../components/error404/Error404";
 import {PacksPageContainer} from "../components/packs/PacksPageContainer";
+import {CardsContainer} from "../components/Cards/Cards";
 
-export type RoutesType = {
-    path: string
-    component: string
-}
 const commonRoutes = [
-    {
-        path: '/login',
-        component: Login,
-        name: 'LoginRoute',
-        exact: false,
-    },
     {
         path: '/404',
         component: Error404,
@@ -33,27 +24,38 @@ const commonRoutes = [
         name: 'errorRoute',
         exact: false,
     },
-    {
-        path: '/profile',
-        component: ProfileContainer,
-        name: 'ProfileRoute',
-        exact: false,
-    },
 
 ]
 export const unauthorizedRoutes = [
-    // {
-    //     children: () => {
-    //         return <Redirect from={'/'} to={'/login'}/>
-    //     },
-    //     name: 'login',
-    //     exact: true,
-    // },
     {
         path: '/',
+        render:() => {
+            return <Redirect to={'/login'}/>
+        },
+        name: 'defaultLoginRedirectRoute',
+        exact: true,
+    },
+    {
+        path: '/packs',
+        render:() => {
+            return <Redirect to={'/login'}/>
+        },
+        name: 'PacksRedirectRoute',
+        exact: false,
+    },
+    {
+        path: '/profile',
+        render:() => {
+            return <Redirect to={'/login'}/>
+        },
+        name: 'ProfileRedirectRoute',
+        exact: false,
+    },
+    {
+        path: '/login',
         component: Login,
         name: 'LoginRoute',
-        exact: true,
+        exact: false,
     },
     {
         path: '/registration',
@@ -79,27 +81,49 @@ export const unauthorizedRoutes = [
         name: 'CheckEmailRoute',
         exact: false,
     },
+    ...commonRoutes,
 ]
 
 export const authorizedRoutes = [
-    // {
-    //     path: '/',
-    //     children: () => {
-    //         return <Redirect to={'/profile'}/>
-    //     },
-    //     name: 'initialDefaultRoute',
-    //     exact: true,
-    // },
     {
-        path: '/',
+        path:'/login',
+        render:() => {
+            return <Redirect to={'/profile'}/>
+        },
+        name: 'redirectLoginRoute',
+        exact: true,
+    },
+    {
+        path:'/',
+        render:() => {
+            return <Redirect to={'/profile'}/>
+        },
+        name: 'defaultProfileRoute',
+        exact: true,
+    },
+    {
+        path: '/profile',
         component: ProfileContainer,
         name: 'ProfileRoute',
-        exact: true,
+        exact: false,
+        routes: [
+            {
+                path: 'profile/cards/:pack_id',
+                component: CardsContainer
+            }
+        ]
     },
     {
         path: '/packs',
         component: PacksPageContainer,
         name: 'PackRoute',
         exact: false,
+        routes: [
+            {
+                path: '/packs/cards/:pack_id',
+                component: CardsContainer
+            }
+        ]
     },
+    ...commonRoutes,
 ]

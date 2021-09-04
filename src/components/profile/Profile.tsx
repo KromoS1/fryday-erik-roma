@@ -30,8 +30,8 @@ export const Profile: FC<PropsType> = memo(props => {
 
                         </div>
                         <div className={style.packTable}>
-                            <Route exact path={'/'} render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
-                            <Route path={'/cards/:pack_id'} render={() => <CardsContainer/>}/>
+                            <Route exact path={'/profile'} render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
+                            <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
                         </div>
                     </div>
                 </div>
