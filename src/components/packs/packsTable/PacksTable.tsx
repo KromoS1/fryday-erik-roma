@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, MouseEvent, memo} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
@@ -12,6 +12,9 @@ import {
 import {NavLink} from 'react-router-dom';
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
+import {ModalContainer} from "../../../commonComponents/Modal/ModalContainer";
+import {DeleteModal} from "../../../commonComponents/Modal/ModalComponents/Delete/DeleteModal";
+import {InputModal} from "../../../commonComponents/Modal/ModalComponents/InputModal/InputModal";
 
 type PropsType = ComponentNameType & {
     dataParams: DataRequestType
@@ -28,7 +31,27 @@ export type PackItemType = {
     created: string,
 };
 
-export const PacksTable = (props: PropsType) => {
+export const PacksTable = memo((props: PropsType) => {
+    const [isShow, setIsShow] = useState<boolean>(false)
+    const [setting, setSetting] = useState<string | undefined>("")
+
+    const changeShowStatus = (showStatus: boolean, e?: MouseEvent<HTMLElement>) => {
+        setIsShow(showStatus)
+        let showSetting: string | undefined
+
+        if (e) {
+            showSetting = e.currentTarget.dataset.button
+        }
+
+        if (showSetting === "delete") {
+            setSetting("delete")
+        }
+        if (showSetting === "update") {
+            setSetting("update")
+        }
+    }
+
+
     const dispatch = useDispatch();
     const getPacksForTable = (page: number) => {
         props.meID
@@ -81,22 +104,40 @@ export const PacksTable = (props: PropsType) => {
             render: (data: PackItemType) =>
                 (
                     <Space size="middle">
-                        <Button onClick={() => console.log(data)}>Изменить</Button>
-                        <Button type="primary" danger onClick={() => {
-                            props.remove(data.key);
-                        }}>Удалить</Button>
+                        <Button
+                            onClick={e => changeShowStatus(true, e)}
+                            data-button="update"
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            type="primary"
+                            danger
+                            onClick={e => changeShowStatus(true, e)}
+                            data-button="delete"
+                        >
+                            Delete
+                        </Button>
                     </Space>
                 ),
         },
     ];
 
-    return <Table columns={columns}
-                  dataSource={data}
-                  pagination={
-                      {
-                          ...getPaginationSettings(props.packsCount, (page: number) => {
-                              getPacksForTable(page)
-                          }),
-                          position: ['bottomCenter']
-                      }}/>
-}
+    return <>
+        <Table columns={columns}
+               dataSource={data}
+               pagination={
+                   {
+                       ...getPaginationSettings(props.packsCount, (page: number) => {
+                           getPacksForTable(page)
+                       }),
+                       position: ['bottomCenter']
+                   }}/>
+        <ModalContainer isShow={isShow} changeShowStatus={changeShowStatus}>
+            {
+                setting === "delete" ? <DeleteModal/> :
+                    setting === "update" ? <InputModal/> : null
+            }
+        </ModalContainer>
+    </>
+})
