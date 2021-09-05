@@ -44,9 +44,6 @@ export const CardsTable = memo((props: PropsType) => {
             title: 'Answer',
             dataIndex: 'answer',
             key: 'answer',
-            sorter: (a: cardsItemType, b: cardsItemType) => {
-                return a.answer > b.answer ? -1 : 1
-            }
         },
         {
             title: 'Last Update',
@@ -73,5 +70,18 @@ export const CardsTable = memo((props: PropsType) => {
             grade: i.rating,
         })
     });
-    return <Table columns={columns} dataSource={data} pagination={{...getPaginationSettings(props.cardsCount,getCardsForTable), position: ['bottomCenter']}}/>
+    return <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{...getPaginationSettings(props.cardsCount,getCardsForTable), position: ['bottomCenter']}}
+        onHeaderRow={() => {
+            return {
+                onClick: (data: any) => {
+                    const indexOfColumn = columns.findIndex(e => e.title === data.target.outerText)
+                    const sortParams = columns[indexOfColumn].key
+                    dispatch(getCards({cardsPack_id: props.pack_id, sortCards: `1${sortParams}`}))
+                }
+            }
+        }}
+    />
 })

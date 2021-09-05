@@ -43,7 +43,7 @@ export const getPaginationSettings = function (totalAmount: number, changer: (da
         showSizeChanger: false,
     }
 }
-export const getSortedNumbersDataColumns = (a: PackItemType, b: PackItemType) => a.cards - b.cards;
+export const getSortedNumbersDataColumns = (a: PackItemType, b: PackItemType) => a.cardsCount - b.cardsCount;
 export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) => {
     return a.name > b.name ? -1 : 1
 }
