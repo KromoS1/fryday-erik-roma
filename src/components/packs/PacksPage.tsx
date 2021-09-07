@@ -6,6 +6,9 @@ import {HeaderPacks} from "../componentsForNavbar/HeaderPacks";
 import {Route} from "react-router-dom";
 import {CardsContainer} from "../Cards/Cards";
 import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
+import {useDispatch} from "react-redux";
+import {changeModalStatus} from "../utils/Utils";
+import {ModalContainer} from "../../commonComponents/Modal/ModalContainer";
 
 export type ComponentNameType = {
     name: 'profile' | 'packs'
@@ -16,6 +19,9 @@ type PacksPagePropsType = {
 }
 
 export const PacksPage: FC<PacksPagePropsType> = props => {
+
+    const dispatch = useDispatch()
+
     return (
         <>
             <div className={style.container}>
@@ -32,7 +38,8 @@ export const PacksPage: FC<PacksPagePropsType> = props => {
                         <div className={style.addButton}>
                             <button
                                 className={style.btnAdd}
-                                onClick={() => props.addNewPack("my new pack")}
+                                onClick={e => changeModalStatus(e, dispatch)}
+                                data-button="add"
                             >Add new pack</button>
                         </div>
                     </div>
@@ -42,6 +49,7 @@ export const PacksPage: FC<PacksPagePropsType> = props => {
                     </div>
                 </div>
             </div>
+            <ModalContainer/>
         </>
     )
 };

@@ -1,9 +1,10 @@
-import React, {useState, MouseEvent, memo} from 'react';
+import React, {memo} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
 import {getPacks, PackType} from "../PacksReducer";
 import {
+    changeModalStatus,
     DateMaker,
     getPaginationSettings,
     getSortedDateIntoColumns,
@@ -12,9 +13,6 @@ import {
 import {NavLink} from 'react-router-dom';
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
-import {ModalContainer} from "../../../commonComponents/Modal/ModalContainer";
-import {DeleteModal} from "../../../commonComponents/Modal/ModalComponents/Delete/DeleteModal";
-import {InputModal} from "../../../commonComponents/Modal/ModalComponents/InputModal/InputModal";
 
 type PropsType = ComponentNameType & {
     dataParams: DataRequestType
@@ -32,25 +30,6 @@ export type PackItemType = {
 };
 
 export const PacksTable = memo((props: PropsType) => {
-    const [isShow, setIsShow] = useState<boolean>(false)
-    const [setting, setSetting] = useState<string | undefined>("")
-
-    const changeShowStatus = (showStatus: boolean, e?: MouseEvent<HTMLElement>) => {
-        setIsShow(showStatus)
-        let showSetting: string | undefined
-
-        if (e) {
-            showSetting = e.currentTarget.dataset.button
-        }
-
-        if (showSetting === "delete") {
-            setSetting("delete")
-        }
-        if (showSetting === "update") {
-            setSetting("update")
-        }
-    }
-
 
     const dispatch = useDispatch();
     const getPacksForTable = (page: number) => {
@@ -105,7 +84,7 @@ export const PacksTable = memo((props: PropsType) => {
                 (
                     <Space size="middle">
                         <Button
-                            onClick={e => changeShowStatus(true, e)}
+                            onClick={e => changeModalStatus(e, dispatch, data.key)}
                             data-button="update"
                         >
                             Update
@@ -113,7 +92,7 @@ export const PacksTable = memo((props: PropsType) => {
                         <Button
                             type="primary"
                             danger
-                            onClick={e => changeShowStatus(true, e)}
+                            onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                             data-button="delete"
                         >
                             Delete
@@ -133,11 +112,5 @@ export const PacksTable = memo((props: PropsType) => {
                        }),
                        position: ['bottomCenter']
                    }}/>
-        <ModalContainer isShow={isShow} changeShowStatus={changeShowStatus}>
-            {
-                setting === "delete" ? <DeleteModal/> :
-                    setting === "update" ? <InputModal/> : null
-            }
-        </ModalContainer>
     </>
 })
