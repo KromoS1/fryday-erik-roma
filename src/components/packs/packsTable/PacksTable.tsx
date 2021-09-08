@@ -1,20 +1,18 @@
-import React, {useState, MouseEvent, useCallback, memo} from 'react';
+import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
-import {NavLink} from 'react-router-dom';
-import {ComponentNameType} from "../PacksPage";
-import {DataRequestType} from "../../../app/requestDataReducer";
 import {getPacks, PackType} from "../PacksReducer";
 import {
+    changeModalStatus,
     DateMaker,
     getPaginationSettings,
     getSortedDateIntoColumns, getSortedNumbersDataColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
-import {ModalContainer} from "../../../commonComponents/Modal/ModalContainer";
-import {DeleteModal} from "../../../commonComponents/Modal/ModalComponents/Delete/DeleteModal";
-import {InputModal} from "../../../commonComponents/Modal/ModalComponents/InputModal/InputModal";
+import {NavLink} from 'react-router-dom';
+import {ComponentNameType} from "../PacksPage";
+import {DataRequestType} from "../../../app/requestDataReducer";
 
 interface PropsType extends ComponentNameType {
     dataParams: DataRequestType
@@ -33,26 +31,8 @@ export interface PackItemType {
 }
 
 export const PacksTable = memo((props: PropsType) => {
+
     const dispatch = useDispatch();
-
-    const [isShow, setIsShow] = useState<boolean>(false)
-    const [setting, setSetting] = useState<string | undefined>("")
-
-    const changeShowStatus = (showStatus: boolean, e?: MouseEvent<HTMLElement>) => {
-        setIsShow(showStatus)
-        let showSetting: string | undefined
-
-        if (e) {
-            showSetting = e.currentTarget.dataset.button
-        }
-
-        if (showSetting === "delete") {
-            setSetting("delete")
-        }
-        if (showSetting === "update") {
-            setSetting("update")
-        }
-    }
 
     const getPacksForTable = useCallback((page: number) => {
         props.meID
@@ -103,11 +83,11 @@ export const PacksTable = memo((props: PropsType) => {
         {
             title: 'Action',
             key: 'action',
-            render: () =>
+            render: (data: PackItemType) =>
                 (
                     <Space size="middle">
                         <Button
-                            onClick={e => changeShowStatus(true, e)}
+                            onClick={e => changeModalStatus(e, dispatch, data.key)}
                             data-button="update"
                         >
                             Update
@@ -115,7 +95,7 @@ export const PacksTable = memo((props: PropsType) => {
                         <Button
                             type="primary"
                             danger
-                            onClick={e => changeShowStatus(true, e)}
+                            onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                             data-button="delete"
                         >
                             Delete
@@ -150,12 +130,6 @@ export const PacksTable = memo((props: PropsType) => {
                            },
                        };
                    }}/>
-            <ModalContainer isShow={isShow} changeShowStatus={changeShowStatus}>
-                {
-                    setting === "delete" ? <DeleteModal/> :
-                        setting === "update" ? <InputModal/> : null
-                }
-            </ModalContainer>
         </>
     )
 })

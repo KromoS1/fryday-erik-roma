@@ -1,14 +1,48 @@
 import React, {FC} from 'react';
 import style from './Modal.module.scss'
+import {InputModal} from "./ModalComponents/InputModal/InputModal";
+import {DeleteModal} from "./ModalComponents/Delete/DeleteModal";
+import {ModalStatus} from "../../components/statusApp/StatusAppReducer";
 
 interface ModalPropsType {
     isShow: boolean
+    modalStatus: ModalStatus
+    itemName?: string
+    addNewPack: (newPackName: string) => void
+    updatePack: (newPackName: string) => void
     backGroundOnClick: () => void
+    deletePack: () => void
+    cancelModal: ()=> void
 }
 
 export const Modal: FC<ModalPropsType> = props => {
 
-      if(!props.isShow) return null
+    const setModal = () => {
+        switch (props.modalStatus) {
+            case "add":
+                return <InputModal
+                    status={props.modalStatus}
+                    packActions={props.addNewPack}
+                    cancelModal={props.cancelModal}
+                />
+            case "update":
+                return <InputModal
+                    status={props.modalStatus}
+                    packActions={props.updatePack}
+                    cancelModal={props.cancelModal}
+                />
+            case "delete":
+                return <DeleteModal
+                    packName={props.itemName}
+                    deletePack={props.deletePack}
+                    cancelModal={props.cancelModal}
+                />
+            default:
+                return <></>
+        }
+    }
+
+    if(!props.isShow) return null
 
     return (
         <>
@@ -17,7 +51,7 @@ export const Modal: FC<ModalPropsType> = props => {
                 onClick={props.backGroundOnClick}
             />
             <div className={style.modal}>
-                {props.children}
+                {setModal()}
             </div>
         </>
     )

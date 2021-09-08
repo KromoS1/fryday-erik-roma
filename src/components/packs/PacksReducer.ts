@@ -1,6 +1,6 @@
 import {AppThunkType} from "../../app/Store";
 import {packApi, ParamsGetPacksType, ParamsUpdatePack} from "../../api/PackAPI";
-import {setStatusApp} from "../statusApp/StatusAppReducer";
+import {setModalStatus, setStatusApp} from "../statusApp/StatusAppReducer";
 import {DataAT, setRequestData} from "../../app/requestDataReducer";
 
 export type PackAT =
@@ -77,6 +77,7 @@ export const addPack = (getParams: ParamsGetPacksType, cardsPack: { name: string
         await packApi.addPack(cardsPack);
         dispatch(setRequestData({...getParams, user_id: userId}));
         dispatch(getPacks({...getParams, user_id: userId}));
+        dispatch(setModalStatus("no-status", false))
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
@@ -90,6 +91,7 @@ export const putPacks = (getParams: ParamsGetPacksType, pack: ParamsUpdatePack):
         await packApi.updatePack(pack);
         dispatch(setRequestData({...getParams}));
         dispatch(getPacks(getParams));
+        dispatch(setModalStatus("no-status", false))
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
@@ -104,6 +106,7 @@ export const removePack = (getParams: ParamsGetPacksType, id: string): AppThunkT
         dispatch(setRequestData({...getParams}));
         dispatch(getPacks(getParams));
         dispatch(setStatusApp('success', 'Success'));
+        dispatch(setModalStatus("no-status", false))
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
