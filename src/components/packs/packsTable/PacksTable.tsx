@@ -9,7 +9,7 @@ import {getPacks, PackType} from "../PacksReducer";
 import {
     DateMaker,
     getPaginationSettings,
-    getSortedDateIntoColumns,
+    getSortedDateIntoColumns, getSortedNumbersDataColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
 
@@ -20,13 +20,14 @@ interface PropsType extends ComponentNameType{
     meID?: string
     remove: (id: string) => void
 }
+
 export interface PackItemType {
     key: string,
     name: string,
-    cards: number,
+    cardsCount: number,
     updated: string,
     created: string,
-};
+}
 
 export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export const PacksTable = memo((props: PropsType) => {
         data.push({
             key: i._id,
             name: i.name,
-            cards: i.cardsCount,
+            cardsCount: i.cardsCount,
             updated: (DateMaker(i.updated)).toString(),
             created: (DateMaker(i.created)).toString(),
         })
@@ -60,10 +61,10 @@ export const PacksTable = memo((props: PropsType) => {
             sorter: getSortedStringsDataColumns,
         },
         {
-            title: 'Cards count',
-            dataIndex: 'cards',
-            key: 'cards',
-            sorter: (a: PackItemType, b: PackItemType) => a.cards - b.cards
+            title: 'Cards',
+            dataIndex: 'cardsCount',
+            key: 'cardsCount',
+            sorter: getSortedNumbersDataColumns
         },
         {
             title: 'Updated',
@@ -101,18 +102,18 @@ export const PacksTable = memo((props: PropsType) => {
                           }),
                           position: ['bottomCenter']
                       }}
-                  onHeaderRow={(columns, index) => {
+                  onHeaderRow={() => {
                       return {
                           onClick: (data: any) => {
-                              const sortParams = data.target.outerText.split(' ').map((param: string, i: number) => {
-                                  return i === 0 ? param.toLowerCase() : param[0].toUpperCase() + param.slice(1)
-                              }).join('')
+                              const indexOfColumn = columns.findIndex(e => e.title === data.target.outerText)
+                              const sortParams = columns[indexOfColumn].key
+
                               if (props.dataParams.sortPacks === `0${sortParams}`) {
                                   dispatch(getPacks({sortPacks: `1${sortParams}`}))
                               } else {
                                   dispatch(getPacks({sortPacks: `0${sortParams}`}))
                               }
-                          }, // click header row
+                          },
                       };
                   }}/>
 })

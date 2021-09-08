@@ -6,7 +6,7 @@ export interface GetCardsRequestType {
     cardQuestion?: string
     min?: number
     max?: number
-    sortCard?: number
+    sortCards?: string
     page?: number
     pageCount?: number
 }

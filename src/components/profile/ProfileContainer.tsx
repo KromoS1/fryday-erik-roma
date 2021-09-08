@@ -28,8 +28,8 @@ export const ProfileContainer = memo(() => {
 
     useEffect(() => {
         meID
-            ? dispatch(getPacks({page: 1, pageCount: 5, user_id: meID, min: 1, max: 5, sortPacks: ''}))
-            : dispatch(getPacks({page: 1, pageCount: 5, min: 1, max: 5, sortPacks: ''}))
+            ? dispatch(getPacks({page: 1, pageCount: 5, user_id: meID, min: 0, max: 5, sortPacks: ''}))
+            : dispatch(getPacks({page: 1, pageCount: 5, min: 0, max: 5, sortPacks: ''}))
     }, [dispatch,meID])
 
     const logOut = useCallback(() => {
