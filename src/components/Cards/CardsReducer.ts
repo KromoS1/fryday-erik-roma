@@ -4,7 +4,7 @@ import {setStatusApp} from "../statusApp/StatusAppReducer";
 
 export type CardAT = | ReturnType<typeof setCards>
 
-export type CardsStateType = {
+export interface CardsStateType {
     [key: string]: CardsType[]
 }
 
