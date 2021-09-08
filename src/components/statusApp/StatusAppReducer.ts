@@ -36,9 +36,9 @@ export const setStatusApp = (status: Status, message: string) => ({
     type: 'STATUS-APP/SET-STATUS',
     payload: {status, message}
 } as const);
-export const setModalStatus = (modalStatus: ModalStatus, isShow: boolean, itemID?: string, itemName?: string) => ({
-    type: 'STATUS-APP/SET-MODAL-STATUS', payload: {modalStatus, isShow, itemID, itemName}
-} as const);
+export const setModalStatus = (modalStatus: ModalStatus, isShow: boolean, itemID?: string, itemName?: string) => {
+       return ({type: 'STATUS-APP/SET-MODAL-STATUS', modalStatus, isShow, itemID, itemName} as const)
+};
 
 export const statusAppReducer = (state = initialState, action: StatusAppAT): StatusApp => {
     switch (action.type) {
@@ -47,7 +47,14 @@ export const statusAppReducer = (state = initialState, action: StatusAppAT): Sta
         case 'STATUS-APP/SET-STATUS':
             return {...state, ...action.payload}
         case "STATUS-APP/SET-MODAL-STATUS":
-            return {...state, modal: {...action.payload}}
+            return {
+                ...state,
+                modal: {
+                    modalStatus: action.modalStatus,
+                    isShow: action.isShow,
+                    itemID: action.itemID,
+                    itemName: action.itemName
+                }}
         default:
             return state
     }
