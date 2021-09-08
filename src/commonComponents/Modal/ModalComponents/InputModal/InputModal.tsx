@@ -12,8 +12,7 @@ interface InputModalPropsType {
 export const InputModal: FC<InputModalPropsType> = props => {
     const [name, setName] = useState<string>("")
 
-    const modalTitle = status === 'add' ? 'Add new pack' :
-        status === 'update' ? 'Set new pack name' : ''
+    const modalTitle = props.status === 'add' ? 'Add new pack' : props.status === 'update' ? 'Set new pack name' : ''
 
     return (
         <>

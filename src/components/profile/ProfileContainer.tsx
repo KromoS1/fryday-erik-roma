@@ -6,6 +6,7 @@ import {logoutAccount} from '../login/LoginReducer';
 import {StatusApp} from '../statusApp/StatusAppReducer';
 import {alertMessage} from "../utils/Utils";
 import {getPacks} from "../packs/PacksReducer";
+import {ModalContainer} from "../../commonComponents/Modal/ModalContainer";
 
 export interface ProfileType {
     _id: string
@@ -41,6 +42,7 @@ export const ProfileContainer = memo(() => {
     return (
         <>
             <Profile profile={profile} logOut={logOut} meID={meID} name={'profile'}/>
+            <ModalContainer/>
         </>
     )
 })
