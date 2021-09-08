@@ -6,7 +6,7 @@ import {PacksTable} from "./PacksTable";
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
 
-type PacksContainerType = ComponentNameType & {
+interface PacksContainerType extends ComponentNameType {
     meID?: string
 }
 

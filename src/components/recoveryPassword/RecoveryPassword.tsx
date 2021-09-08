@@ -13,7 +13,7 @@ interface ValuesType {
     email: string
 }
 
-type PropsType = {
+interface PropsType {
     onSubmit: (data: ValuesType) => void
 }
 

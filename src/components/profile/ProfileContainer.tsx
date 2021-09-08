@@ -7,7 +7,7 @@ import {StatusApp} from '../statusApp/StatusAppReducer';
 import {alertMessage} from "../utils/Utils";
 import {getPacks} from "../packs/PacksReducer";
 
-export type ProfileType = {
+export interface ProfileType {
     _id: string
     email: string
     rememberMe: boolean
@@ -30,11 +30,11 @@ export const ProfileContainer = memo(() => {
         meID
             ? dispatch(getPacks({page: 1, pageCount: 5, user_id: meID, min: 1, max: 5, sortPacks: ''}))
             : dispatch(getPacks({page: 1, pageCount: 5, min: 1, max: 5, sortPacks: ''}))
-    }, [dispatch])
+    }, [dispatch,meID])
 
     const logOut = useCallback(() => {
         dispatch(logoutAccount());
-    },[dispatch]);
+    }, [dispatch]);
 
     alertMessage(statusApp.status, statusApp.message);
 

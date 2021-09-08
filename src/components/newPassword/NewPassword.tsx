@@ -12,7 +12,7 @@ interface NewPasswordValuesType {
     password: string
     confirmPassword: string
 }
-type NewPasswordFormPropsType = {
+interface NewPasswordFormPropsType {
     onSubmit: (data: NewPasswordValuesType) => void
 }
 

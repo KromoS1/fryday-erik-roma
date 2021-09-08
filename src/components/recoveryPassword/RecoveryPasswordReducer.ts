@@ -2,7 +2,7 @@ import {AppThunkType} from "../../app/Store";
 import {authApi, ParamsForgotType} from "../../api/AuthAPI";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
-export type RecoveryPasswordType = {
+export interface RecoveryPasswordType {
     isSend: boolean
 }
 

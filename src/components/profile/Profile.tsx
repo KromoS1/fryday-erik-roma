@@ -8,7 +8,7 @@ import {HeaderProfile} from "../componentsForNavbar/HeaderProfile";
 import {CardsContainer} from "../Cards/Cards";
 import {ComponentNameType} from "../packs/PacksPage";
 
-type PropsType = ComponentNameType & {
+interface PropsType extends ComponentNameType {
     profile: ProfileType
     meID: string
     logOut: () => void

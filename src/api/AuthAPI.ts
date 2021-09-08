@@ -1,40 +1,41 @@
 import axios from 'axios';
 import {ProfileType} from "../components/profile/ProfileContainer";
 
-export type ResponseAuthType = ProfileType & {
+export interface ResponseAuthType extends ProfileType {
     token?: string
     tokenDeathTime?: number
 }
 
-export type ResponseErrorRegistrationType = {
+export interface ResponseErrorRegistrationType {
     error: string,
     email: string
 }
 
-export type ParamsAuthType = {
+export interface ParamsAuthType {
     email: string
     password: string
     rememberMe?:boolean
 }
 
-export type ParamsForgotType = {
+export interface ParamsForgotType {
     email: string
     from: string
     message: string
 }
 
-export type ResponseForgotType = {
+export interface ResponseForgotType {
     info: string
     error: string
 }
 
-export type ParamsSetNewPasswordType = {
+export interface ParamsSetNewPasswordType {
     password: string
     resetPasswordToken: string
 }
 
-const axiosInstance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
+export const axiosInstance = axios.create({
+    // baseURL: 'https://neko-back.herokuapp.com/2.0',
+    baseURL: 'http://localhost:7542/2.0',
     withCredentials: true,
 })
 

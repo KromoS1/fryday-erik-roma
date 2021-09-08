@@ -1,7 +1,7 @@
 export type DataAT =
     | ReturnType<typeof setRequestData>
 
-export  type DataRequestType = {
+export interface DataRequestType {
     user_id?: string
     packName?: string
     min?: number

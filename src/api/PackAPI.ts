@@ -1,7 +1,7 @@
-import axios from 'axios';
 import {PackType} from "../components/packs/PacksReducer";
+import {axiosInstance} from "./AuthAPI";
 
-export type ParamsGetPacksType = {
+export interface ParamsGetPacksType {
     user_id?: string
     packName?: string
     min?: number
@@ -11,7 +11,7 @@ export type ParamsGetPacksType = {
     pageCount?: number
 }
 
-export type ResponseGetPacks = {
+export interface ResponseGetPacks {
     cardPacks: PackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
@@ -22,23 +22,17 @@ export type ResponseGetPacks = {
     tokenDeathTime: number
 }
 
-export type ParamsUpdatePack = {
+export interface ParamsUpdatePack {
     _id: string
     deckCover?: string
     name: string
 }
 
-export type ResponsePacksType<D = PackType> = {
+export interface ResponsePacksType<D = PackType>{
     data: D
     token: string
     tokenDeathTime: number
 }
-
-const axiosInstance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
-
 
 export const packApi = {
     getPacks(getParams: ParamsGetPacksType) {

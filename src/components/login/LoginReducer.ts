@@ -6,7 +6,7 @@ import {setStatusApp} from "../statusApp/StatusAppReducer";
 export type LoginAT =
     | ReturnType<typeof setIsAuth>
 
-export type LoginType = {
+export interface LoginType {
     isAuth: boolean
 }
 
@@ -25,19 +25,20 @@ export const loginReducer = (state = initialState, action: LoginAT): LoginType =
     }
 }
 
-export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => dispatch => {
-    dispatch(setStatusApp('load',''));
-    authApi.login(loginParams)
-        .then(res => {
-            dispatch(setUserData(res.data));
-            dispatch(setIsAuth(true));
-            dispatch(setStatusApp('success','You have successfully signed in to your account.'))
-        })
-        .catch(error => {
-            dispatch(setStatusApp('error',error.message))
-        }).finally(() => {
-        dispatch(setStatusApp('idle',''));
-    })
+export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        const response = await authApi.login(loginParams);
+        console.log(response.data)
+        response.data.token && localStorage.setItem('tokenUser',response.data.token);
+        dispatch(setUserData(response.data));
+        dispatch(setIsAuth(true));
+        dispatch(setStatusApp('success', 'You have successfully signed in to your account.'));
+    } catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    } finally {
+        dispatch(setStatusApp('idle', ''));
+    }
 };
 
 export const logoutAccount = (): AppThunkType => dispatch => {

@@ -13,14 +13,14 @@ import {
     getSortedStringsDataColumns
 } from "../../utils/Utils";
 
-type PropsType = ComponentNameType & {
+interface PropsType extends ComponentNameType{
     dataParams: DataRequestType
     packs: PackType[],
     packsCount: number
     meID?: string
     remove: (id: string) => void
-};
-export type PackItemType = {
+}
+export interface PackItemType {
     key: string,
     name: string,
     cards: number,

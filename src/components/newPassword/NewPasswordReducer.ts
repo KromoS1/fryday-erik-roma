@@ -2,7 +2,7 @@ import {authApi, ParamsSetNewPasswordType} from "../../api/AuthAPI";
 import {AppThunkType} from "../../app/Store";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
-export type NewPasswordTypes = {
+export interface NewPasswordTypes {
     setPasswordStatus: boolean
 }
 

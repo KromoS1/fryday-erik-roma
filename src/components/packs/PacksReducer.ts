@@ -7,7 +7,7 @@ export type PackAT =
     | ReturnType<typeof setPacks>
     | DataAT
 
-export type PackType = {
+export interface PackType {
     _id: string
     name: string
     cardsCount: number
@@ -23,7 +23,7 @@ export type PackType = {
     user_id: string
     user_name: string
 }
-export type PacksStateType = {
+export interface PacksStateType {
     packsCount: number;
     packs: PackType[];
 }

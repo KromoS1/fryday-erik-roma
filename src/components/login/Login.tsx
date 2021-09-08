@@ -15,7 +15,7 @@ interface ValuesType {
     password: string
 }
 
-type PropsType = {
+interface PropsType {
     onSubmit: (data: ValuesType) => void
 }
 
@@ -71,7 +71,8 @@ export const Login: FC = memo(
         alertMessage(statusApp.status,statusApp.message);
 
         const submit = useCallback((data: ValuesType) => {
-            dispatch(loginAccount({...data,rememberMe:true}));
+            dispatch(loginAccount({...data}));
+            // dispatch(loginAccount({...data,rememberMe:true}));
         },[dispatch]);
 
         return (

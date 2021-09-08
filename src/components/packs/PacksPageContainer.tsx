@@ -9,6 +9,7 @@ export const PacksPageContainer: FC = memo(() => {
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
 
+
     const dispatch = useDispatch();
 
     useEffect(() => {

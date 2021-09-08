@@ -1,4 +1,4 @@
-import {CardRequestType, cardsApi, CardsType, GetCardsRequestType, UpdateCardType} from "../../api/CardsAPI";
+import {CardRequestType, cardsApi, CardsType, GetCardsRequestType, Grade, UpdateCardType} from "../../api/CardsAPI";
 import {AppThunkType} from "../../app/Store";
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
@@ -65,6 +65,19 @@ export const deleteCards = (id: string,params: GetCardsRequestType): AppThunkTyp
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
+        dispatch(setStatusApp('idle', ''));
+    }
+}
+
+export const updateGrade = (card_id:string,grade:Grade,params: GetCardsRequestType):AppThunkType => async dispatch => {
+    dispatch(setStatusApp('idle',''));
+    try{
+        const response = await cardsApi.updateGrade(card_id,grade);
+        console.log(response);
+        dispatch(getCards(params));
+    }catch (error){
+        dispatch(setStatusApp('error', error.message));
+    }finally {
         dispatch(setStatusApp('idle', ''));
     }
 }

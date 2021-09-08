@@ -15,7 +15,7 @@ interface ValuesType {
     confirmPassword: string
 }
 
-type PropsType = {
+interface PropsType {
     onSubmit: (data: ValuesType) => void
 }
 

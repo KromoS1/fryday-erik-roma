@@ -4,7 +4,7 @@ export type StatusAppAT =
 
 export type Status = 'idle' | 'load' | 'success' | 'error'
 
-export type StatusApp = {
+export interface StatusApp {
     isInitialize: boolean
     status: Status
     message:string

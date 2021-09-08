@@ -3,7 +3,7 @@ import {AppThunkType} from '../../app/Store';
 import {redirectLogin} from '../utils/Utils';
 import {setStatusApp} from "../statusApp/StatusAppReducer";
 
-export type RegistrationTypes = {
+export interface RegistrationTypes {
     error: string | null
 }
 

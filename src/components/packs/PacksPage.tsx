@@ -7,11 +7,11 @@ import {Route} from "react-router-dom";
 import {CardsContainer} from "../Cards/Cards";
 import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
 
-export type ComponentNameType = {
+export interface ComponentNameType {
     name: 'profile' | 'packs'
 }
 
-type PacksPagePropsType = {
+interface PacksPagePropsType {
     addNewPack: (newPackName: string) => void
 }
 

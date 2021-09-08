@@ -6,7 +6,7 @@ import {CardsTable} from "../../commonComponents/EditableTable/CardsTable";
 import {CardsType} from "../../api/CardsAPI";
 import {useParams} from "react-router-dom";
 
-type PropsType = {
+interface PropsType {
     cards: CardsType[]
     pack_id: string
 }

@@ -1,6 +1,6 @@
-import axios from "axios";
+import {axiosInstance} from "./AuthAPI";
 
-export type GetCardsRequestType = {
+export interface GetCardsRequestType {
     cardsPack_id: string
     cardAnswer?: string
     cardQuestion?: string
@@ -11,7 +11,7 @@ export type GetCardsRequestType = {
     pageCount?: number
 }
 
-export type  CardsType = {
+export interface CardsType {
     _id: string
     cardsPack_id: string
     user_id: string
@@ -22,9 +22,10 @@ export type  CardsType = {
     shots: number
     created: string
     updated: string
+    grade: Grade
 }
 
-export type ResponseType = {
+export interface ResponseType {
     cards: CardsType[]
     cardsTotalCount: number
     maxGrade: number
@@ -34,7 +35,7 @@ export type ResponseType = {
     packUserId: string
 }
 
-export type CardRequestType = {
+export interface CardRequestType {
     cardsPack_id: string
     type?: string
     answer?: string
@@ -43,31 +44,46 @@ export type CardRequestType = {
     shots?: number
 }
 
-export type UpdateCardType = {
+export interface UpdateCardType {
     _id: string
     question?: string
     answer?: string
     comments?: string
 }
 
-const axiosInstance = axios.create({
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
-    withCredentials: true,
-})
+export interface GradeType {
+    _id: string
+    pack_id: string
+    card_id: string
+    user_id: string
+    grade: Grade
+    shots: number
+}
+
+export enum Grade {
+    one = 1,
+    two,
+    three,
+    four,
+    five,
+}
 
 export const cardsApi = {
-    getCards(params:GetCardsRequestType) {
-        return axiosInstance.get<ResponseType>('/cards/card',{
-            params:{...params}
+    getCards(params: GetCardsRequestType) {
+        return axiosInstance.get<ResponseType>('/cards/card', {
+            params: {...params}
         }).then(response => response.data.cards);
     },
     createCard(card: CardRequestType) {
         return axiosInstance.post('/cards/card', {card}).then(response => response.data);
     },
     updateCard(putCard: UpdateCardType) {
-        return axiosInstance.put('/cards/card',{putCard});
+        return axiosInstance.put('/cards/card', {putCard});
     },
     deleteCard(id: string) {
         return axiosInstance.delete(`/cards/card?id=${id}`);
+    },
+    updateGrade(card_id: string, grade: Grade) {
+        return axiosInstance.put<GradeType>('/cards/grade', {card_id,grade}).then(response => response.data);
     }
 }
