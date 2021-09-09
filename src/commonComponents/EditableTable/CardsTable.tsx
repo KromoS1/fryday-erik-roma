@@ -21,13 +21,13 @@ export type cardsItemType = {
 
 export const CardsTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
-
+    console.log(props.cards)
     const getSortedDateIntoColumns =  useCallback((a: cardsItemType, b: cardsItemType) => {
         return new Date(a.lastUpdate) > new Date(b.lastUpdate) ? -1 : 1
     },[]);
 
     const getCardsForTable = useCallback((page: number) => {
-        dispatch(getCards({pageCount: 5, cardsPack_id: props.pack_id,page}));
+        dispatch(getCards({pageCount: 5, cardsPack_id: props.pack_id, page}));
     },[props,dispatch]);
 
     const columns = [
@@ -67,7 +67,7 @@ export const CardsTable = memo((props: PropsType) => {
             question: i.question,
             answer: i.answer,
             lastUpdate: (DateMaker(i.updated)).toString(),
-            grade: i.rating,
+            grade: Math.ceil(i.grade),
         })
     });
     return <Table

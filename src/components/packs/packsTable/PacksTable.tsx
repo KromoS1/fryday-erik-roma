@@ -1,5 +1,6 @@
 import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
+import { useHistory } from "react-router-dom";
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
 import {NavLink} from 'react-router-dom';
@@ -12,6 +13,7 @@ import {
     getSortedDateIntoColumns, getSortedNumbersDataColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
+import {getCards} from "../../Cards/CardsReducer";
 
 interface PropsType extends ComponentNameType{
     dataParams: DataRequestType
@@ -31,7 +33,9 @@ export interface PackItemType {
 
 export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
+    // console.log(props.meID)
     const getPacksForTable = useCallback((page: number) => {
         props.meID
             ? dispatch(getPacks({...props.dataParams, page: page, pageCount: 5, user_id: props.meID}))
@@ -88,6 +92,9 @@ export const PacksTable = memo((props: PropsType) => {
                         <Button type="primary" danger onClick={() => {
                             props.remove(data.key);
                         }}>Удалить</Button>
+                        <Button type="primary"  onClick={() => {
+                            history.push(`packs/learn/${data.key}`)
+                        }}>Изучить</Button>
                     </Space>
                 ),
         },

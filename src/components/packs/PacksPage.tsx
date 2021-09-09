@@ -6,6 +6,7 @@ import {HeaderPacks} from "../componentsForNavbar/HeaderPacks";
 import {Route} from "react-router-dom";
 import {CardsContainer} from "../Cards/Cards";
 import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
+import {LearningPage} from "../LearningPage/LearninGpage";
 
 export interface ComponentNameType {
     name: 'profile' | 'packs'
@@ -39,6 +40,7 @@ export const PacksPage: FC<PacksPagePropsType> = memo(props => {
                     <div className={style.packTable}>
                         <Route exact path={'/packs'} render={() => <PacksTableContainer name={'packs'}/>}/>
                         <Route path={'/packs/cards/:pack_id'} render={() => <CardsContainer/>}/>
+                        <Route path={'/packs/learn/:pack_id'} render={() => <LearningPage/>}/>
                     </div>
                 </div>
             </div>

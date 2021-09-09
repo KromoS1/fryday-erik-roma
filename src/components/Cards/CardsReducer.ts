@@ -73,7 +73,7 @@ export const updateGrade = (card_id:string,grade:Grade,params: GetCardsRequestTy
     dispatch(setStatusApp('idle',''));
     try{
         const response = await cardsApi.updateGrade(card_id,grade);
-        console.log(response);
+
         dispatch(getCards(params));
     }catch (error){
         dispatch(setStatusApp('error', error.message));
