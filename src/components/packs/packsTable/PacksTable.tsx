@@ -2,20 +2,17 @@ import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
 import {getPacks, PackType} from "../PacksReducer";
 import {
     DateMaker,
     getPaginationSettings,
-    getSortedDateIntoColumns, getSortedNumbersDataColumns,
+    getSortedDateIntoColumns,
+    getSortedNumbersDataColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
-import {getCards} from "../../Cards/CardsReducer";
-import {NavLink} from 'react-router-dom';
-import {ComponentNameType} from "../PacksPage";
-import {DataRequestType} from "../../../app/requestDataReducer";
 
 interface PropsType extends ComponentNameType {
     dataParams: DataRequestType
@@ -95,7 +92,7 @@ export const PacksTable = memo((props: PropsType) => {
                             props.remove(data.key);
                         }}>Удалить</Button>
                         <Button type="primary"  onClick={() => {
-                            history.push(`packs/learn/${data.key}`)
+                            history.push(`learn/${data.key}`)
                         }}>Изучить</Button>
                     </Space>
                 ),

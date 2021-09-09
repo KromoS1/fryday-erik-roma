@@ -67,13 +67,13 @@ export const CardsTable = memo((props: PropsType) => {
             question: i.question,
             answer: i.answer,
             lastUpdate: (DateMaker(i.updated)).toString(),
-            grade: Math.ceil(i.grade),
+            grade: Math.round(i.grade),
         })
     });
     return <Table
         columns={columns}
         dataSource={data}
-        pagination={{...getPaginationSettings(props.cardsCount,getCardsForTable), position: ['bottomCenter']}}
+        pagination={{...getPaginationSettings(props.cardsCount, getCardsForTable), position: ['bottomCenter']}}
         onHeaderRow={() => {
             return {
                 onClick: (data: any) => {

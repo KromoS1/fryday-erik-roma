@@ -22,7 +22,7 @@ export const CardsReducer = (state = initialState, action: CardAT): CardsStateTy
 }
 
 export const getCards = (params: GetCardsRequestType): AppThunkType => async dispatch => {
-    dispatch(setStatusApp('idle', ''));
+    dispatch(setStatusApp('load', ''));
     try {
         const cards = await cardsApi.getCards(params);
         dispatch(setCards(cards,params.cardsPack_id));
@@ -34,7 +34,7 @@ export const getCards = (params: GetCardsRequestType): AppThunkType => async dis
 }
 
 export const addCards = (card: CardRequestType,params: GetCardsRequestType): AppThunkType => async dispatch => {
-    dispatch(setStatusApp('idle', ''));
+    dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.createCard(card);
         dispatch(getCards(params));
@@ -46,7 +46,7 @@ export const addCards = (card: CardRequestType,params: GetCardsRequestType): App
 }
 
 export const updateCards = (putCard: UpdateCardType,params: GetCardsRequestType): AppThunkType => async dispatch => {
-    dispatch(setStatusApp('idle', ''));
+    dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.updateCard(putCard);
         dispatch(getCards(params));
@@ -58,7 +58,7 @@ export const updateCards = (putCard: UpdateCardType,params: GetCardsRequestType)
 }
 
 export const deleteCards = (id: string,params: GetCardsRequestType): AppThunkType => async dispatch => {
-    dispatch(setStatusApp('idle', ''));
+    dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.deleteCard(id);
         dispatch(getCards(params));
@@ -70,10 +70,9 @@ export const deleteCards = (id: string,params: GetCardsRequestType): AppThunkTyp
 }
 
 export const updateGrade = (card_id:string,grade:Grade,params: GetCardsRequestType):AppThunkType => async dispatch => {
-    dispatch(setStatusApp('idle',''));
+    dispatch(setStatusApp('load',''));
     try{
-        const response = await cardsApi.updateGrade(card_id,grade);
-
+        await cardsApi.updateGrade(card_id,grade);
         dispatch(getCards(params));
     }catch (error){
         dispatch(setStatusApp('error', error.message));
