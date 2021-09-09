@@ -1,6 +1,5 @@
 import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
-import { useHistory } from "react-router-dom";
 import {Button, Space, Table} from 'antd';
 import {useDispatch} from "react-redux";
 import {NavLink} from 'react-router-dom';
@@ -14,8 +13,11 @@ import {
     getSortedStringsDataColumns
 } from "../../utils/Utils";
 import {getCards} from "../../Cards/CardsReducer";
+import {NavLink} from 'react-router-dom';
+import {ComponentNameType} from "../PacksPage";
+import {DataRequestType} from "../../../app/requestDataReducer";
 
-interface PropsType extends ComponentNameType{
+interface PropsType extends ComponentNameType {
     dataParams: DataRequestType
     packs: PackType[],
     packsCount: number
@@ -100,27 +102,31 @@ export const PacksTable = memo((props: PropsType) => {
         },
     ];
 
-    return <Table columns={columns}
-                  dataSource={data}
-                  pagination={
-                      {
-                          ...getPaginationSettings(props.packsCount, (page: number) => {
-                              getPacksForTable(page)
-                          }),
-                          position: ['bottomCenter']
-                      }}
-                  onHeaderRow={() => {
-                      return {
-                          onClick: (data: any) => {
-                              const indexOfColumn = columns.findIndex(e => e.title === data.target.outerText)
-                              const sortParams = columns[indexOfColumn].key
+    return (
+        <>
+            <Table columns={columns}
+                   dataSource={data}
+                   pagination={
+                       {
+                           ...getPaginationSettings(props.packsCount, (page: number) => {
+                               getPacksForTable(page)
+                           }),
+                           position: ['bottomCenter']
+                       }}
+                   onHeaderRow={() => {
+                       return {
+                           onClick: (data: any) => {
+                               const indexOfColumn = columns.findIndex(e => e.title === data.target.outerText)
+                               const sortParams = columns[indexOfColumn].key
 
-                              if (props.dataParams.sortPacks === `0${sortParams}`) {
-                                  dispatch(getPacks({sortPacks: `1${sortParams}`}))
-                              } else {
-                                  dispatch(getPacks({sortPacks: `0${sortParams}`}))
-                              }
-                          },
-                      };
-                  }}/>
+                               if (props.dataParams.sortPacks === `0${sortParams}`) {
+                                   dispatch(getPacks({sortPacks: `1${sortParams}`}))
+                               } else {
+                                   dispatch(getPacks({sortPacks: `0${sortParams}`}))
+                               }
+                           },
+                       };
+                   }}/>
+        </>
+    )
 })

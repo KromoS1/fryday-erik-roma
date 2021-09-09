@@ -1,0 +1,23 @@
+@import '../../../../stylesCommon/StyleCommon';
+@import '../../../../stylesCommon/StyleAuth';
+
+.title{
+  @include h5();
+  padding: 0 5px 0 5px;
+}
+
+
+.buttons {
+  @include buttonsContainerAuth();
+
+  .btnCancel {
+    @include Button();
+    background: #afb0c3;
+    border-radius: 30px;
+  }
+
+  .btnSave {
+    @include Button();
+    border-radius: 30px;
+  }
+}

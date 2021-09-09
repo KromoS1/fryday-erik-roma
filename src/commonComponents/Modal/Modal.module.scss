@@ -1,0 +1,25 @@
+@import './src/stylesCommon/StyleCommon';
+
+.background {
+  @include displayFlex(column, space-between, center);
+  padding: 5px 0 5px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+  opacity: 0.35;
+  z-index: 20;
+}
+
+.modal {
+  position: fixed;
+  width: 400px;
+  height: 230px;
+  left: 35%;
+  top: 35%;
+  background: #F9F9FE;
+  border-radius: 2px;
+  z-index: 21;
+}
