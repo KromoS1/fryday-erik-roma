@@ -5,6 +5,9 @@ import {PacksStateType, removePack} from "../PacksReducer";
 import {PacksTable} from "./PacksTable";
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
+import style from "../PacksPage.module.scss";
+import {SearchInput} from "../../../commonComponents/serachInput/SearchInput";
+import {changeModalStatus} from "../../utils/Utils";
 
 interface PacksContainerType extends ComponentNameType {
     meID?: string
@@ -17,11 +20,28 @@ export const PacksTableContainer: FC<PacksContainerType> = memo(props => {
 
     const remove = useCallback((id: string) => {
         dispatch(removePack(dataParams, id));
-    },[dispatch,dataParams]);
+    }, [dispatch, dataParams]);
 
     return (
         <>
-            <PacksTable packs={packs} packsCount={packsCount} remove={remove} meID={props.meID} name={props.name} dataParams={dataParams}/>
+            <div className={style.mainTitle}>Packs list</div>
+            <div className={style.search}>
+                <SearchInput/>
+                <div className={style.addButton}>
+                    <button
+                        className={style.btnAdd}
+                        onClick={e => changeModalStatus(e, dispatch)}
+                        data-button="add-pack">
+                        Add new pack
+                    </button>
+                </div>
+            </div>
+            <PacksTable packs={packs}
+                        packsCount={packsCount}
+                        remove={remove}
+                        meID={props.meID}
+                        name={props.name}
+                        dataParams={dataParams}/>
         </>
     )
 })

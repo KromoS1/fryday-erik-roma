@@ -29,7 +29,6 @@ export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => async
     dispatch(setStatusApp('load', ''));
     try {
         const response = await authApi.login(loginParams);
-        console.log(response.data)
         response.data.token && localStorage.setItem('tokenUser',response.data.token);
         dispatch(setUserData(response.data));
         dispatch(setIsAuth(true));

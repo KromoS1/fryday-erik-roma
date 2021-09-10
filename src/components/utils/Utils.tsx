@@ -38,7 +38,7 @@ export const getSortedDateIntoColumns = (a: PackItemType, b: PackItemType) => {
     return new Date(a.created) > new Date(b.created) ? -1 : 1
 }
 
-export const getPaginationSettings = function <Type = {}>(totalAmount: number, changer: (data: number) => void): PaginationProps {
+export const getPaginationSettings = function (totalAmount: number, changer: (data: number) => void): PaginationProps {
     return {
         pageSize: 5,
         total: totalAmount,
@@ -53,14 +53,18 @@ export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) =>
 
 export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: Dispatch, itemID?: string, itemName?: string) => {
     const trigger: string | undefined = e.currentTarget.dataset.button
-    if (trigger === "delete") {
-        dispatch(setModalStatus("delete", true, itemID, itemName))
+    if (trigger === 'delete') {
+        dispatch(setModalStatus("delete", true, itemID, itemName));
     }
-    if (trigger === "update") {
-        dispatch(setModalStatus("update", true, itemID))
+    if (trigger === 'update') {
+        dispatch(setModalStatus("update", true, itemID));
     }
-    if (trigger === "add") {
-        dispatch(setModalStatus("add", true))
+    if (trigger === 'add-pack') {
+        dispatch(setModalStatus("add-pack", true));
+    }
+    if (trigger === 'add-card') {
+
+        dispatch(setModalStatus('add-card', true, itemID));
     }
 }
 

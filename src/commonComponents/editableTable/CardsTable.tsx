@@ -4,7 +4,7 @@ import {Table} from 'antd';
 import {useDispatch} from "react-redux";
 import {DateMaker, getPaginationSettings} from "../../components/utils/Utils";
 import {CardsType} from "../../api/CardsAPI";
-import {getCards} from "../../components/Cards/CardsReducer";
+import {getCards} from "../../components/cards/CardsReducer";
 
 type PropsType = {
     cards: CardsType[],

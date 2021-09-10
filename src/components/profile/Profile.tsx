@@ -2,10 +2,10 @@ import React, {FC, memo} from 'react';
 import {ProfileType} from "./ProfileContainer";
 import style from './Profile.module.scss';
 import {PacksTableContainer} from "../packs/packsTable/PacksTableContainer";
-import {CommonSlider} from "../../commonComponents/Slider/CommonSlider";
+import {CommonSlider} from "../../commonComponents/slider/CommonSlider";
 import {Route} from "react-router-dom";
 import {HeaderProfile} from "../componentsForNavbar/HeaderProfile";
-import {CardsContainer} from "../Cards/Cards";
+import {CardsContainer} from "../cards/Cards";
 import {ComponentNameType} from "../packs/PacksPage";
 
 interface PropsType extends ComponentNameType {

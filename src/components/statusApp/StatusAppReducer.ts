@@ -4,7 +4,7 @@ export type StatusAppAT =
     | ReturnType<typeof setModalStatus>
 
 export type Status = 'idle' | 'load' | 'success' | 'error'
-export type ModalStatus = 'no-status' | 'add' | 'delete' | 'update'
+export type ModalStatus = 'no-status' | 'add-pack' | 'add-card' | 'delete' | 'update'
 export type ModalType = {
     modalStatus: ModalStatus
     isShow: boolean

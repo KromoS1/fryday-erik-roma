@@ -36,7 +36,7 @@ export interface ResponseType {
 }
 
 export interface CardRequestType {
-    cardsPack_id: string
+    cardPack_id: string
     type?: string
     answer?: string
     question?: string
@@ -75,7 +75,12 @@ export const cardsApi = {
         }).then(response => response.data.cards);
     },
     createCard(card: CardRequestType) {
-        return axiosInstance.post('/cards/card', {card}).then(response => response.data);
+        return axiosInstance.post('/cards/card', {
+            card: {
+                cardsPack_id: card.cardPack_id,
+                question: card.question
+            }
+        }).then(response => response.data);
     },
     updateCard(putCard: UpdateCardType) {
         return axiosInstance.put('/cards/card', {putCard});
@@ -84,6 +89,6 @@ export const cardsApi = {
         return axiosInstance.delete(`/cards/card?id=${id}`);
     },
     updateGrade(card_id: string, grade: Grade) {
-        return axiosInstance.put<GradeType>('/cards/grade', {card_id,grade}).then(response => response.data);
+        return axiosInstance.put<GradeType>('/cards/grade', {card_id, grade}).then(response => response.data);
     }
 }

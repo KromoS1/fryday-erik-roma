@@ -8,8 +8,8 @@ import {RecoveryPassword} from "../components/recoveryPassword/RecoveryPassword"
 import {ChekEmail} from "../components/chekEmail/ChekEmail";
 import {Error404} from "../components/error404/Error404";
 import {PacksPageContainer} from "../components/packs/PacksPageContainer";
-import {CardsContainer} from "../components/Cards/Cards";
-import {LearningPage} from "../components/LearningPage/LearningPage";
+import {CardsContainer} from "../components/cards/Cards";
+import {LearningPage} from "../components/learningPage/LearningPage";
 
 const commonRoutes = [
     {

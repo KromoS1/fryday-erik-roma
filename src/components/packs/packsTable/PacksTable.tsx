@@ -7,6 +7,7 @@ import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
 import {getPacks, PackType} from "../PacksReducer";
 import {
+    changeModalStatus,
     DateMaker,
     getPaginationSettings,
     getSortedDateIntoColumns,
@@ -34,7 +35,6 @@ export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // console.log(props.meID)
     const getPacksForTable = useCallback((page: number) => {
         props.meID
             ? dispatch(getPacks({...props.dataParams, page: page, pageCount: 5, user_id: props.meID}))
@@ -64,7 +64,7 @@ export const PacksTable = memo((props: PropsType) => {
             sorter: getSortedStringsDataColumns,
         },
         {
-            title: 'Cards',
+            title: 'cards',
             dataIndex: 'cardsCount',
             key: 'cardsCount',
             sorter: getSortedNumbersDataColumns
@@ -87,11 +87,12 @@ export const PacksTable = memo((props: PropsType) => {
             render: (data: PackItemType) =>
                 (
                     <Space size="middle">
-                        <Button onClick={() => console.log(data)}>Изменить</Button>
+                        <Button onClick={e => changeModalStatus(e, dispatch, data.key)}
+                                data-button={'update'}>Изменить</Button>
                         <Button type="primary" danger onClick={() => {
                             props.remove(data.key);
                         }}>Удалить</Button>
-                        <Button type="primary"  onClick={() => {
+                        <Button type="primary" onClick={() => {
                             history.push(`learn/${data.key}`)
                         }}>Изучить</Button>
                     </Space>

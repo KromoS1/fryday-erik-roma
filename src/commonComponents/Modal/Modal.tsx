@@ -9,29 +9,35 @@ interface ModalPropsType {
     modalStatus: ModalStatus
     itemName?: string
     addNewPack: (newPackName: string) => void
+    addNewQuestion: (question: string) => void
     updatePack: (newPackName: string) => void
     backGroundOnClick: () => void
     deletePack: () => void
-    cancelModal: ()=> void
+    cancelModal: () => void
 }
 
 export const Modal: FC<ModalPropsType> = props => {
-
     const setModal = () => {
         switch (props.modalStatus) {
-            case "add":
+            case 'add-pack':
                 return <InputModal
                     status={props.modalStatus}
-                    packActions={props.addNewPack}
+                    actions={props.addNewPack}
                     cancelModal={props.cancelModal}
                 />
-            case "update":
+            case 'add-card':
                 return <InputModal
                     status={props.modalStatus}
-                    packActions={props.updatePack}
+                    actions={props.addNewQuestion}
                     cancelModal={props.cancelModal}
                 />
-            case "delete":
+            case 'update':
+                return <InputModal
+                    status={props.modalStatus}
+                    actions={props.updatePack}
+                    cancelModal={props.cancelModal}
+                />
+            case 'delete':
                 return <DeleteModal
                     packName={props.itemName}
                     deletePack={props.deletePack}
@@ -42,14 +48,11 @@ export const Modal: FC<ModalPropsType> = props => {
         }
     }
 
-    if(!props.isShow) return null
+    if (!props.isShow) return null
 
     return (
         <>
-            <div
-                className={style.background}
-                onClick={props.backGroundOnClick}
-            />
+            <div className={style.background} onClick={props.backGroundOnClick}/>
             <div className={style.modal}>
                 {setModal()}
             </div>

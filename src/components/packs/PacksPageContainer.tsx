@@ -9,7 +9,6 @@ export const PacksPageContainer: FC = memo(() => {
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
 
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -17,11 +16,11 @@ export const PacksPageContainer: FC = memo(() => {
     }, [dispatch]);
 
     const addNewPack = useCallback((newPackName: string) => {
-        const cardsName = {
+        const card = {
             name: newPackName,
             private: false
         }
-        dispatch(addPack(dataParams, cardsName, meId));
+        dispatch(addPack(dataParams, card, meId));
     }, [dispatch, dataParams, meId]);
 
     return <PacksPage addNewPack={addNewPack}/>

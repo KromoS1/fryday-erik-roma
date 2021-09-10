@@ -6,7 +6,7 @@ import {profileReducer, ProfileReducerAT} from "../components/profile/ProfileRed
 import {RecoveryPasswordAT, recoveryPasswordReducer} from "../components/recoveryPassword/RecoveryPasswordReducer";
 import {NewPasswordAT, newPasswordReducer} from "../components/newPassword/NewPasswordReducer";
 import {StatusAppAT, statusAppReducer} from "../components/statusApp/StatusAppReducer";
-import {CardAT, CardsReducer} from "../components/Cards/CardsReducer";
+import {CardAT, CardsReducer} from "../components/cards/CardsReducer";
 import {PackAT, PacksReducer} from "../components/packs/PacksReducer";
 import {DataRequestReducer} from "./requestDataReducer";
 

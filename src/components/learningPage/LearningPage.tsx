@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Button} from "antd";
 import {RightOutlined} from '@ant-design/icons';
 import {AppRootStateType} from "../../app/Store";
-import {CardsStateType, getCards, updateGrade} from "../Cards/CardsReducer";
+import {CardsStateType, getCards, updateGrade} from "../cards/CardsReducer";
 import {CardsType} from "../../api/CardsAPI";
 import style from './LeanrningPage.module.scss'
 import {Preloader} from "../../commonComponents/preloader/Preloader";
@@ -70,7 +70,7 @@ export const LearningPage: FC<PropsType> = memo(() => {
         }
 
         return () => {
-            console.log('LearningPage useEffect off');
+            console.log('learningPage useEffect off');
         }
 
     }, [dispatch, pack_id,  first , cards]);

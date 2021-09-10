@@ -52,6 +52,7 @@
 
         .btnAdd{
           @include Button();
+          min-width: 200px;
         }
       }
     }
