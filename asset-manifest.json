@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/fryday-erik-roma-pasha/static/css/main.47297336.chunk.css",
-    "main.js": "/fryday-erik-roma-pasha/static/js/main.eb1f8783.chunk.js",
-    "main.js.map": "/fryday-erik-roma-pasha/static/js/main.eb1f8783.chunk.js.map",
+    "main.js": "/fryday-erik-roma-pasha/static/js/main.2c37591f.chunk.js",
+    "main.js.map": "/fryday-erik-roma-pasha/static/js/main.2c37591f.chunk.js.map",
     "runtime-main.js": "/fryday-erik-roma-pasha/static/js/runtime-main.523a81d0.js",
     "runtime-main.js.map": "/fryday-erik-roma-pasha/static/js/runtime-main.523a81d0.js.map",
     "static/css/2.bb0da62a.chunk.css": "/fryday-erik-roma-pasha/static/css/2.bb0da62a.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.bb0da62a.chunk.css",
     "static/js/2.0e405406.chunk.js",
     "static/css/main.47297336.chunk.css",
-    "static/js/main.eb1f8783.chunk.js"
+    "static/js/main.2c37591f.chunk.js"
   ]
 }
