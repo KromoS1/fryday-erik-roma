@@ -2,6 +2,7 @@ $ColorWhite: #fff;
 $ColorBack: #f1dfcc;
 $ColorBlack: #090808;
 $ColorPrimary: #0d6efd;
+$BackColor: #fd0d51;
 
 @mixin displayFlex($direction,$just,$align) {
   display: flex;
@@ -11,6 +12,7 @@ $ColorPrimary: #0d6efd;
 }
 
 @mixin h1 {
+  text-align: center;
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -90,7 +92,7 @@ $ColorPrimary: #0d6efd;
 }
 
 @mixin h6 {
-  font-size: 1.14rem;
+  font-size: 0.5rem;
   line-height: 1.857rem;
   color: #7a7979;
   margin-top: 0;

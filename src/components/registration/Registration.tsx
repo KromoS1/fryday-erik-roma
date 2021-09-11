@@ -1,13 +1,12 @@
-import React, {FC, memo, useCallback} from 'react';
+import React, {FC, memo, useCallback, useState} from 'react';
 import style from './RegistrationStyle.module.scss'
-import {Form} from 'antd';
+import {Button, Checkbox, Form, Select, Upload} from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+
+
 import 'antd/dist/antd.css';
 import {fieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
-import {useDispatch, useSelector} from 'react-redux';
-import {getRegistration} from "./RegistrationReducer";
-import {AppRootStateType} from "../../app/Store";
-import {StatusApp} from "../statusApp/StatusAppReducer";
-import {alertMessage} from "../utils/Utils";
+import {RequiredMark} from "antd/es/form/Form";
 
 interface ValuesType {
     email: string
@@ -20,51 +19,67 @@ interface PropsType {
 }
 
 
-export const formItemLayout = {
-    labelCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 24,
-        },
-    },
-    wrapperCol: {
-        xs: {
-            span: 24,
-        },
-        sm: {
-            span: 24,
-        },
-    },
-};
-
 const FormRegistration: FC<PropsType> = memo(({onSubmit}) => {
 
     const [form] = Form.useForm();
-
+    const [requiredMark, setRequiredMarkType] = useState<string>('optional');
+    const [selectState, setSelectState] = useState<any>('1990')
     const onFinish = useCallback((values: ValuesType) => {
         onSubmit(values);
-    },[onSubmit]);
+    }, [onSubmit]);
 
     return (
         <div className={style.registration}>
-            <div className={style.title}>Cards</div>
-            <div className={style.titleName}>
-                <h3>Sign Up</h3>
-            </div>
+            <div className={style.title}>Education</div>
             <Form name={'register'}
                   className={style.form}
-                  {...formItemLayout}
+
                   form={form}
                   onFinish={onFinish}>
-                {fieldComponent('email', 'E-mail')}
-                {fieldComponent('password', 'Password')}
-                {fieldComponent('confirm', 'Confirm Password')}
+                <div className={style.doubleInput}>
+                    {fieldComponent('educationSelect', 'Education Select', selectState, setSelectState)}
+                    {fieldComponent('year', 'E-mail')}
+                </div>
+
+                {fieldComponent('university', 'University')}
+
+                <div className={style.doubleInput}>
+                    {fieldComponent('dSeries', 'patent series')}
+                    {fieldComponent('dNumber', 'patent number')}
+                </div>
+                {fieldComponent('speciality', 'Speciality')}
+                {fieldComponent('qualification', 'Diploma qualification')}
+                <Checkbox onChange={() => {}}>Checkbox</Checkbox>
+                <div className={style.uploadContainer}>
+
+                    <Upload
+                        className={style.uploadListInline}
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        listType="picture-card"
+                        style={{backgroundColor: 'red'}}
+                    >
+                        <Button>Upload</Button>
+                    </Upload>
+
+                </div>
+
                 <div className={style.buttons}>
                     <button className={style.btnReg} type="submit">
-                        Register
+                        Save
                     </button>
+
+                    <button className={style.btnReg} type="reset" style={{backgroundColor: 'white', color: 'red'}}>
+                        Cancel
+                    </button>
+                </div>
+                <div className={style.footerText}>
+                    <p className={style.text}>
+                        <span style={{color: 'red'}}>*</span> Поля обезательные для заполнения
+                    </p>
+
+                    <p className={style.text}>
+                        <span style={{color: 'yellow'}}>*</span> Поля видные для всех пользователе
+                    </p>
                 </div>
             </Form>
         </div>
@@ -73,15 +88,11 @@ const FormRegistration: FC<PropsType> = memo(({onSubmit}) => {
 
 export const Registration = memo(() => {
 
-    const dispatch = useDispatch();
-    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
-
-    alertMessage(statusApp.status,statusApp.message);
 
     const sendData = useCallback((data: ValuesType) => {
-        let {email,password} = data;
-        dispatch(getRegistration({email,password}))
-    },[dispatch]);
+        let {email, password} = data;
+        console.log(email, password)
+    }, [console]);
 
     return (
         <>
