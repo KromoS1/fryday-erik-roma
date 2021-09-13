@@ -7,6 +7,7 @@ import {ModalStatus} from "../../components/statusApp/StatusAppReducer";
 interface ModalPropsType {
     isShow: boolean
     modalStatus: ModalStatus
+    modalTitle: string
     itemName?: string
     addNewPack: (newPackName: string) => void
     addNewQuestion: (question: string) => void
@@ -21,24 +22,28 @@ export const Modal: FC<ModalPropsType> = props => {
         switch (props.modalStatus) {
             case 'add-pack':
                 return <InputModal
+                    title={props.modalTitle}
                     status={props.modalStatus}
                     actions={props.addNewPack}
                     cancelModal={props.cancelModal}
                 />
             case 'add-card':
                 return <InputModal
+                    title={props.modalTitle}
                     status={props.modalStatus}
                     actions={props.addNewQuestion}
                     cancelModal={props.cancelModal}
                 />
             case 'update':
                 return <InputModal
+                    title={props.modalTitle}
                     status={props.modalStatus}
                     actions={props.updatePack}
                     cancelModal={props.cancelModal}
                 />
             case 'delete':
                 return <DeleteModal
+                    title={props.modalTitle}
                     packName={props.itemName}
                     deletePack={props.deletePack}
                     cancelModal={props.cancelModal}

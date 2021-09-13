@@ -54,11 +54,11 @@ export const ModalContainer: FC = memo(() => {
     }, [dispatch, modal.itemID])
 
     const cancelModal = useCallback(() => {
-        dispatch(setModalStatus("no-status", false))
+        dispatch(setModalStatus("no-status", false, ''))
     }, [dispatch]);
 
     const backGroundOnClick = useCallback(() => {
-        dispatch(setModalStatus('no-status', false))
+        dispatch(setModalStatus('no-status', false, ''))
     }, [dispatch]);
 
     return (
@@ -68,6 +68,7 @@ export const ModalContainer: FC = memo(() => {
                     <Modal
                         isShow={modal.isShow}
                         modalStatus={modal.modalStatus}
+                        modalTitle={modal.modalTitle}
                         itemName={modal.itemName}
                         addNewQuestion={addNewCard}
                         addNewPack={addNewPack}

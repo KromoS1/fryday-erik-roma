@@ -26,7 +26,7 @@ export const getCards = (params: GetCardsRequestType): AppThunkType => async dis
     try {
         const cards = await cardsApi.getCards(params);
         dispatch(setCards(cards, params.cardsPack_id));
-        dispatch(setModalStatus("no-status", false))
+        dispatch(setModalStatus("no-status", false, ''))
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {

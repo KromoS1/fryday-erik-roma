@@ -8,6 +8,7 @@ export type ModalStatus = 'no-status' | 'add-pack' | 'add-card' | 'delete' | 'up
 export type ModalType = {
     modalStatus: ModalStatus
     isShow: boolean
+    modalTitle: string
     itemID?: string
     itemName?: string
 }
@@ -26,6 +27,7 @@ const initialState: StatusApp = {
     modal: {
         modalStatus: 'no-status',
         isShow: false,
+        modalTitle: '',
         itemID: '',
         itemName: ''
     }
@@ -36,8 +38,14 @@ export const setStatusApp = (status: Status, message: string) => ({
     type: 'STATUS-APP/SET-STATUS',
     payload: {status, message}
 } as const);
-export const setModalStatus = (modalStatus: ModalStatus, isShow: boolean, itemID?: string, itemName?: string) => {
-       return ({type: 'STATUS-APP/SET-MODAL-STATUS', modalStatus, isShow, itemID, itemName} as const)
+export const setModalStatus = (
+    modalStatus: ModalStatus,
+    isShow: boolean,
+    modalTitle: string,
+    itemID?: string,
+    itemName?: string
+) => {
+    return ({type: 'STATUS-APP/SET-MODAL-STATUS', modalStatus, isShow, modalTitle, itemID, itemName} as const)
 };
 
 export const statusAppReducer = (state = initialState, action: StatusAppAT): StatusApp => {
@@ -52,9 +60,11 @@ export const statusAppReducer = (state = initialState, action: StatusAppAT): Sta
                 modal: {
                     modalStatus: action.modalStatus,
                     isShow: action.isShow,
+                    modalTitle: action.modalTitle,
                     itemID: action.itemID,
                     itemName: action.itemName
-                }}
+                }
+            }
         default:
             return state
     }

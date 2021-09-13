@@ -2,6 +2,7 @@ import React, {FC} from 'react';
 import style from './DeleteModal.module.scss'
 
 interface DeleteModalPropsType {
+    title: string
     packName: string | undefined
     deletePack: () => void
     cancelModal: ()=> void
@@ -10,7 +11,7 @@ interface DeleteModalPropsType {
 export const DeleteModal: FC<DeleteModalPropsType> = props => {
     return (
         <>
-            <div className={style.title}>Delete Pack?</div>
+            <div className={style.title}>{props.title}</div>
             <div className={style.infoMessage}>
                 Do you really want to remove {props.packName}
                 All cards will be excluded from this course.

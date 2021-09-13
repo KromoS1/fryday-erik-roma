@@ -54,17 +54,17 @@ export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) =>
 export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: Dispatch, itemID?: string, itemName?: string) => {
     const trigger: string | undefined = e.currentTarget.dataset.button
     if (trigger === 'delete') {
-        dispatch(setModalStatus("delete", true, itemID, itemName));
+        dispatch(setModalStatus("delete", true, 'Delete Pack?' , itemID, itemName));
     }
     if (trigger === 'update') {
-        dispatch(setModalStatus("update", true, itemID));
+        dispatch(setModalStatus("update", true, 'Set new pack name', itemID));
     }
     if (trigger === 'add-pack') {
-        dispatch(setModalStatus("add-pack", true));
+        dispatch(setModalStatus("add-pack", true, 'Add new pack'));
     }
     if (trigger === 'add-card') {
 
-        dispatch(setModalStatus('add-card', true, itemID));
+        dispatch(setModalStatus('add-card', true, 'Add new card', itemID));
     }
 }
 
