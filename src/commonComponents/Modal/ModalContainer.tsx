@@ -38,7 +38,7 @@ export const ModalContainer: FC = memo(() => {
     }, [dispatch, modal.modalStatus, dataParams, modal.itemID]);
 
     const deletePack = useCallback(() => {
-        if (typeof modal.itemID === "string") {
+        if (modal.modalStatus === "delete" && modal.itemID) {
             dispatch(removePack(dataParams, modal.itemID))
         }
     }, [dispatch, dataParams, modal.itemID]);
