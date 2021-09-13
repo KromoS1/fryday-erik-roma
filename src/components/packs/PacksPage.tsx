@@ -16,6 +16,7 @@ interface PacksPagePropsType {
 }
 
 export const PacksPage: FC<PacksPagePropsType> = memo(() => {
+
     return (
         <>
             <div className={style.container}>
