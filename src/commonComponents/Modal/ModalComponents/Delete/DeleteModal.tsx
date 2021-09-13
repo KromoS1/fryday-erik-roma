@@ -13,7 +13,7 @@ export const DeleteModal: FC<DeleteModalPropsType> = props => {
         <>
             <div className={style.title}>{props.title}</div>
             <div className={style.infoMessage}>
-                Do you really want to remove {props.packName}
+                Do you really want to remove {props.packName}?<br/>
                 All cards will be excluded from this course.
             </div>
             <div className={style.buttons}>

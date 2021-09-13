@@ -35,6 +35,7 @@ export const getCards = (params: GetCardsRequestType): AppThunkType => async dis
 }
 
 export const addCards = (card: CardRequestType): AppThunkType => async dispatch => {
+    console.log(card)
     dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.createCard(card);

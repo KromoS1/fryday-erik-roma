@@ -43,11 +43,12 @@ export const ModalContainer: FC = memo(() => {
         }
     }, [dispatch, dataParams, modal.itemID]);
 
-    const addNewCard = useCallback((question: string) => {
+    const addNewCard = useCallback((question: string, answer?: string) => {
         if (modal.modalStatus === "add-card" && modal.itemID) {
             const card: CardRequestType = {
                 cardPack_id: modal.itemID,
                 question: question,
+                answer: answer
             }
             dispatch(addCards(card));
         }

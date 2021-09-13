@@ -87,7 +87,7 @@ export const PacksTable = memo((props: PropsType) => {
             render: (data: PackItemType) =>
                 (
                     <Space size="middle">
-                        <Button onClick={e => changeModalStatus(e, dispatch, data.key)}
+                        <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                                 data-button={'update'}>Изменить</Button>
                         <Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                                 data-button={'delete'}

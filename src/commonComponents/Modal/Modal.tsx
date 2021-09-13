@@ -10,7 +10,7 @@ interface ModalPropsType {
     modalTitle: string
     itemName?: string
     addNewPack: (newPackName: string) => void
-    addNewQuestion: (question: string) => void
+    addNewQuestion: (question: string, answer?: string) => void
     updatePack: (newPackName: string) => void
     backGroundOnClick: () => void
     deletePack: () => void
@@ -37,6 +37,7 @@ export const Modal: FC<ModalPropsType> = props => {
             case 'update':
                 return <InputModal
                     title={props.modalTitle}
+                    packName={props.itemName}
                     status={props.modalStatus}
                     actions={props.updatePack}
                     cancelModal={props.cancelModal}

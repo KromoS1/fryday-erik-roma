@@ -57,7 +57,7 @@ export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: Dispatch
         dispatch(setModalStatus("delete", true, 'Delete Pack?' , itemID, itemName));
     }
     if (trigger === 'update') {
-        dispatch(setModalStatus("update", true, 'Set new pack name', itemID));
+        dispatch(setModalStatus("update", true, 'Set new pack name', itemID, itemName));
     }
     if (trigger === 'add-pack') {
         dispatch(setModalStatus("add-pack", true, 'Add new pack'));
