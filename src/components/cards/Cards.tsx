@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {CardsTable} from "../../commonComponents/editableTable/CardsTable";
 import {CardsType} from "../../api/CardsAPI";
 import {useParams} from "react-router-dom";
-import {CardsStateType, getCards} from "./CardsReducer";
+import {getCards} from "./CardsReducer";
 import style from "../packs/PacksPage.module.scss";
 import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
 import {changeModalStatus} from "../utils/Utils";
@@ -27,7 +27,7 @@ const Cards = memo((props: PropsType) => {
 
 export const CardsContainer = memo(() => {
     const {pack_id} = useParams<{ pack_id: string }>()
-    const cards = useSelector<AppRootStateType, CardsStateType>(state => state.cards);
+    const cards = useSelector<AppRootStateType, CardsType[]>(state => state.cards.cards);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -42,13 +42,13 @@ export const CardsContainer = memo(() => {
                 <div className={style.addButton}>
                     <button
                         className={style.btnAdd}
-                        onClick={e => changeModalStatus(e, dispatch,pack_id)}
+                        onClick={e => changeModalStatus(e, dispatch, pack_id)}
                         data-button="add-card">
                         Add new card
                     </button>
                 </div>
             </div>
-            <Cards cards={cards[pack_id]} pack_id={pack_id}/>
+            <Cards cards={cards} pack_id={pack_id}/>
         </>
     )
 })

@@ -71,7 +71,7 @@ export enum Grade {
 export const cardsApi = {
     getCards(params: GetCardsRequestType) {
         return axiosInstance.get<ResponseType>('/cards/card', {
-            params: {...params}
+            params: {...params, pageCount: 10}
         }).then(response => response.data.cards);
     },
     createCard(card: CardRequestType) {
