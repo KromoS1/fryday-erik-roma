@@ -1,10 +1,10 @@
-import React, {FC, memo, useEffect, useState} from 'react'
+import React, {FC, memo, useEffect, useRef, useState} from 'react'
 import {NavLink, useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux";
 import {Button} from "antd";
 import {RightOutlined} from '@ant-design/icons';
 import {AppRootStateType} from "../../app/Store";
-import {getCardGrade, getCards, GradeUpdateType, updateGrade} from "../cards/CardsReducer";
+import {getCardGrade, getCards, GradeUpdateType, updateCardsLocal, updateGrade} from "../cards/CardsReducer";
 import {CardsType} from "../../api/CardsAPI";
 import style from './LeanrningPage.module.scss'
 import {Preloader} from "../../commonComponents/preloader/Preloader";
@@ -42,7 +42,8 @@ export const LearningPage: FC<PropsType> = memo(() => {
     const [first, setFirst] = useState<boolean>(true);
     const cards = useSelector<AppRootStateType, CardsType[]>(state => state.cards.cards);
     const {pack_id} = useParams<{ pack_id: string }>();
-    const [value, setValue] = useState<CardsType[]>(cards)
+    const grade = useRef<number | null>();
+
     const [card, setCard] = useState<CardsType>({
         _id: 'fake',
         cardsPack_id: '',
@@ -59,17 +60,16 @@ export const LearningPage: FC<PropsType> = memo(() => {
 
     const dispatch = useDispatch();
 
-    const updatedCards = value.map((card, i) => {
-        return card._id === updateData.card_id ? {...card, grade: (updateData.grade + card.grade) / 2} : card
-    })
 
     useEffect(() => {
+        grade.current = null
         if (first) {
             dispatch(getCards({cardsPack_id: pack_id}))
             setFirst(false);
         }
+
         if (cards) {
-            setCard(getCard(updatedCards));
+            setCard(getCard(cards));
         }
         return () => {
             dispatch(getCardGrade({card_id: '', grade: 0}))
@@ -78,16 +78,15 @@ export const LearningPage: FC<PropsType> = memo(() => {
     }, [dispatch, pack_id, first, cards]);
 
     const onNext = () => {
-        setValue(updatedCards)
         setIsChecked(false);
         if (cards) {
-            setCard(getCard(value))
-            dispatch(updateGrade(card._id, card.grade, {cardsPack_id: pack_id}))
+            grade.current && dispatch(updateGrade(card._id, card.grade))
+            dispatch(updateCardsLocal(updateData))
         } else {
-
+            console.log('nothing')
         }
     }
-
+    const fontSizeForAnswer = card?.answer.length > 121 ? '2rem' : '3rem';
     return (
         <div className={style.learnContainer}>
             <div className={style.container}>
@@ -103,10 +102,11 @@ export const LearningPage: FC<PropsType> = memo(() => {
 
                 {isChecked && (
                     <>
-                        <div className={style.answer}>{card.answer}</div>
+                        <div className={style.answer} style={{fontSize: fontSizeForAnswer}} >{card.answer}</div>
                         <div className={style.buttons}>
                             {grades.map((g, i) => (
                                 <Button key={'grade-' + i} onClick={() => {
+                                    grade.current = g
                                     setCard({...card, grade: g})
                                 }}>{g}</Button>
                             ))}

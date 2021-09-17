@@ -2,7 +2,7 @@ import {CardRequestType, cardsApi, CardsType, GetCardsRequestType, Grade, Update
 import {AppThunkType} from "../../app/Store";
 import {setModalStatus, setStatusApp} from "../statusApp/StatusAppReducer";
 
-export type CardAT = | ReturnType<typeof setCards> | ReturnType<typeof getCardGrade>
+export type CardAT = | ReturnType<typeof setCards> | ReturnType<typeof getCardGrade> | ReturnType<typeof updateCardsLocal>
 export type GradeUpdateType = {card_id: string, grade: number}
 export type CardsStateType  = {
     cards: CardsType[]
@@ -18,7 +18,8 @@ const initialState: CardsStateType = {
 }
 
 export const setCards = (cards: CardsType[], packId: string) => ({type: "CARDS/GET-CARDS", cards, packId} as const);
-export const getCardGrade = (gradeData: GradeUpdateType) => ({type: "CARDS/GET_CARDS_GRADE", gradeData} as const)
+export const getCardGrade = (gradeData: GradeUpdateType) => ({type: "CARDS/GET_CARDS_GRADE", gradeData} as const);
+export const updateCardsLocal = (gradeData: GradeUpdateType) => ({type: "CARDS/UPDATE_CARDS", gradeData} as const);
 
 export const CardsReducer = (state = initialState, action: CardAT): CardsStateType => {
     switch (action.type) {
@@ -26,6 +27,11 @@ export const CardsReducer = (state = initialState, action: CardAT): CardsStateTy
             return {...state, cards: action.cards}
         case "CARDS/GET_CARDS_GRADE":
             return {...state, gradeData: action.gradeData}
+        case "CARDS/UPDATE_CARDS":
+            const cardsCopy = state.cards.map(card => {
+               return  card._id === state.gradeData.card_id ? {...card,  grade: (card.grade + state.gradeData.grade) / 2} : card
+            })
+            return {...state, cards: [...cardsCopy]}
         default:
             return state
     }
@@ -80,12 +86,11 @@ export const deleteCards = (id: string, params: GetCardsRequestType): AppThunkTy
     }
 }
 
-export const updateGrade = (card_id: string, grade: Grade, params: GetCardsRequestType): AppThunkType => async dispatch => {
+export const updateGrade = (card_id: string, grade: Grade): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
-       let result = await cardsApi.updateGrade(card_id, grade);
+        await cardsApi.updateGrade(card_id, grade);
         dispatch(getCardGrade({card_id, grade}))
-        // dispatch(getCards(params));
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
