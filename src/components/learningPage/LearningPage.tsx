@@ -9,7 +9,6 @@ import {CardsType} from "../../api/CardsAPI";
 import style from './LeanrningPage.module.scss'
 import {Preloader} from "../../commonComponents/preloader/Preloader";
 
-
 interface ValuesType {
     email: string
     password: string
@@ -28,12 +27,11 @@ const getCard = (cards: CardsType[]) => {
     const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
             const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
             return {sum: newSum, id: newSum < rand ? i : acc.id}
-        }
-        , {sum: 0, id: -1});
+        }, {sum: 0, id: -1}
+    );
 
     return cards[res.id + 1];
-
-};
+}
 
 export const LearningPage: FC<PropsType> = memo(() => {
     const status = useSelector<AppRootStateType, string>(state => state.statusApp.status);
@@ -43,6 +41,7 @@ export const LearningPage: FC<PropsType> = memo(() => {
     const cards = useSelector<AppRootStateType, CardsType[]>(state => state.cards.cards);
     const {pack_id} = useParams<{ pack_id: string }>();
     const grade = useRef<number | null>();
+    const dispatch = useDispatch();
 
     const [card, setCard] = useState<CardsType>({
         _id: 'fake',
@@ -58,23 +57,18 @@ export const LearningPage: FC<PropsType> = memo(() => {
         updated: '',
     });
 
-    const dispatch = useDispatch();
-
-
     useEffect(() => {
         grade.current = null
         if (first) {
             dispatch(getCards({cardsPack_id: pack_id}))
             setFirst(false);
         }
-
         if (cards) {
             setCard(getCard(cards));
         }
         return () => {
             dispatch(getCardGrade({card_id: '', grade: 0}))
         }
-
     }, [dispatch, pack_id, first, cards]);
 
     const onNext = () => {
@@ -86,7 +80,9 @@ export const LearningPage: FC<PropsType> = memo(() => {
             console.log('nothing')
         }
     }
+
     const fontSizeForAnswer = card?.answer.length > 121 ? '2rem' : '3rem';
+
     return (
         <div className={style.learnContainer}>
             <div className={style.container}>
@@ -102,7 +98,7 @@ export const LearningPage: FC<PropsType> = memo(() => {
 
                 {isChecked && (
                     <>
-                        <div className={style.answer} style={{fontSize: fontSizeForAnswer}} >{card.answer}</div>
+                        <div className={style.answer} style={{fontSize: fontSizeForAnswer}}>{card.answer}</div>
                         <div className={style.buttons}>
                             {grades.map((g, i) => (
                                 <Button key={'grade-' + i} onClick={() => {

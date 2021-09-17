@@ -2,9 +2,17 @@ import {CardRequestType, cardsApi, CardsType, GetCardsRequestType, Grade, Update
 import {AppThunkType} from "../../app/Store";
 import {setModalStatus, setStatusApp} from "../statusApp/StatusAppReducer";
 
-export type CardAT = | ReturnType<typeof setCards> | ReturnType<typeof getCardGrade> | ReturnType<typeof updateCardsLocal>
-export type GradeUpdateType = {card_id: string, grade: number}
-export type CardsStateType  = {
+export type CardAT =
+    | ReturnType<typeof setCards>
+    | ReturnType<typeof getCardGrade>
+    | ReturnType<typeof updateCardsLocal>
+
+export interface GradeUpdateType {
+    card_id: string
+    grade: number
+}
+
+export interface CardsStateType {
     cards: CardsType[]
     gradeData: GradeUpdateType
 }
@@ -29,7 +37,10 @@ export const CardsReducer = (state = initialState, action: CardAT): CardsStateTy
             return {...state, gradeData: action.gradeData}
         case "CARDS/UPDATE_CARDS":
             const cardsCopy = state.cards.map(card => {
-               return  card._id === state.gradeData.card_id ? {...card,  grade: (card.grade + state.gradeData.grade) / 2} : card
+                return card._id === state.gradeData.card_id ? {
+                    ...card,
+                    grade: (card.grade + state.gradeData.grade) / 2
+                } : card
             })
             return {...state, cards: [...cardsCopy]}
         default:

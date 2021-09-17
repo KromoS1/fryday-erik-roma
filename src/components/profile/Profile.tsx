@@ -27,7 +27,6 @@ export const Profile: FC<PropsType> = memo(props => {
                 <div className={style.packs}>
                     <div className={style.mainTitle}>My packs list</div>
                     <div className={style.search}>
-
                     </div>
                     <div className={style.packTable}>
                         <Route exact path={'/profile'}
