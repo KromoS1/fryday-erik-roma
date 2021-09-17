@@ -51,7 +51,7 @@ export const ModalContainer: FC = memo(() => {
             }
             dispatch(addCards(card));
         }
-    }, [dispatch, modal.itemID])
+    }, [dispatch, modal.itemID,modal.modalStatus])
 
     const cancelModal = useCallback(() => {
         dispatch(setModalStatus("no-status", false))

@@ -21,7 +21,7 @@ export type cardsItemType = {
 
 export const CardsTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
-    console.log(props.cards)
+
     const getSortedDateIntoColumns =  useCallback((a: cardsItemType, b: cardsItemType) => {
         return new Date(a.lastUpdate) > new Date(b.lastUpdate) ? -1 : 1
     },[]);

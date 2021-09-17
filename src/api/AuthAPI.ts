@@ -59,6 +59,10 @@ export const authApi = {
     },
     setNewPassword(params: ParamsSetNewPasswordType) {
        return axiosInstance.post<{info: string}>('/auth/set-new-password', params)
-           .then(res =>  res.data)
+           .then(res => res.data)
+    },
+    edit(name:string,avatar:string){
+        return axiosInstance.put('auth/me',{name,avatar})
+            .then(response => response.data.updatedUser)
     }
 };

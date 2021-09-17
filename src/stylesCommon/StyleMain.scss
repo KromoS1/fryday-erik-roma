@@ -56,6 +56,7 @@
 
 @mixin MainButton{
   @include Button();
+  @include displayFlex(row,center,center);
   padding: 3px;
   font-weight: 600;
   font-size: 12px;

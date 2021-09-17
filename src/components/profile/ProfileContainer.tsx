@@ -18,7 +18,7 @@ export interface ProfileType {
     publicCardPacksCount: number
     created: string
     updated: string
-    avatar?: string
+    avatar: string
 }
 
 export const ProfileContainer = memo(() => {
