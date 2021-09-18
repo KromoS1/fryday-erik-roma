@@ -2,11 +2,12 @@ import React, {FC} from 'react';
 import style from './Modal.module.scss'
 import {InputModal} from "./ModalComponents/InputModal/InputModal";
 import {DeleteModal} from "./ModalComponents/Delete/DeleteModal";
-import {ModalStatus} from "../../components/statusApp/StatusAppReducer";
+import {ModalStatus, Status} from "../../components/statusApp/StatusAppReducer";
 
 interface ModalPropsType {
     isShow: boolean
     modalStatus: ModalStatus
+    appStatus: Status
     modalTitle: string
     itemName?: string
     addNewPack: (newPackName: string) => void
@@ -23,14 +24,16 @@ export const Modal: FC<ModalPropsType> = props => {
             case 'add-pack':
                 return <InputModal
                     title={props.modalTitle}
-                    status={props.modalStatus}
+                    modalStatus={props.modalStatus}
+                    appStatus={props.appStatus}
                     actions={props.addNewPack}
                     cancelModal={props.cancelModal}
                 />
             case 'add-card':
                 return <InputModal
                     title={props.modalTitle}
-                    status={props.modalStatus}
+                    modalStatus={props.modalStatus}
+                    appStatus={props.appStatus}
                     actions={props.addNewQuestion}
                     cancelModal={props.cancelModal}
                 />
@@ -38,12 +41,14 @@ export const Modal: FC<ModalPropsType> = props => {
                 return <InputModal
                     title={props.modalTitle}
                     packName={props.itemName}
-                    status={props.modalStatus}
+                    modalStatus={props.modalStatus}
+                    appStatus={props.appStatus}
                     actions={props.updatePack}
                     cancelModal={props.cancelModal}
                 />
             case 'delete':
                 return <DeleteModal
+                    appStatus={props.appStatus}
                     title={props.modalTitle}
                     packName={props.itemName}
                     deletePack={props.deletePack}

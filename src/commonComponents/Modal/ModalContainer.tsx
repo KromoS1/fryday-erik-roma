@@ -2,7 +2,7 @@ import React, {FC, memo, useCallback} from 'react';
 import {Modal} from "./Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
-import {ModalType, setModalStatus} from "../../components/statusApp/StatusAppReducer";
+import {ModalType, setModalStatus, Status} from "../../components/statusApp/StatusAppReducer";
 import {DataRequestType} from "../../app/requestDataReducer";
 import {addPack, putPacks, removePack} from "../../components/packs/PacksReducer";
 import {ParamsUpdatePack} from "../../api/PackAPI";
@@ -11,6 +11,7 @@ import {addCards} from "../../components/cards/CardsReducer";
 
 export const ModalContainer: FC = memo(() => {
     const modal = useSelector<AppRootStateType, ModalType>(state => state.statusApp.modal);
+    const appStatus = useSelector<AppRootStateType, Status>(state => state.statusApp.status)
     const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
     const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export const ModalContainer: FC = memo(() => {
 
     const updatePack = useCallback((newPackName: string) => {
         if (modal.modalStatus === "update") {
-            if (typeof modal.itemID === "string") {
+            if (modal.modalStatus === "update" && modal.itemID) {
                 let pack: ParamsUpdatePack = {
                     _id: modal.itemID,
                     name: newPackName
@@ -69,6 +70,7 @@ export const ModalContainer: FC = memo(() => {
                     <Modal
                         isShow={modal.isShow}
                         modalStatus={modal.modalStatus}
+                        appStatus={appStatus}
                         modalTitle={modal.modalTitle}
                         itemName={modal.itemName}
                         addNewQuestion={addNewCard}

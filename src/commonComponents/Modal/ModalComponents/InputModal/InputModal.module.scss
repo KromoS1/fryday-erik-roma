@@ -20,4 +20,11 @@
     @include Button();
     border-radius: 30px;
   }
+  .btnDisabled{
+    @include Button();
+    background: #616166;
+    &:hover {
+      background: #616166;
+    }
+  }
 }
