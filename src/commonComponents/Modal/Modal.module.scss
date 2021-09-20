@@ -14,11 +14,13 @@
 }
 
 .modal {
+  @include displayFlex(column, space-between, '');
   position: fixed;
   width: 400px;
   height: 230px;
   left: 35%;
   top: 35%;
+  padding: 10px;
   background: #F9F9FE;
   border-radius: 2px;
   z-index: 21;

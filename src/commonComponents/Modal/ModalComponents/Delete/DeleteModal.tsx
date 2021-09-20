@@ -13,9 +13,12 @@ interface DeleteModalPropsType {
 export const DeleteModal: FC<DeleteModalPropsType> = props => {
     return (
         <>
-            <div className={style.title}>{props.title}</div>
+            <div className={style.header}>
+                <div className={style.title}>{props.title}</div>
+                <span className={style.close} onClick={props.cancelModal}></span>
+            </div>
             <div className={style.infoMessage}>
-                Do you really want to remove {props.packName}?<br/>
+                Do you really want to remove <b>{props.packName}</b>?<br/>
                 All cards will be excluded from this course.
             </div>
             <div className={style.buttons}>

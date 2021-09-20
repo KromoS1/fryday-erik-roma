@@ -1,7 +1,12 @@
 @import '../../../../stylesCommon/StyleCommon';
 @import '../../../../stylesCommon/StyleAuth';
 
-.title{
+
+.header {
+  @include displayFlex(row, space-between, '');
+}
+
+.title {
   @include h5();
   padding: 0 5px 0 5px;
 }
@@ -20,11 +25,13 @@
     @include Button();
     border-radius: 30px;
   }
-  .btnDisabled{
+
+  .btnDisabled {
     @include Button();
-    background: #616166;
-    &:hover {
-      background: #616166;
-    }
+    opacity: .5;
   }
+}
+
+.close {
+  @include Close();
 }

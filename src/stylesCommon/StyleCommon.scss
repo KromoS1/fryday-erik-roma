@@ -106,3 +106,30 @@ $ColorPrimary: #0d6efd;
   width: 120px;
   border-radius: 50%;
 }
+
+@mixin Close {
+  display: block;
+  position: absolute;
+  right: 35px;
+  top: 17px;
+  width: 10px;
+  height: 10px;
+  opacity: 0.3;
+  &:hover{
+    opacity: 1;
+  }
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 20px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before{
+    transform: rotate(45deg);
+  }
+  &:after{
+    transform: rotate(-45deg);
+  }
+}
