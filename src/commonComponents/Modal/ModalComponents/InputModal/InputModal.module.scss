@@ -11,8 +11,13 @@
   padding: 0 5px 0 5px;
 }
 
+.input{
+  margin-top: 5px;
+
+}
 
 .buttons {
+  @include displayFlex(row, space-between, '');
   @include buttonsContainerAuth();
 
   .btnCancel {

@@ -32,30 +32,33 @@ export const InputModal: FC<InputModalPropsType> = props => {
                 <div className={style.title}>{props.title}</div>
                 <span className={style.close} onClick={props.cancelModal}></span>
             </div>
-            <div className={style.input}>
-                {props.modalStatus === 'add-card' ? <div>
+            <div>
+                {props.modalStatus === 'add-card' ? <>
                         <Input
+                            className={style.input}
                             autoFocus
                             disabled={props.appStatus === 'load'}
                             placeholder={"Enter question"}
                             value={value}
-                            size={"large"}
+                            size={"middle"}
                             onChange={e => setValue(e.currentTarget.value)}/>
                         <Input
+                            className={style.input}
                             autoFocus
                             disabled={props.appStatus === 'load'}
                             placeholder={"Enter answer"}
                             value={answer}
-                            size={"large"}
+                            size={"middle"}
                             onChange={e => setAnswer(e.currentTarget.value)}/>
-                    </div>
+                    </>
                     :
                     <Input
+                        className={style.input}
                         autoFocus
                         disabled={props.appStatus === 'load'}
                         placeholder={"Enter new pack name"}
                         value={value}
-                        size={"large"}
+                        size={"middle"}
                         onChange={e => setValue(e.currentTarget.value)}/>
                 }
 

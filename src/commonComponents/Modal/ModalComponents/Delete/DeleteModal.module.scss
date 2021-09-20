@@ -17,6 +17,7 @@
 }
 
 .buttons {
+  @include displayFlex(row, space-between, '');
   @include buttonsContainerAuth();
 
   .btnCancel {
@@ -37,12 +38,13 @@
     opacity: .5;
 
     &:hover {
-      opacity: .5;;
+      opacity: .5;
     }
   }
 }
 
 .close {
   @include Close();
+
 }
 
