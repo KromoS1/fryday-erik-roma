@@ -33,8 +33,7 @@ export const fieldComponent = (name: string, placeholder: string) => {
                     message: 'Please input your password!',
                 },
             ]}
-            hasFeedback
-        >
+            hasFeedback>
             <Input.Password placeholder={placeholder} size={'large'} className={style.input}/>
         </Form.Item>
     } else if (name === 'confirm') {
@@ -61,19 +60,7 @@ export const fieldComponent = (name: string, placeholder: string) => {
         >
             <Input.Password placeholder={placeholder} size={'large'} className={style.input}/>
         </Form.Item>
-    }else if(name === 'name'){
-        return <Form.Item
-            className={style.field}
-            name={name}
-            rules={[
-                {
-                    min: 1,
-                    message: "Password should be more than 1 character",
-                },
-            ]}>
-            <Input placeholder={placeholder} size={'large'} className={style.input}/>
-        </Form.Item>
-    } else if (name === 'status'){
+    } else if (name === 'status') {
         return <Form.Item
             className={style.field}
             name={name}>

@@ -3,7 +3,7 @@ import {AppThunkType} from '../../app/Store';
 import {setIsAuth} from '../login/LoginReducer';
 import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
 import {ProfileType} from "./ProfileContainer";
-import {ValuesType} from "../EditProfile/EditProfile";
+import {ValueEdit} from "../EditProfile/EditProfile";
 
 export type ProfileReducerAT =
     | ReturnType<typeof setUserData>
@@ -66,10 +66,10 @@ export const initializeApp = (): AppThunkType => async dispatch => {
     }
 }
 
-export const editProfileData = (values:ValuesType):AppThunkType => async dispatch => {
+export const editProfileData = (values:ValueEdit):AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try{
-        const profile = await authApi.edit(values.name,values.avatar);
+        const profile = await authApi.edit(values);
         dispatch(setUserData(profile));
     }catch (error) {
         dispatch(setStatusApp('error', error.message));
