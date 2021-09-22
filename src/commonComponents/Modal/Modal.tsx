@@ -2,57 +2,61 @@ import React, {FC} from 'react';
 import style from './Modal.module.scss'
 import {InputModal} from "./ModalComponents/InputModal/InputModal";
 import {DeleteModal} from "./ModalComponents/Delete/DeleteModal";
-import {ModalStatus} from "../../components/statusApp/StatusAppReducer";
+import {ModalType, Status} from "../../components/statusApp/StatusAppReducer";
+import {ModalActionsType} from "./ModalContainer";
 
 interface ModalPropsType {
-    isShow: boolean
-    modalStatus: ModalStatus
-    itemName?: string
-    addNewPack: (newPackName: string) => void
-    addNewQuestion: (question: string) => void
-    updatePack: (newPackName: string) => void
-    backGroundOnClick: () => void
-    deletePack: () => void
-    cancelModal: () => void
+    modal: ModalType
+    modalActions: ModalActionsType
+    appStatus: Status
 }
 
 export const Modal: FC<ModalPropsType> = props => {
     const setModal = () => {
-        switch (props.modalStatus) {
+        switch (props.modal.modalStatus) {
             case 'add-pack':
                 return <InputModal
-                    status={props.modalStatus}
-                    actions={props.addNewPack}
-                    cancelModal={props.cancelModal}
+                    title={props.modal.modalTitle}
+                    modalStatus={props.modal.modalStatus}
+                    appStatus={props.appStatus}
+                    actions={props.modalActions.addNewPack}
+                    cancelModal={props.modalActions.cancelModal}
                 />
             case 'add-card':
                 return <InputModal
-                    status={props.modalStatus}
-                    actions={props.addNewQuestion}
-                    cancelModal={props.cancelModal}
+                    title={props.modal.modalTitle}
+                    modalStatus={props.modal.modalStatus}
+                    appStatus={props.appStatus}
+                    actions={props.modalActions.addNewCard}
+                    cancelModal={props.modalActions.cancelModal}
                 />
             case 'update':
                 return <InputModal
-                    status={props.modalStatus}
-                    actions={props.updatePack}
-                    cancelModal={props.cancelModal}
+                    title={props.modal.modalTitle}
+                    packName={props.modal.itemName}
+                    modalStatus={props.modal.modalStatus}
+                    appStatus={props.appStatus}
+                    actions={props.modalActions.updatePack}
+                    cancelModal={props.modalActions.cancelModal}
                 />
             case 'delete':
                 return <DeleteModal
-                    packName={props.itemName}
-                    deletePack={props.deletePack}
-                    cancelModal={props.cancelModal}
+                    appStatus={props.appStatus}
+                    title={props.modal.modalTitle}
+                    packName={props.modal.itemName}
+                    deletePack={props.modalActions.deletePack}
+                    cancelModal={props.modalActions.cancelModal}
                 />
             default:
                 return <></>
         }
     }
 
-    if (!props.isShow) return null
+    if (!props.modal.isShow) return null
 
     return (
         <>
-            <div className={style.background} onClick={props.backGroundOnClick}/>
+            <div className={style.background} onClick={props.modalActions.backGroundOnClick}/>
             <div className={style.modal}>
                 {setModal()}
             </div>

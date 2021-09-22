@@ -25,7 +25,7 @@ export const Profile: FC<PropsType> = memo(props => {
                     <CommonSlider/>
                 </div>
                 <div className={style.packs}>
-                    <div className={style.mainTitle}>My packs list</div>
+                    <div className={style.title}>My packs list</div>
                     <div className={style.search}>
                     </div>
                     <div className={style.packTable}>

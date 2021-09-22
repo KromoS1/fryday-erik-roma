@@ -1,13 +1,23 @@
 @import '../../../../stylesCommon/StyleCommon';
 @import '../../../../stylesCommon/StyleAuth';
 
-.title{
+
+.header {
+  @include displayFlex(row, space-between, '');
+}
+
+.title {
   @include h5();
   padding: 0 5px 0 5px;
 }
 
+.input {
+  margin-top: 5px;
+
+}
 
 .buttons {
+  @include displayFlex(row, space-between, '');
   @include buttonsContainerAuth();
 
   .btnCancel {
@@ -20,4 +30,13 @@
     @include Button();
     border-radius: 30px;
   }
+
+  .btnDisabled {
+    @include Button();
+    opacity: .5;
+  }
+}
+
+.close {
+  @include Close();
 }

@@ -1,7 +1,7 @@
 import React, {memo, useEffect} from 'react';
 import {AppRootStateType} from "../../app/Store";
 import {useDispatch, useSelector} from "react-redux";
-import {CardsTable} from "../../commonComponents/editableTable/CardsTable";
+import {CardsTable} from "./CardsTable";
 import {CardsType} from "../../api/CardsAPI";
 import {useParams} from "react-router-dom";
 import {getCards} from "./CardsReducer";

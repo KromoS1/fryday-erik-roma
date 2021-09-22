@@ -1,33 +1,76 @@
 import React, {FC, useState} from "react";
 import style from "../InputModal/InputModal.module.scss";
 import {Input} from "antd";
-import {ModalStatus} from "../../../../components/statusApp/StatusAppReducer";
+import {ModalStatus, Status} from "../../../../components/statusApp/StatusAppReducer";
 
 interface InputModalPropsType {
-    status: ModalStatus
-    actions: (name: string) => void
-    cancelModal: ()=> void
+    title: string
+    packName?: string
+    modalStatus: ModalStatus
+    appStatus: Status
+    actions: (name: string, answer?: string) => void
+    cancelModal: () => void
 }
 
 export const InputModal: FC<InputModalPropsType> = props => {
-    const [name, setName] = useState<string>("")
 
-    // const modalTitle = props.status === 'add-pack' ? 'Add new pack' : props.status === 'update' ? 'Set new pack name' : ''
-    const modalTitle = props.status === 'add-pack' ? 'Add new pack' : props.status === 'add-card' ? 'Add new card' : ''
+    const changeInputValue = () => {
+        if (props.modalStatus === "update" && props.packName) {
+            return props.packName
+        } else {
+            return ''
+        }
+    }
+
+    const [value, setValue] = useState<string>(changeInputValue());
+    const [answer, setAnswer] = useState<string>('');
 
     return (
         <>
-            <div className={style.title}>{modalTitle}</div>
-            <div className={style.input}>
-                <Input placeholder={"Enter"} size={"large"} autoFocus onChange={e => setName(e.currentTarget.value)}/>
+            <div className={style.header}>
+                <div className={style.title}>{props.title}</div>
+                <span className={style.close} onClick={props.cancelModal}/>
+            </div>
+            <div>
+                {props.modalStatus === 'add-card' ? <>
+                        <Input
+                            className={style.input}
+                            autoFocus
+                            disabled={props.appStatus === 'load'}
+                            placeholder={"Enter question"}
+                            value={value}
+                            size={"middle"}
+                            onChange={e => setValue(e.currentTarget.value)}/>
+                        <Input
+                            className={style.input}
+                            autoFocus
+                            disabled={props.appStatus === 'load'}
+                            placeholder={"Enter answer"}
+                            value={answer}
+                            size={"middle"}
+                            onChange={e => setAnswer(e.currentTarget.value)}/>
+                    </>
+                    :
+                    <Input
+                        className={style.input}
+                        autoFocus
+                        disabled={props.appStatus === 'load'}
+                        placeholder={"Enter new pack name"}
+                        value={value}
+                        size={"middle"}
+                        onChange={e => setValue(e.currentTarget.value)}/>
+                }
+
             </div>
             <div className={style.buttons}>
-                <button className={style.btnCancel}
-                    onClick={() => props.cancelModal()}>
+                <button className={props.appStatus === 'load' ? style.btnDisabled : style.btnCancel}
+                        disabled={props.appStatus === 'load'}
+                        onClick={() => props.cancelModal()}>
                     Cancel
                 </button>
-                <button className={style.btnSave}
-                        onClick={() => props.actions(name)}>
+                <button className={props.appStatus === 'load' ? style.btnDisabled : style.btnSave}
+                        disabled={props.appStatus === 'load'}
+                        onClick={() => props.actions(value, answer)}>
                     Save
                 </button>
             </div>

@@ -2,7 +2,6 @@
 @import "./src/stylesCommon/StyleCommon";
 @import "./src/stylesCommon/StyleMain";
 
-
 .container {
   @include Container();
 
@@ -83,7 +82,7 @@
     .packs {
       @include displayFlex(column, "", center);
 
-      .mainTitle {
+      .title {
         @include h2();
         margin: 10px 0 10px 0;
       }

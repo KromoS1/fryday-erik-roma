@@ -2,9 +2,9 @@ import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Table} from 'antd';
 import {useDispatch} from "react-redux";
-import {DateMaker, getPaginationSettings} from "../../components/utils/Utils";
+import {DateMaker, getPaginationSettings} from "../utils/Utils";
 import {CardsType} from "../../api/CardsAPI";
-import {getCards} from "../../components/cards/CardsReducer";
+import {getCards} from "./CardsReducer";
 
 type PropsType = {
     cards: CardsType[],
@@ -21,7 +21,6 @@ export type cardsItemType = {
 
 export const CardsTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
-    console.log(props.cards)
     const getSortedDateIntoColumns =  useCallback((a: cardsItemType, b: cardsItemType) => {
         return new Date(a.lastUpdate) > new Date(b.lastUpdate) ? -1 : 1
     },[]);

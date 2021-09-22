@@ -78,7 +78,8 @@ export const cardsApi = {
         return axiosInstance.post('/cards/card', {
             card: {
                 cardsPack_id: card.cardPack_id,
-                question: card.question
+                question: card.question,
+                answer: card.answer
             }
         }).then(response => response.data);
     },
