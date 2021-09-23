@@ -13,29 +13,21 @@
       @include SliderHeader();
       @include displayFlex(column, space-around, center);
 
-        .avatar {
-          display: block;
-          width: 100px;
-          height: 100px;
-          border: 1px solid #d0d0dd;
-          border-radius: 50%;
-
-          @media screen and (min-width: 960px) and (max-width: 1050px) {
-            width: 80px;
-            height: 80px;
-          }
-          @media screen and (min-height: 560px) and (max-height: 700px) {
-            width: 60px;
-            height: 60px;
-          }
+      .avatarProfile{
+        @include displayFlex(row,center,center);
+        width: 100%;
+        @include avatar();
+        .boxAvatar{
+          margin-top: 5px;
+          width: 140px;
+          height: 140px;
         }
-
+      }
 
       .name {
-        margin: 0 auto;
-        padding: 5px;
         @media screen and (min-width: 1150px){
           @include h5();
+          margin-bottom: 0;
         }
         @media screen and (min-width: 1000px) and (max-width: 1149px){
           @include h6();
@@ -50,6 +42,7 @@
       .status {
         @include h6();
         text-align: center;
+        margin-bottom: 0;
         @media screen and (max-width: 1000px) {
           @include h6();
           font-size: 1.0rem;

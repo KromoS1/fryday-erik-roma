@@ -2,7 +2,7 @@ import React, {FC, memo, useCallback} from 'react';
 import style from './RegistrationStyle.module.scss'
 import {Form} from 'antd';
 import 'antd/dist/antd.css';
-import {fieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
+import {FieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {getRegistration} from "./RegistrationReducer";
 import {AppRootStateType} from "../../app/Store";
@@ -58,9 +58,9 @@ const FormRegistration: FC<PropsType> = memo(({onSubmit}) => {
                   {...formItemLayout}
                   form={form}
                   onFinish={onFinish}>
-                {fieldComponent('email', 'E-mail')}
-                {fieldComponent('password', 'Password')}
-                {fieldComponent('confirm', 'Confirm Password')}
+                {FieldComponent('email', 'E-mail')}
+                {FieldComponent('password', 'Password')}
+                {FieldComponent('confirm', 'Confirm Password')}
                 <div className={style.buttons}>
                     <button className={style.btnReg} type="submit">
                         Register

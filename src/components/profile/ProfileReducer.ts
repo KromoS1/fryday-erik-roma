@@ -3,7 +3,7 @@ import {AppThunkType} from '../../app/Store';
 import {setIsAuth} from '../login/LoginReducer';
 import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
 import {ProfileType} from "./ProfileContainer";
-import {ValueEdit} from "../EditProfile/EditProfile";
+import {ValueEdit} from "../editProfile/EditProfile";
 
 export type ProfileReducerAT =
     | ReturnType<typeof setUserData>

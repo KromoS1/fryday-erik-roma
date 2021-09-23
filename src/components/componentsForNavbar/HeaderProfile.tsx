@@ -1,4 +1,4 @@
-import React, {FC, memo, useEffect} from 'react'
+import React, {FC, memo} from 'react'
 import {NavLink} from 'react-router-dom';
 import style from "../profile/Profile.module.scss";
 import {useSelector} from "react-redux";
@@ -11,8 +11,17 @@ export const HeaderProfile: FC = memo(() => {
 
     return (
         <>
-            <img src={profile.avatar} alt="" className={style.avatar}/>
-            <div className={style.name}>{profile.name}</div>
+            <div className={style.avatarProfile}>
+                {profile.avatar === ''
+                    ? <div className={style.boxAvatar}>
+                        <img src={avatarName} alt="" className={style.avatar}/>
+                    </div>
+                    : <div className={style.boxAvatar}>
+                        <img src={profile.avatar} alt="" className={style.avatar}/>
+                    </div>
+                }
+            </div>
+            <span className={style.name}>{profile.name}</span>
             <div className={style.status}>Front-end developer</div>
             <div className={style.button}>
                 <NavLink to={'/edit'} className={style.btnEdit}>Edit profile</NavLink>

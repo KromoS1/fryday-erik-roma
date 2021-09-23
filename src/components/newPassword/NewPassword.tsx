@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {Form} from "antd";
 import style from './NewPasswordStyle.module.scss'
-import {fieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
+import {FieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
 import {formItemLayout} from "../registration/Registration";
 
 interface NewPasswordValuesType {
@@ -36,8 +36,8 @@ export const NewPasswordForm: FC<NewPasswordFormPropsType> = memo(({onSubmit}) =
                   onFinish={onFinish}
                   {...formItemLayout}
             >
-                {fieldComponent('password', 'Password')}
-                {fieldComponent('confirm', 'Confirm Password')}
+                {FieldComponent('password', 'Password')}
+                {FieldComponent('confirm', 'Confirm Password')}
                 <div className={style.buttons}>
                     <button className={style.btnSetPass} type="submit">
                         Create new password

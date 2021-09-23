@@ -1,0 +1,57 @@
+@import "../../stylesCommon/StyleCommon";
+@import "../../stylesCommon/StyleAuth";
+
+.container {
+  @include cardsForAuth();
+  width: 40%;
+  height: 80%;
+
+  .box {
+    padding: 5px;
+    @include displayFlex(column, '', center);
+
+    .title {
+      @include h2();
+    }
+
+    @include avatar();
+
+    .btnAddIcon {
+      min-width: 35px;
+      min-height: 35px;
+      position: relative;
+      color: #3363c9;
+      transform: translate(125px, -40px);
+      cursor: pointer;
+
+      &:hover {
+        color: $ColorPrimary;
+      }
+    }
+
+    .form{
+      min-width: 100%;
+
+      .nick {
+        @include h6();
+        margin: 0 0 -15px 5px;
+      }
+
+      .buttons {
+        @include displayFlex(row,space-between,'');
+        margin-top: 10%;
+
+        .cancelBtn {
+          @include Button();
+          background: #afb0c3;
+          border-radius: 30px;
+        }
+
+        .saveBtn {
+          @include Button();
+          border-radius: 30px;
+        }
+      }
+    }
+  }
+}

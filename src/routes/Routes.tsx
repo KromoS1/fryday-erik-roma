@@ -10,7 +10,7 @@ import {Error404} from "../components/error404/Error404";
 import {PacksPageContainer} from "../components/packs/PacksPageContainer";
 import {CardsContainer} from "../components/cards/Cards";
 import {LearningPage} from "../components/learningPage/LearningPage";
-import {EditProfileContainer} from "../components/EditProfile/EditProfile";
+import {EditProfileContainer} from "../components/editProfile/EditProfileContainer";
 
 const commonRoutes = [
     {

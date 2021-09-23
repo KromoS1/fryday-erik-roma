@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {ProfileType} from "../components/profile/ProfileContainer";
-import {ValueEdit} from "../components/EditProfile/EditProfile";
+import {ValueEdit} from "../components/editProfile/EditProfile";
 
 export interface ResponseAuthType extends ProfileType {
     token?: string
