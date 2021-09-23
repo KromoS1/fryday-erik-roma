@@ -8,7 +8,6 @@ import avatarName from '../../resources/images/avatarNote.png'
 
 export const HeaderProfile: FC = memo(() => {
     const profile = useSelector<AppRootStateType, ProfileType>(state => state.profile);
-
     return (
         <>
             <div className={style.avatarProfile}>

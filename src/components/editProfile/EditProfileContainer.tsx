@@ -5,7 +5,6 @@ import {ProfileType} from "../profile/ProfileContainer";
 import {useHistory} from "react-router-dom";
 import {editProfileData} from "../profile/ProfileReducer";
 import {EditProfile} from "./EditProfile";
-import avatarName from '../../resources/images/avatarNote.png'
 
 export const EditProfileContainer = memo(() => {
     const profile = useSelector<AppRootStateType, ProfileType>(state => state.profile);
@@ -28,13 +27,13 @@ export const EditProfileContainer = memo(() => {
     }
 
     const save = useCallback((name: string) => {
-        dispatch(editProfileData({name, avatar: avatarName}));
+        dispatch(editProfileData({name, avatar: url}));
         history.push('/profile');
-    }, [dispatch, url]);
+    }, [dispatch, url,history]);
 
     const cancel = useCallback(() => {
         history.push('/profile')
-    },[]);
+    },[history]);
 
     return (
         <>
