@@ -1,22 +1,20 @@
-import React, {FC, memo, useCallback, useState} from 'react';
+import React, {FC, memo, useCallback} from 'react';
 import style from './Header.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
-import {NavLink} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 import {logoutAccount} from "../login/LoginReducer";
 
 export const Header: FC = memo(() => {
     const isAuth = useSelector<AppRootStateType, boolean>(state => state.login.isAuth)
     const dispatch = useDispatch();
-    const [isHover, setIsHover] = useState(false);
-
-    const setActivePack = useCallback(() => {
-        setIsHover(!isHover)
-    },[isHover]);
+    const location = useLocation();
 
     const logOutAcc = useCallback(() => {
         dispatch(logoutAccount())
-    },[dispatch]);
+    }, [dispatch]);
+
+    const styleForPath = (path: string) => location.pathname.includes(path) ? style.navActive : style.navInactive
 
     return (
         <div className={style.container}>
@@ -24,12 +22,10 @@ export const Header: FC = memo(() => {
                 <div>It-Incubator</div>
             </div>
             <div className={style.navBar}>
-                <NavLink to={'/packs'} className={isHover ? style.navActive : style.navInactive}
-                         onClick={() => setActivePack()}>
+                <NavLink to={'/packs'} className={styleForPath('/packs')}>
                     Packs List
                 </NavLink>
-                <NavLink to={'/'} className={isHover ? style.navInactive : style.navActive}
-                         onClick={() => setActivePack()}>
+                <NavLink to={'/'} className={styleForPath('/profile')}>
                     Profile
                 </NavLink>
             </div>

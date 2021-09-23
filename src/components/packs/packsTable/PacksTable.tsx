@@ -89,11 +89,17 @@ export const PacksTable = memo((props: PropsType) => {
             render: (data: PackItemType) =>
                 (
                     <Space size="middle">
-                        <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
-                                data-button={'update'}>Изменить</Button>
-                        <Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
-                                data-button={'delete'}
-                        >Удалить</Button>
+                        {data.user_id === props.meID && <>
+                            <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
+                                    data-button={'update'}>Изменить</Button>
+                            <Button type="primary" danger
+                                    onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
+                                    data-button={'delete'}>Удалить</Button></>}
+                        {/*<Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}*/}
+                        {/*        data-button={'update'}>Изменить</Button>*/}
+                        {/*<Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}*/}
+                        {/*        data-button={'delete'}*/}
+                        {/*>Удалить</Button>*/}
                         <Button type="primary" onClick={() => {
                             history.push(`learn/${data.key}`)
                         }}>Изучить</Button>
