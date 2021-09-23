@@ -11,7 +11,7 @@ export const HeaderProfile: FC = memo(() => {
     return (
         <>
             <div className={style.avatarProfile}>
-                {profile.avatar === ''
+                {profile.avatar === undefined
                     ? <div className={style.boxAvatar}>
                         <img src={avatarName} alt="" className={style.avatar}/>
                     </div>
