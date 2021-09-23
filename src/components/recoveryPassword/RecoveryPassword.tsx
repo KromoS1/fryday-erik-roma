@@ -1,7 +1,7 @@
 import React, {FC, memo, useCallback, useState} from 'react'
 import {Form} from "antd";
 import style from ".//RecoveryPasswordStyle.module.scss";
-import {fieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
+import {FieldComponent} from "../../commonComponents/commonComponentsForm/FieldComponent";
 import {formItemLayout} from "../registration/Registration";
 import {NavLink, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -36,7 +36,7 @@ export const FormRecoveryPassword: FC<PropsType> = memo(({onSubmit}) => {
                   {...formItemLayout}
                   form={form}
                   onFinish={onFinish}>
-                {fieldComponent('email', 'E-mail')}
+                {FieldComponent('email', 'E-mail')}
                 <div className={style.subtitle}>
                     Enter your email address and we will send you future instructions
                 </div>

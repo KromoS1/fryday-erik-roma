@@ -1,7 +1,6 @@
 @import '../../../../stylesCommon/StyleCommon';
 @import '../../../../stylesCommon/StyleAuth';
 
-
 .header {
   @include displayFlex(row, space-between, '');
 }
@@ -13,7 +12,6 @@
 
 .input {
   margin-top: 5px;
-
 }
 
 .buttons {

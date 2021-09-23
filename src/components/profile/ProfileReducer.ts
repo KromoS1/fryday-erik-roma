@@ -3,12 +3,14 @@ import {AppThunkType} from '../../app/Store';
 import {setIsAuth} from '../login/LoginReducer';
 import {setIsInit, setStatusApp} from "../statusApp/StatusAppReducer";
 import {ProfileType} from "./ProfileContainer";
+import {ValueEdit} from "../editProfile/EditProfile";
 
 export type ProfileReducerAT =
     | ReturnType<typeof setUserData>
+    | ReturnType<typeof setStatusProfile>
 
-export const setUserData = (userData: ProfileType) =>
-    ({type: 'PROFILE/SET_USER_DATA', payload: {...userData}} as const)
+export const setUserData = (userData: ProfileType) => ({type: 'PROFILE/SET_USER_DATA', payload: {...userData}} as const);
+export const setStatusProfile = (status:string) => ({type:'PROFILE/SET-STATUS-PROFILE',status} as const);
 
 const InitialState: ProfileType = {
     _id: '',
@@ -56,11 +58,22 @@ export const initializeApp = (): AppThunkType => async dispatch => {
                 dispatch(setIsAuth(true));
             }
         }
-
     } catch (error) {
         dispatch(setStatusApp('error', error.message));
     } finally {
         dispatch(setStatusApp('idle', ''));
         dispatch(setIsInit(true));
+    }
+}
+
+export const editProfileData = (values:ValueEdit):AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try{
+        const profile = await authApi.edit(values);
+        dispatch(setUserData(profile));
+    }catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    }finally {
+        dispatch(setStatusApp('idle', ''));
     }
 }

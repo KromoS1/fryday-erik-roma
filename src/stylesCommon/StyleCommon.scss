@@ -18,13 +18,13 @@ $ColorPrimary: #0d6efd;
   color: $ColorBlack;
   text-transform: uppercase;
 
-  @media screen and (min-width: 600px) and (max-width: 1000px){
+  @media screen and (min-width: 600px) and (max-width: 1000px) {
     font-size: 2.1rem;
     line-height: 2.7rem;
     letter-spacing: 15px;
   }
 
-  @media screen and (min-width: 1000px) and (max-width: 1200px){
+  @media screen and (min-width: 1000px) and (max-width: 1200px) {
     font-size: 2.4rem;
     line-height: 3.1rem;
     letter-spacing: 17px;
@@ -44,17 +44,17 @@ $ColorPrimary: #0d6efd;
   color: $ColorBlack;
   margin-top: 0;
 
-  @media screen and (min-width: 600px) and (max-width: 1000px){
+  @media screen and (min-width: 600px) and (max-width: 1000px) {
     font-size: 1.53rem;
     line-height: 2.06rem;
   }
 
-  @media screen and (min-width: 1000px) and (max-width: 1200px){
+  @media screen and (min-width: 1000px) and (max-width: 1200px) {
     font-size: 1.9rem;
     line-height: 2.36rem;
   }
 
-  @media screen and (min-width: 1200px){
+  @media screen and (min-width: 1200px) {
     font-size: 2.2rem;
     line-height: 2.66rem;
   }
@@ -81,7 +81,6 @@ $ColorPrimary: #0d6efd;
 @mixin h5 {
   font-weight: 600;
   position: relative;
-  padding-bottom: 15px;
   margin-bottom: 15px;
   font-size: 1.43rem;
   line-height: 2.14rem;
@@ -102,11 +101,13 @@ $ColorPrimary: #0d6efd;
     line-height: 1.4rem;
   }
 }
+
 @mixin checkMailLogo {
   width: 120px;
   border-radius: 50%;
 }
 
+<<<<<<< HEAD
 @mixin Close {
   display: block;
   position: absolute;
@@ -132,5 +133,22 @@ $ColorPrimary: #0d6efd;
   }
   &:after{
     transform: rotate(-45deg);
+=======
+@mixin avatar {
+  .boxAvatar {
+    width: 203px;
+    height: 203px;
+    border: 3px solid #7e7edc;
+    margin-top: 30px;
+    display: block;
+    border-radius: 50%;
+
+    .avatar {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+>>>>>>> edit-avatar
   }
 }

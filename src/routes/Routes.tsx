@@ -10,6 +10,7 @@ import {Error404} from "../components/error404/Error404";
 import {PacksPageContainer} from "../components/packs/PacksPageContainer";
 import {CardsContainer} from "../components/cards/Cards";
 import {LearningPage} from "../components/learningPage/LearningPage";
+import {EditProfileContainer} from "../components/editProfile/EditProfileContainer";
 
 const commonRoutes = [
     {
@@ -50,6 +51,14 @@ export const unauthorizedRoutes = [
             return <Redirect to={'/login'}/>
         },
         name: 'ProfileRedirectRoute',
+        exact: false,
+    },
+    {
+        path: '/edit',
+        render:() => {
+            return <Redirect to={'/login'}/>
+        },
+        name: 'EditRedirectRoute',
         exact: false,
     },
     {
@@ -109,9 +118,9 @@ export const authorizedRoutes = [
         exact: false,
         routes: [
             {
-                path: 'profile/cards/:pack_id',
+                path: '/profile/cards/:pack_id',
                 component: CardsContainer
-            }
+            },
         ]
     },
     {
@@ -130,6 +139,12 @@ export const authorizedRoutes = [
         path: '/learn/:pack_id',
         component: LearningPage,
         name: 'LearnRoute',
+        exact: false,
+    },
+    {
+        path:'/edit',
+        component: EditProfileContainer,
+        name:'EditProfile',
         exact: false,
     },
     ...commonRoutes,

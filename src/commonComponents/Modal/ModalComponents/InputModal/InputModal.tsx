@@ -13,7 +13,6 @@ interface InputModalPropsType {
 }
 
 export const InputModal: FC<InputModalPropsType> = props => {
-
     const changeInputValue = () => {
         if (props.modalStatus === "update" && props.packName) {
             return props.packName
@@ -60,7 +59,6 @@ export const InputModal: FC<InputModalPropsType> = props => {
                         size={"middle"}
                         onChange={e => setValue(e.currentTarget.value)}/>
                 }
-
             </div>
             <div className={style.buttons}>
                 <button className={props.appStatus === 'load' ? style.btnDisabled : style.btnCancel}

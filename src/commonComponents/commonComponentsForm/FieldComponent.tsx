@@ -2,7 +2,7 @@ import React from 'react'
 import {Form, Input} from 'antd';
 import style from './FieldComponentStyle.module.scss';
 
-export const fieldComponent = (name: string, placeholder: string) => {
+export const FieldComponent = (name: string, placeholder: string, defValue?:string) => {
     if (name === 'email') {
         return <Form.Item
             className={style.field}
@@ -33,8 +33,7 @@ export const fieldComponent = (name: string, placeholder: string) => {
                     message: 'Please input your password!',
                 },
             ]}
-            hasFeedback
-        >
+            hasFeedback>
             <Input.Password placeholder={placeholder} size={'large'} className={style.input}/>
         </Form.Item>
     } else if (name === 'confirm') {
@@ -60,6 +59,18 @@ export const fieldComponent = (name: string, placeholder: string) => {
             ]}
         >
             <Input.Password placeholder={placeholder} size={'large'} className={style.input}/>
+        </Form.Item>
+    } else if (name === 'status') {
+        return <Form.Item
+            className={style.field}
+            name={name}>
+            <Input placeholder={placeholder} size={'large'} className={style.input}/>
+        </Form.Item>
+    } else if (name === 'name') {
+        return <Form.Item
+            className={style.field}
+            name={name}>
+            <Input placeholder={placeholder} size={'large'} className={style.input}/>
         </Form.Item>
     }
 }

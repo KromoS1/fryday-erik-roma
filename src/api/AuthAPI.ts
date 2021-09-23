@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ProfileType} from "../components/profile/ProfileContainer";
+import {ValueEdit} from "../components/editProfile/EditProfile";
 
 export interface ResponseAuthType extends ProfileType {
     token?: string
@@ -59,6 +60,10 @@ export const authApi = {
     },
     setNewPassword(params: ParamsSetNewPasswordType) {
        return axiosInstance.post<{info: string}>('/auth/set-new-password', params)
-           .then(res =>  res.data)
+           .then(res => res.data)
+    },
+    edit(values:ValueEdit){
+        return axiosInstance.put('auth/me',{...values})
+            .then(response => response.data.updatedUser)
     }
 };

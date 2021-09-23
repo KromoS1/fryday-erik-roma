@@ -1,7 +1,7 @@
 import React, {FC, memo, useCallback} from 'react'
 import {Form} from 'antd';
 import style from './LoginStyle.module.scss';
-import {fieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
+import {FieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
 import {formItemLayout} from '../registration/Registration';
 import {NavLink} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -39,8 +39,8 @@ const LoginForm: FC<PropsType> = memo(props => {
                       {...formItemLayout}
                       form={form}
                       onFinish={onFinish}>
-                    {fieldComponent('email', 'E-mail')}
-                    {fieldComponent('password', 'Password')}
+                    {FieldComponent('email', 'E-mail')}
+                    {FieldComponent('password', 'Password')}
                     <div className={style.forgot}>
                     <span>
                         <NavLink to={'/recovery-password'}>
@@ -72,7 +72,6 @@ export const Login: FC = memo(
 
         const submit = useCallback((data: ValuesType) => {
             dispatch(loginAccount({...data}));
-            // dispatch(loginAccount({...data,rememberMe:true}));
         },[dispatch]);
 
         return (
