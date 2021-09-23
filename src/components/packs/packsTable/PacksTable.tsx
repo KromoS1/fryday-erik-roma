@@ -1,7 +1,7 @@
 import React, {memo, useCallback} from 'react';
 import 'antd/dist/antd.css';
 import {Button, Space, Table} from 'antd';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useHistory} from 'react-router-dom';
 import {ComponentNameType} from "../PacksPage";
 import {DataRequestType} from "../../../app/requestDataReducer";
@@ -14,6 +14,7 @@ import {
     getSortedNumbersDataColumns,
     getSortedStringsDataColumns
 } from "../../utils/Utils";
+import {AppRootStateType} from "../../../app/Store";
 
 interface PropsType extends ComponentNameType {
     dataParams: DataRequestType
@@ -35,6 +36,7 @@ export interface PackItemType {
 export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const meID = useSelector<AppRootStateType,string>(state => state.profile._id);
 
     const getPacksForTable = useCallback((page: number) => {
         props.meID
@@ -89,11 +91,16 @@ export const PacksTable = memo((props: PropsType) => {
             render: (data: PackItemType) =>
                 (
                     <Space size="middle">
-                        <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
-                                data-button={'update'}>Изменить</Button>
-                        <Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
-                                data-button={'delete'}
-                        >Удалить</Button>
+                        {data.user_id === meID && <>
+                            <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
+                                    data-button={'update'}>Изменить</Button>
+                            <Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
+                                    data-button={'delete'}>Удалить</Button></>}
+                        {/*<Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}*/}
+                        {/*        data-button={'update'}>Изменить</Button>*/}
+                        {/*<Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}*/}
+                        {/*        data-button={'delete'}*/}
+                        {/*>Удалить</Button>*/}
                         <Button type="primary" onClick={() => {
                             history.push(`learn/${data.key}`)
                         }}>Изучить</Button>

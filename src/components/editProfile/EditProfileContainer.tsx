@@ -23,6 +23,7 @@ export const EditProfileContainer = memo(() => {
                 }
             }
             reader.readAsDataURL(newFile);
+            console.log(url)
         }
     }
 
