@@ -15,14 +15,20 @@ interface PropsType {
 }
 
 const Cards = memo((props: PropsType) => {
+
     if (!props.cards || props.cards.length === 0) {
-        return <>
-            <span>This pack is empty. Click add new card to fill this pack</span>
-        </>
+        return (
+            <>
+                <span>This pack is empty. Click add new card to fill this pack</span>
+            </>
+        )
     }
-    return <>
-        <CardsTable cards={props.cards} cardsCount={10} pack_id={props.pack_id}/>
-    </>
+
+    return (
+        <>
+            <CardsTable cards={props.cards} cardsCount={10} pack_id={props.pack_id}/>
+        </>
+    )
 })
 
 export const CardsContainer = memo(() => {
