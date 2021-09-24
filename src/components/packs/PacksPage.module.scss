@@ -19,13 +19,13 @@
 
       .buttons {
         @include buttonsContainerAuth();
-        margin: 0 auto;
+        margin: 40px auto;
 
-        .btnMy {
-          @include MainButton();
+        .btnActive {
+          @include MainButtonActive();
         }
 
-        .btnAll {
+        .btnInactive {
           @include MainButton();
         }
       }
@@ -37,31 +37,7 @@
   }
 
   .packs {
-    @include displayFlex(column, "", center);
-
-    .mainTitle {
-      @include h2();
-      margin: 10px 0 10px 0;
-    }
-
-    .search {
-      @include displayFlex(row, "", center);
-      .addButton {
-        display: inline-block;
-        @include buttonsContainerAuth();
-
-        .btnAdd{
-          @include Button();
-          min-width: 200px;
-        }
-      }
-    }
-
-    .packTable {
-      width: 90%;
-      height: 75%;
-      margin: 10px 0 10px 0;
-    }
+    @include headerForPages();
   }
 }
 

@@ -70,22 +70,10 @@
         }
       }
     }
+  }
 
-    .packs {
-      @include displayFlex(column, "", center);
-
-      .title {
-        @include h2();
-        margin: 10px 0 10px 0;
-      }
-
-      .packTable {
-        width: 90%;
-        height: 75%;
-        background: #5d0505;
-        margin: 10px 0 10px 0;
-      }
-    }
+  .packs {
+    @include headerForPages();
   }
 }
 

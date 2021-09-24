@@ -152,3 +152,93 @@ $ColorPrimary: #0d6efd;
     }
   }
 }
+
+@mixin titlePage{
+  @include h2();
+  margin: 10px 0 10px 0;
+}
+
+@mixin Button {
+  width: 120px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: $ColorWhite;
+  background-color: #0047af;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: #2e68e5;
+    box-shadow: 0 15px 20px rgba(46, 110, 229, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+  }
+  &:active{
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+  }
+
+  @media screen and (min-width: 1000px) and (max-width: 1300px) {
+    width: 120px;
+    height: 40px;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+  }
+
+  @media screen and (min-width: 1300px){
+    width: 40%;
+    height: 45px;
+    letter-spacing: 2.1px;
+    font-size: 13px;
+  }
+}
+
+@mixin buttonsContainerAuth{
+  margin-top:5%;
+  margin-bottom: 3%;
+  width: 100%;
+  @include displayFlex(row,space-around,"");
+
+  @media screen and (min-width: 420px) and (max-width: 1200px){
+    margin-bottom: 5%;
+  }
+  @media screen and (min-width: 1200px) {
+    margin-bottom: 4%;
+  }
+}
+
+@mixin headerForPages{
+  @include displayFlex(column, "", center);
+
+  .title {
+    @include titlePage();
+  }
+
+  .headerTable {
+    @include displayFlex(row, space-between, center);
+
+    .addButton {
+      display: inline-block;
+      @include buttonsContainerAuth();
+
+      .btn{
+        @include Button();
+        min-width: 200px;
+      }
+    }
+  }
+
+  .packTable {
+    width: 90%;
+    height: 75%;
+    margin: 10px 0 10px 0;
+  }
+}

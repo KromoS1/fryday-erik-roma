@@ -1,20 +1,20 @@
 @import "./StyleAuth";
 @import "./StyleCommon";
 
-@mixin Container{
+@mixin Container {
   width: 85%;
   height: 85%;
   background: #FEFEFF;
   border-radius: 8px;
-  margin-top:3%;
+  margin-top: 3%;
   @include displayFlex(row, "", center);
 }
 
-@mixin Slider{
+@mixin Slider {
   background: #ECECF9;
   border-radius: 8px 0 0 8px;
 
-  @media screen and (min-width: 960px){
+  @media screen and (min-width: 960px) {
     width: 22.5%;
     height: 100%;
   }
@@ -24,7 +24,7 @@
   }
 }
 
-@mixin SliderHeader{
+@mixin SliderHeader {
   width: 100%;
   min-height: 30%;
   background: #D9D9F1;
@@ -32,14 +32,14 @@
   padding: 10px 0;
 }
 
-@mixin NumberCards{
+@mixin NumberCards {
   @include displayFlex(column, "", center);
 
   .numberTitle {
     @include h4();
     margin-top: 20px;
     text-align: center;
-    @media screen and (max-width: 1030px){
+    @media screen and (max-width: 1030px) {
       @include h5();
       margin-top: 20px;
     }
@@ -54,9 +54,9 @@
   }
 }
 
-@mixin MainButton{
+@mixin MainButton {
   @include Button();
-  @include displayFlex(row,center,center);
+  @include displayFlex(row, center, center);
   padding: 3px;
   font-weight: 600;
   font-size: 12px;
@@ -74,7 +74,16 @@
   }
 }
 
-@mixin NavBtnActive{
+@mixin MainButtonActive {
+  @include MainButton();
+  background-color: #d9d9f1;
+  box-shadow: 0 15px 20px rgba(31, 78, 169, 0.4);
+  color: #1b4db3;
+  transform: translateY(-7px);
+
+}
+
+@mixin NavBtnActive {
   @include h6();
   cursor: pointer;
   margin-bottom: 0;
