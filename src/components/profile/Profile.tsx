@@ -11,7 +11,6 @@ import {ComponentNameType} from "../packs/PacksPage";
 interface PropsType extends ComponentNameType {
     profile: ProfileType
     meID: string
-    logOut: () => void
 }
 
 export const Profile: FC<PropsType> = memo(props => {

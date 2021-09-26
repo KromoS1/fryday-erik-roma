@@ -40,11 +40,19 @@ export const loginAccount = (loginParams: ParamsAuthType): AppThunkType => async
     }
 };
 
-export const logoutAccount = (): AppThunkType => dispatch => {
-    authApi.logout()
-        .then(res => {
-            if (res.data.info) {
-                dispatch(setIsAuth(false));
-            }
-        })
+export const logoutAccount = (): AppThunkType => async dispatch => {
+    dispatch(setStatusApp('load', ''));
+    try {
+        await authApi.logout()
+            .then(res => {
+                if (res.data.info) {
+                    dispatch(setIsAuth(false));
+                }
+            })
+    }catch (error) {
+        dispatch(setStatusApp('error', error.message));
+    }
+    finally {
+        dispatch(setStatusApp('idle', ''));
+    }
 }

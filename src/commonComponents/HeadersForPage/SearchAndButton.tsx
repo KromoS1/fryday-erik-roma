@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 
 export const SearchAndButton:FC<{name:string}> = memo(props => {
     const dispatch = useDispatch();
+
     switch (props.name) {
         case 'pack':
             return (

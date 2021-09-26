@@ -3,11 +3,8 @@ import style from './RegistrationStyle.module.scss'
 import {Form} from 'antd';
 import 'antd/dist/antd.css';
 import {FieldComponent} from '../../commonComponents/commonComponentsForm/FieldComponent';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {getRegistration} from "./RegistrationReducer";
-import {AppRootStateType} from "../../app/Store";
-import {StatusApp} from "../statusApp/StatusAppReducer";
-import {alertMessage} from "../utils/Utils";
 
 interface ValuesType {
     email: string
@@ -72,11 +69,7 @@ const FormRegistration: FC<PropsType> = memo(({onSubmit}) => {
 })
 
 export const Registration = memo(() => {
-
     const dispatch = useDispatch();
-    const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
-
-    alertMessage(statusApp.status,statusApp.message);
 
     const sendData = useCallback((data: ValuesType) => {
         let {email,password} = data;

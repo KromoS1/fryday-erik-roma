@@ -5,10 +5,9 @@ import {FieldComponent} from '../../commonComponents/commonComponentsForm/FieldC
 import {formItemLayout} from '../registration/Registration';
 import {NavLink} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../app/Store';
 import {loginAccount} from "./LoginReducer";
-import {StatusApp} from "../statusApp/StatusAppReducer";
-import {alertMessage} from "../utils/Utils";
+import {AppRootStateType} from "../../app/Store";
+import {Status} from "../statusApp/StatusAppReducer";
 
 interface ValuesType {
     email: string
@@ -16,6 +15,7 @@ interface ValuesType {
 }
 
 interface PropsType {
+    status: Status
     onSubmit: (data: ValuesType) => void
 }
 
@@ -25,7 +25,7 @@ const LoginForm: FC<PropsType> = memo(props => {
 
     const onFinish = useCallback((values: ValuesType) => {
         props.onSubmit(values);
-    },[props]);
+    }, [props]);
 
     return (
         <div className={style.login}>
@@ -43,19 +43,23 @@ const LoginForm: FC<PropsType> = memo(props => {
                     {FieldComponent('password', 'Password')}
                     <div className={style.forgot}>
                     <span>
-                        <NavLink to={'/recovery-password'}>
-                            Forgot Password
-                        </NavLink>
+                        {props.status === 'load'
+                            ? <span>Forgot Password</span>
+                            : <NavLink to={'/recovery-password'}>Forgot Password</NavLink>
+                        }
                     </span>
                     </div>
                     <div className={style.buttons}>
-                        <button className={style.btnLogin} type="submit">
+                        <button className={style.btnLogin} type="submit" disabled={props.status === 'load'}>
                             Login
                         </button>
                     </div>
                     <div className={style.signUp}>
                         <span>Don't have an account?</span>
-                        <NavLink to={"/registration"}>Sign Up</NavLink>
+                        {props.status === 'load'
+                            ? <span>Sign Up</span>
+                            : <NavLink to={"/registration"}>Sign Up</NavLink>
+                        }
                     </div>
                 </Form>
             </div>
@@ -63,20 +67,17 @@ const LoginForm: FC<PropsType> = memo(props => {
     )
 })
 
-export const Login: FC = memo(
-    () => {
+export const Login: FC = memo(() => {
         const dispatch = useDispatch();
-        const statusApp = useSelector<AppRootStateType,StatusApp>(state => state.statusApp);
-
-        alertMessage(statusApp.status,statusApp.message);
+        const status = useSelector<AppRootStateType, Status>(state => state.statusApp.status);
 
         const submit = useCallback((data: ValuesType) => {
             dispatch(loginAccount({...data}));
-        },[dispatch]);
+        }, [dispatch]);
 
         return (
             <>
-                <LoginForm onSubmit={submit}/>
+                <LoginForm onSubmit={submit} status={status}/>
             </>
         )
     }

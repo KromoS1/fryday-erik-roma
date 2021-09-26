@@ -8,22 +8,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {recoveryPassword} from "./RecoveryPasswordReducer";
 import {RecoveryMessage} from "../utils/Utils";
+import {Status} from "../statusApp/StatusAppReducer";
 
 interface ValuesType {
     email: string
 }
 
 interface PropsType {
+    status: Status
     onSubmit: (data: ValuesType) => void
 }
 
-export const FormRecoveryPassword: FC<PropsType> = memo(({onSubmit}) => {
+export const FormRecoveryPassword: FC<PropsType> = memo(props => {
 
     const [form] = Form.useForm();
 
     const onFinish = useCallback((values: ValuesType) => {
-        onSubmit(values);
-    },[onSubmit]);
+        props.onSubmit(values);
+    }, [props]);
 
     return (
         <div className={style.recoveryPassword}>
@@ -41,13 +43,16 @@ export const FormRecoveryPassword: FC<PropsType> = memo(({onSubmit}) => {
                     Enter your email address and we will send you future instructions
                 </div>
                 <div className={style.buttons}>
-                    <button className={style.btnSend} type="submit">
+                    <button className={style.btnSend} type="submit" disabled={props.status === 'load'}>
                         Send Instructions
                     </button>
                 </div>
                 <div className={style.signUp}>
                     <span>Did you remember your password?</span>
-                    <NavLink to={"/login"}>Try logging in</NavLink>
+                    {props.status === 'load'
+                        ? <span>Try logging in</span>
+                        : <NavLink to={"/login"}>Try logging in</NavLink>
+                    }
                 </div>
             </Form>
         </div>
@@ -57,6 +62,7 @@ export const FormRecoveryPassword: FC<PropsType> = memo(({onSubmit}) => {
 export const RecoveryPassword: FC = memo(() => {
     const [userEmail, setUserEmail] = useState<string>('');
     const isSend = useSelector<AppRootStateType, boolean>(state => state.recovery.isSend);
+    const status = useSelector<AppRootStateType, Status>(state => state.statusApp.status);
     const dispatch = useDispatch();
 
     const sendData = useCallback((data: ValuesType) => {
@@ -66,9 +72,9 @@ export const RecoveryPassword: FC = memo(() => {
             from: "test-front-admin <ai73a@yandex.by>",
             message: RecoveryMessage()
         }))
-    },[dispatch]);
+    }, [dispatch]);
 
-    if(isSend){
+    if (isSend) {
         return <Redirect
             to={{
                 pathname: "/chek-email",
@@ -79,7 +85,7 @@ export const RecoveryPassword: FC = memo(() => {
 
     return (
         <>
-            <FormRecoveryPassword onSubmit={sendData}/>
+            <FormRecoveryPassword onSubmit={sendData} status={status}/>
         </>
     )
 })

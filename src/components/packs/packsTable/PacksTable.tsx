@@ -11,10 +11,11 @@ import {
     getPaginationSettings,
     getSortedDateIntoColumns,
     getSortedNumbersDataColumns,
-    getSortedStringsDataColumns
+    getSortedStringsDataColumns, sliceName
 } from "../../utils/Utils";
 import {AppRootStateType} from "../../../app/Store";
 import {PackDataRequestType} from "../../../app/requestDataReducerPacks";
+import {Status} from "../../statusApp/StatusAppReducer";
 
 interface PropsType extends ComponentNameType {
     dataParams: PackDataRequestType
@@ -36,7 +37,8 @@ export interface PackItemType {
 export const PacksTable = memo((props: PropsType) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const meID = useSelector<AppRootStateType,string>(state => state.profile._id);
+    const meID = useSelector<AppRootStateType, string>(state => state.profile._id);
+    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
 
     const getPacksForTable = useCallback((page: number) => {
         props.meID
@@ -61,9 +63,10 @@ export const PacksTable = memo((props: PropsType) => {
             title: 'Name',
             key: 'name',
             render: (data: PackItemType) => {
-                if (props.name === 'packs') return <><NavLink to={`/packs/cards/${data.key}`}>{data.name}</NavLink></>
+                if (props.name === 'packs') return <><NavLink
+                    to={`/packs/cards/${data.key}`}>{sliceName(data.name)}</NavLink></>
                 if (props.name === 'profile') return <><NavLink
-                    to={`/profile/cards/${data.key}`}>{data.name}</NavLink></>
+                    to={`/profile/cards/${data.key}`}>{sliceName(data.name)}</NavLink></>
             },
             sorter: getSortedStringsDataColumns,
         },
@@ -71,19 +74,20 @@ export const PacksTable = memo((props: PropsType) => {
             title: 'cards',
             dataIndex: 'cardsCount',
             key: 'cardsCount',
-            sorter: getSortedNumbersDataColumns
+            sorter: getSortedNumbersDataColumns,
         },
         {
             title: 'Updated',
             dataIndex: 'updated',
             key: 'updated',
-            sorter: getSortedDateIntoColumns
+            sorter: getSortedDateIntoColumns,
         },
         {
             title: 'Created',
             key: 'created',
             dataIndex: 'created',
-            sorter: getSortedDateIntoColumns
+            sorter: getSortedDateIntoColumns,
+
         },
         {
             title: 'Action',
@@ -94,7 +98,8 @@ export const PacksTable = memo((props: PropsType) => {
                         {data.user_id === meID && <>
                             <Button onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                                     data-button={'update'}>Edit</Button>
-                            <Button type="primary" danger onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
+                            <Button type="primary" danger
+                                    onClick={e => changeModalStatus(e, dispatch, data.key, data.name)}
                                     data-button={'delete'}>Delete</Button></>}
                         <Button type="primary" onClick={() => {
                             history.push(`learn/${data.key}`)
@@ -108,6 +113,8 @@ export const PacksTable = memo((props: PropsType) => {
         <>
             <Table columns={columns}
                    dataSource={data}
+                   loading={statusApp === 'load'}
+                   showSorterTooltip={false}
                    pagination={
                        {
                            ...getPaginationSettings(props.packsCount, (page: number) => {

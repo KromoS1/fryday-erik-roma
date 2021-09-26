@@ -1,6 +1,6 @@
 import {Redirect} from 'react-router-dom';
 import {setModalStatus, Status} from "../statusApp/StatusAppReducer";
-import {message} from "antd";
+import {message, Tooltip} from "antd";
 import {PackItemType} from "../packs/packsTable/PacksTable";
 import {PaginationProps} from "antd/lib/pagination/Pagination";
 import {MouseEvent} from "react";
@@ -31,9 +31,11 @@ export const RecoveryMessage = () => {
         </div>`
     )
 }
+
 export const DateMaker = (date: string) => {
     return `${new Date(date).getDate()}.${new Date(date).getMonth()}.${new Date(date).getFullYear()}`
 }
+
 export const getSortedDateIntoColumns = (a: PackItemType, b: PackItemType) => {
     return new Date(a.created) > new Date(b.created) ? -1 : 1
 }
@@ -46,7 +48,9 @@ export const getPaginationSettings = function (totalAmount: number, changer: (da
         showSizeChanger: false,
     }
 }
+
 export const getSortedNumbersDataColumns = (a: PackItemType, b: PackItemType) => a.cardsCount - b.cardsCount;
+
 export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) => {
     return a.name > b.name ? -1 : 1
 }
@@ -54,7 +58,7 @@ export const getSortedStringsDataColumns = (a: PackItemType, b: PackItemType) =>
 export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: Dispatch, itemID?: string, itemName?: string) => {
     const trigger: string | undefined = e.currentTarget.dataset.button
     if (trigger === 'delete') {
-        dispatch(setModalStatus("delete", true, 'Delete Pack?' , itemID, itemName));
+        dispatch(setModalStatus("delete", true, 'Delete Pack?', itemID, itemName));
     }
     if (trigger === 'update') {
         dispatch(setModalStatus("update", true, 'Set new pack name', itemID, itemName));
@@ -66,5 +70,9 @@ export const changeModalStatus = (e: MouseEvent<HTMLElement>, dispatch: Dispatch
 
         dispatch(setModalStatus('add-card', true, 'Add new card', itemID));
     }
+}
+
+export const sliceName = (name: string) => {
+    return name.length > 20 ? <Tooltip placement={'top'} title={name}>{name.slice(0, 20) + '...'}</Tooltip> : name;
 }
 
