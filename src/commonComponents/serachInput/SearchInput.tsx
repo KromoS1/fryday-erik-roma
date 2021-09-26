@@ -41,7 +41,7 @@ export const SearchInput: FC<SearchInputType> = memo(props => {
 
     return (
         <>
-            <Space direction="vertical">
+            <Space direction="vertical" style={{width:"100%",marginTop:"5px"}}>
                 <Search placeholder="Search" onSearch={onSearch} enterButton loading={load}
                         onChange={onChangeHandler}/>
             </Space>

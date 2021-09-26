@@ -34,7 +34,7 @@ export const CardsTable = memo((props: PropsType) => {
             title: 'Question',
             dataIndex: 'question',
             key: 'question',
-            render: (text: string) => <a href={'/'}>{text}</a>,
+            render: (text: string) => text,
             sorter: (a: cardsItemType, b: cardsItemType) => {
                 return a.question > b.question ? -1 : 1
             },

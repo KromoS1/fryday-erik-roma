@@ -3,7 +3,7 @@ import style from './AppStyle.module.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Store";
 import {Preloader} from "../commonComponents/preloader/Preloader";
-import {Route, Switch} from "react-router-dom";
+import {HashRouter, Route, Switch} from "react-router-dom";
 import {authorizedRoutes, unauthorizedRoutes} from "../routes/Routes";
 import {Header} from "../components/header/Header";
 import {initializeApp} from "../components/profile/ProfileReducer";
@@ -24,23 +24,27 @@ export const App = memo(() => {
     if (!isAuth) {
         return (
             <div className={style.page}>
-                <Switch>
-                    {unauthorizedRoutes.map((route) => (
-                        <Route key={route.name} {...route} />
-                    ))}
-                </Switch>
+                <HashRouter>
+                    <Switch>
+                        {unauthorizedRoutes.map((route) => (
+                            <Route key={route.name} {...route} />
+                        ))}
+                    </Switch>
+                </HashRouter>
             </div>
         )
     }
 
     return (
         <div className={style.page}>
-            <Header/>
-            <Switch>
-                {authorizedRoutes.map((route) => (
-                    <Route key={route.name} {...route} />
-                ))}
-            </Switch>
+            <HashRouter>
+                <Header/>
+                <Switch>
+                    {authorizedRoutes.map((route) => (
+                        <Route key={route.name} {...route} />
+                    ))}
+                </Switch>
+            </HashRouter>
         </div>
     )
 })

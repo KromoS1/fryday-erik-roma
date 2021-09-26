@@ -26,10 +26,8 @@ export const PacksPage: FC<PacksPagePropsType> = memo(() => {
                     <CommonSlider/>
                 </div>
                 <div className={style.packs}>
-                    <div className={style.packTable}>
-                        <Route exact path={'/packs'} render={() => <PacksTableContainer name={'packs'}/>}/>
-                        <Route path={'/packs/cards/:pack_id'} render={() => <CardsContainer/>}/>
-                    </div>
+                    <Route exact path={'/packs'} render={() => <PacksTableContainer name={'packs'}/>}/>
+                    <Route path={'/packs/cards/:pack_id'} render={() => <CardsContainer/>}/>
                 </div>
             </div>
             <ModalContainer/>

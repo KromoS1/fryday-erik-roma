@@ -8,7 +8,6 @@ import {PackDataRequestType} from "../../app/requestDataReducerPacks";
 export const PacksPageContainer: FC = memo(() => {
     const dataParams = useSelector<AppRootStateType, PackDataRequestType>(state => state.getPacksParams);
     const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
-
     const dispatch = useDispatch();
 
     useEffect(() => {

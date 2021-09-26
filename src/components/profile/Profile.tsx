@@ -25,11 +25,9 @@ export const Profile: FC<PropsType> = memo(props => {
                     <CommonSlider/>
                 </div>
                 <div className={style.packs}>
-                    <div className={style.packTable}>
-                        <Route exact path={'/profile'}
-                               render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
-                        <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
-                    </div>
+                    <Route exact path={'/profile'}
+                           render={() => <PacksTableContainer meID={props.meID} name={props.name}/>}/>
+                    <Route path={'/profile/cards/:pack_id'} render={() => <CardsContainer/>}/>
                 </div>
             </div>
         </>

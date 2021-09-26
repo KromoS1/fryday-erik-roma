@@ -69,20 +69,6 @@
   margin-top: 15% ;
 }
 
-@mixin buttonsContainerAuth{
-  margin-top:5%;
-  margin-bottom: 3%;
-  width: 100%;
-  @include displayFlex(row,space-around,"");
-
-  @media screen and (min-width: 420px) and (max-width: 1200px){
-    margin-bottom: 5%;
-  }
-  @media screen and (min-width: 1200px) {
-    margin-bottom: 4%;
-  }
-}
-
 @mixin inputsAuth{
   border-radius: 15px;
 
