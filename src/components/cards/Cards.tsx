@@ -5,9 +5,7 @@ import {CardsTable} from "./CardsTable";
 import {CardsType} from "../../api/CardsAPI";
 import {useParams} from "react-router-dom";
 import {getCards} from "./CardsReducer";
-import style from "../packs/PacksPage.module.scss";
-import {SearchInput} from "../../commonComponents/serachInput/SearchInput";
-import {changeModalStatus} from "../utils/Utils";
+import {SearchAndButton} from "../../commonComponents/HeadersForPage/SearchAndButton";
 
 interface PropsType {
     cards: CardsType[]
@@ -42,18 +40,7 @@ export const CardsContainer = memo(() => {
 
     return (
         <>
-            <div className={style.mainTitle}>Cards list</div>
-            <div className={style.search}>
-                <SearchInput/>
-                <div className={style.addButton}>
-                    <button
-                        className={style.btnAdd}
-                        onClick={e => changeModalStatus(e, dispatch, pack_id)}
-                        data-button="add-card">
-                        Add new card
-                    </button>
-                </div>
-            </div>
+            <SearchAndButton name={'card'}/>
             <Cards cards={cards} pack_id={pack_id}/>
         </>
     )

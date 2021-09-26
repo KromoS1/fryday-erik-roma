@@ -4,31 +4,46 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/Store";
 import {Status} from "../../components/statusApp/StatusAppReducer";
 import {getPacks} from "../../components/packs/PacksReducer";
-import {DataRequestType} from "../../app/requestDataReducer";
+import {PackDataRequestType} from "../../app/requestDataReducerPacks";
+import {CardDataRequestType} from "../../api/CardsAPI";
+import {getCards} from "../../components/cards/CardsReducer";
+import {useParams} from "react-router-dom";
 
-export const SearchInput:FC = memo(() => {
-    const statusApp = useSelector<AppRootStateType,Status>(state => state.statusApp.status);
-    const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
+interface SearchInputType {
+    nameSearch: string
+}
+
+export const SearchInput: FC<SearchInputType> = memo(props => {
+    const statusApp = useSelector<AppRootStateType, Status>(state => state.statusApp.status);
+    const dataParamsPack = useSelector<AppRootStateType, PackDataRequestType>(state => state.getPacksParams);
+    const dataParamsCard = useSelector<AppRootStateType, CardDataRequestType>(state => state.getCardsParams);
     const dispatch = useDispatch();
-    const { Search } = Input;
+    const {pack_id} = useParams<{ pack_id: string }>()
+    const {Search} = Input;
     let load;
 
     statusApp !== "load" ? load = false : load = true
 
-    const onSearch = useCallback((value:string) => {
-        dispatch(getPacks({...dataParams,packName:value}))
-    },[dataParams,dispatch]);
+    const onSearch = useCallback((value: string) => {
+        if (props.nameSearch === 'packs') {
+            dispatch(getPacks({...dataParamsPack, packName: value}))
+        }
+        if (props.nameSearch === 'cards') {
+            dispatch(getCards({...dataParamsCard, cardsPack_id:pack_id, cardQuestion:value}))
+        }
+    }, [ dataParamsCard,pack_id,props.nameSearch, dataParamsPack, dispatch]);
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.value === '') {
-            dispatch(getPacks({...dataParams,packName:''}))
+            dispatch(getPacks({...dataParamsPack, packName: ''}))
         }
-    },[dataParams,dispatch]);
+    }, [dataParamsPack, dispatch]);
 
     return (
         <>
             <Space direction="vertical">
-                <Search placeholder="input search text" onSearch={onSearch} enterButton loading={load} onChange={onChangeHandler}/>
+                <Search placeholder="Search" onSearch={onSearch} enterButton loading={load}
+                        onChange={onChangeHandler}/>
             </Space>
         </>
     )

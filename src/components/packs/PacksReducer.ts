@@ -1,11 +1,11 @@
 import {AppThunkType} from "../../app/Store";
 import {packApi, ParamsGetPacksType, ParamsUpdatePack} from "../../api/PackAPI";
 import {setModalStatus, setStatusApp} from "../statusApp/StatusAppReducer";
-import {DataAT, setRequestData} from "../../app/requestDataReducer";
+import {DataPacksAT, setRequestPackData} from "../../app/requestDataReducerPacks";
 
 export type PackAT =
     | ReturnType<typeof setPacks>
-    | DataAT
+    | DataPacksAT
 
 export interface PackType {
     _id: string
@@ -61,7 +61,7 @@ export const getPacks = (getParams: ParamsGetPacksType): AppThunkType => async (
     const savedParams = getState().getPacksParams;
     try {
         const data = await packApi.getPacks({...savedParams, ...getParams});
-        dispatch(setRequestData({...savedParams, ...getParams}));
+        dispatch(setRequestPackData({...savedParams, ...getParams}));
         dispatch(setPacks(data.cardPacks, data.cardPacksTotalCount));
         dispatch(setStatusApp('success', 'Success!'));
     } catch (error) {
@@ -75,7 +75,7 @@ export const addPack = (getParams: ParamsGetPacksType, cardsPack: { name: string
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.addPack(cardsPack);
-        dispatch(setRequestData({...getParams, user_id: userId}));
+        dispatch(setRequestPackData({...getParams, user_id: userId}));
         dispatch(getPacks({...getParams, user_id: userId}));
         dispatch(setModalStatus("no-status", false, ''))
     } catch (error) {
@@ -89,7 +89,7 @@ export const putPacks = (getParams: ParamsGetPacksType, pack: ParamsUpdatePack):
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.updatePack(pack);
-        dispatch(setRequestData({...getParams}));
+        dispatch(setRequestPackData({...getParams}));
         dispatch(getPacks(getParams));
         dispatch(setModalStatus("no-status", false, ''))
     } catch (error) {
@@ -103,7 +103,7 @@ export const removePack = (getParams: ParamsGetPacksType, id: string): AppThunkT
     dispatch(setStatusApp('load', ''));
     try {
         await packApi.deletePack(id);
-        dispatch(setRequestData({...getParams}));
+        dispatch(setRequestPackData({...getParams}));
         dispatch(getPacks(getParams));
         dispatch(setStatusApp('success', 'Success'));
         dispatch(setModalStatus("no-status", false, ''))

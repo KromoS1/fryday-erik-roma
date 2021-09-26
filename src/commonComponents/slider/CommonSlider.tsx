@@ -5,10 +5,10 @@ import * as CSS from "csstype";
 import {useDispatch, useSelector} from "react-redux";
 import {getPacks} from "../../components/packs/PacksReducer";
 import {AppRootStateType} from "../../app/Store";
-import {DataRequestType} from "../../app/requestDataReducer";
+import {PackDataRequestType} from "../../app/requestDataReducerPacks";
 
 export const CommonSlider: FC = memo(() => {
-    const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
+    const dataParams = useSelector<AppRootStateType, PackDataRequestType>(state => state.getPacksParams);
     const dispatch = useDispatch();
 
     const trackStyle: CSS.Properties[] = [

@@ -38,6 +38,16 @@
 
   .packs {
     @include headerForPages();
+
+    .title {
+      @include titlePage();
+    }
+
+    .packTable {
+      width: 90%;
+      height: 75%;
+      margin: 10px 0 10px 0;
+    }
   }
 }
 

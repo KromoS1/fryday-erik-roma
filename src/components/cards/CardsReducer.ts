@@ -1,11 +1,13 @@
-import {CardRequestType, cardsApi, CardsType, GetCardsRequestType, Grade, UpdateCardType} from "../../api/CardsAPI";
+import {CardRequestType, cardsApi, CardsType, CardDataRequestType, Grade, UpdateCardType} from "../../api/CardsAPI";
 import {AppThunkType} from "../../app/Store";
 import {setModalStatus, setStatusApp} from "../statusApp/StatusAppReducer";
+import {DataCardsAT, setRequestCardData} from "../../app/requestDataReducerCards";
 
 export type CardAT =
     | ReturnType<typeof setCards>
     | ReturnType<typeof getCardGrade>
     | ReturnType<typeof updateCardsLocal>
+    | DataCardsAT
 
 export interface GradeUpdateType {
     card_id: string
@@ -48,18 +50,21 @@ export const CardsReducer = (state = initialState, action: CardAT): CardsStateTy
     }
 }
 
-export const getCards = (params: GetCardsRequestType): AppThunkType => async dispatch => {
-    dispatch(setStatusApp('load', ''));
-    try {
-        const cards = await cardsApi.getCards(params);
-        dispatch(setCards(cards, params.cardsPack_id));
-        dispatch(setModalStatus("no-status", false, ''))
-    } catch (error) {
-        dispatch(setStatusApp('error', error.message));
-    } finally {
-        dispatch(setStatusApp('idle', ''));
+export const getCards = (getParams: CardDataRequestType): AppThunkType =>
+    async (dispatch, getState) => {
+        const savedParams = getState().getCardsParams;
+        dispatch(setStatusApp('load', ''));
+        try {
+            const cards = await cardsApi.getCards({...savedParams, ...getParams});
+            dispatch(setRequestCardData({...savedParams,...getParams}));
+            dispatch(setCards(cards, getParams.cardsPack_id));
+            dispatch(setModalStatus("no-status", false, ''))
+        } catch (error) {
+            dispatch(setStatusApp('error', error.message));
+        } finally {
+            dispatch(setStatusApp('idle', ''));
+        }
     }
-}
 
 export const addCards = (card: CardRequestType): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
@@ -73,7 +78,7 @@ export const addCards = (card: CardRequestType): AppThunkType => async dispatch 
     }
 }
 
-export const updateCards = (putCard: UpdateCardType, params: GetCardsRequestType): AppThunkType => async dispatch => {
+export const updateCards = (putCard: UpdateCardType, params: CardDataRequestType): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.updateCard(putCard);
@@ -85,7 +90,7 @@ export const updateCards = (putCard: UpdateCardType, params: GetCardsRequestType
     }
 }
 
-export const deleteCards = (id: string, params: GetCardsRequestType): AppThunkType => async dispatch => {
+export const deleteCards = (id: string, params: CardDataRequestType): AppThunkType => async dispatch => {
     dispatch(setStatusApp('load', ''));
     try {
         await cardsApi.deleteCard(id);

@@ -8,7 +8,7 @@
   .container{
     
     height: 100%;
-    @include displayFlex(column,space-around,center);
+    @include displayFlex(column,'',center);
 
     .title{
       @include h1();

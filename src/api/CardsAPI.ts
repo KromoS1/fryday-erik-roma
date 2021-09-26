@@ -1,6 +1,6 @@
 import {axiosInstance} from "./AuthAPI";
 
-export interface GetCardsRequestType {
+export interface CardDataRequestType {
     cardsPack_id: string
     cardAnswer?: string
     cardQuestion?: string
@@ -69,7 +69,7 @@ export enum Grade {
 }
 
 export const cardsApi = {
-    getCards(params: GetCardsRequestType) {
+    getCards(params: CardDataRequestType) {
         return axiosInstance.get<ResponseType>('/cards/card', {
             params: {...params, pageCount: 10}
         }).then(response => response.data.cards);

@@ -3,6 +3,7 @@
 
 .registration{
     @include cardsForAuth();
+  text-align: center;
 
   .title{
     @include h1();

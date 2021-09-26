@@ -3,10 +3,10 @@ import {PacksPage} from "./PacksPage";
 import {useDispatch, useSelector} from "react-redux";
 import {addPack, getPacks} from "./PacksReducer";
 import {AppRootStateType} from "../../app/Store";
-import {DataRequestType} from "../../app/requestDataReducer";
+import {PackDataRequestType} from "../../app/requestDataReducerPacks";
 
 export const PacksPageContainer: FC = memo(() => {
-    const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
+    const dataParams = useSelector<AppRootStateType, PackDataRequestType>(state => state.getPacksParams);
     const meId = useSelector<AppRootStateType, string>(state => state.profile._id);
 
     const dispatch = useDispatch();

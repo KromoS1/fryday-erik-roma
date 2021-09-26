@@ -4,7 +4,6 @@ import {Button, Space, Table} from 'antd';
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useHistory} from 'react-router-dom';
 import {ComponentNameType} from "../PacksPage";
-import {DataRequestType} from "../../../app/requestDataReducer";
 import {getPacks, PackType} from "../PacksReducer";
 import {
     changeModalStatus,
@@ -15,9 +14,10 @@ import {
     getSortedStringsDataColumns
 } from "../../utils/Utils";
 import {AppRootStateType} from "../../../app/Store";
+import {PackDataRequestType} from "../../../app/requestDataReducerPacks";
 
 interface PropsType extends ComponentNameType {
-    dataParams: DataRequestType
+    dataParams: PackDataRequestType
     packs: PackType[],
     packsCount: number
     meID?: string

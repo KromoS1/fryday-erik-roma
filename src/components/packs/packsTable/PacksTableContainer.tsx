@@ -4,7 +4,8 @@ import {AppRootStateType} from "../../../app/Store";
 import {PacksStateType, removePack} from "../PacksReducer";
 import {PacksTable} from "./PacksTable";
 import {ComponentNameType} from "../PacksPage";
-import {DataRequestType} from "../../../app/requestDataReducer";
+import {SearchAndButton} from "../../../commonComponents/HeadersForPage/SearchAndButton";
+import {PackDataRequestType} from "../../../app/requestDataReducerPacks";
 
 interface PacksContainerType extends ComponentNameType {
     meID?: string
@@ -12,7 +13,7 @@ interface PacksContainerType extends ComponentNameType {
 
 export const PacksTableContainer: FC<PacksContainerType> = memo(props => {
     const {packs, packsCount} = useSelector<AppRootStateType, PacksStateType>(state => state.packs);
-    const dataParams = useSelector<AppRootStateType, DataRequestType>(state => state.getPacksParams);
+    const dataParams = useSelector<AppRootStateType, PackDataRequestType>(state => state.getPacksParams);
     const dispatch = useDispatch();
 
     const remove = useCallback((id: string) => {
@@ -21,6 +22,7 @@ export const PacksTableContainer: FC<PacksContainerType> = memo(props => {
 
     return (
         <>
+            <SearchAndButton name={'pack'}/>
             <PacksTable packs={packs}
                         packsCount={packsCount}
                         remove={remove}

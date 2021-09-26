@@ -153,7 +153,7 @@ $ColorPrimary: #0d6efd;
   }
 }
 
-@mixin titlePage{
+@mixin titlePage {
   @include h2();
   margin: 10px 0 10px 0;
 }
@@ -181,7 +181,7 @@ $ColorPrimary: #0d6efd;
     color: #fff;
     transform: translateY(-7px);
   }
-  &:active{
+  &:active {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
   }
@@ -193,7 +193,7 @@ $ColorPrimary: #0d6efd;
     font-size: 12px;
   }
 
-  @media screen and (min-width: 1300px){
+  @media screen and (min-width: 1300px) {
     width: 40%;
     height: 45px;
     letter-spacing: 2.1px;
@@ -201,13 +201,13 @@ $ColorPrimary: #0d6efd;
   }
 }
 
-@mixin buttonsContainerAuth{
-  margin-top:5%;
+@mixin buttonsContainerAuth {
+  margin-top: 5%;
   margin-bottom: 3%;
   width: 100%;
-  @include displayFlex(row,space-around,"");
+  @include displayFlex(row, space-around, "");
 
-  @media screen and (min-width: 420px) and (max-width: 1200px){
+  @media screen and (min-width: 420px) and (max-width: 1200px) {
     margin-bottom: 5%;
   }
   @media screen and (min-width: 1200px) {
@@ -215,7 +215,7 @@ $ColorPrimary: #0d6efd;
   }
 }
 
-@mixin headerForPages{
+@mixin headerForPages {
   @include displayFlex(column, "", center);
 
   .title {
@@ -229,16 +229,11 @@ $ColorPrimary: #0d6efd;
       display: inline-block;
       @include buttonsContainerAuth();
 
-      .btn{
+      .btn {
         @include Button();
         min-width: 200px;
       }
     }
   }
 
-  .packTable {
-    width: 90%;
-    height: 75%;
-    margin: 10px 0 10px 0;
-  }
 }
